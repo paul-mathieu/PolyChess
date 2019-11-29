@@ -1,105 +1,50 @@
-# -*- coding: utf-8 -*-
 """
-Created on Fri Nov 29 12:35:03 2019
 
-@author: mathieu9
+
 """
 
 from functools import reduce
+import rules
 
-
-#=====================================================================================
-#=====================================================================================
-
-#=====        Échiquier
-
-#=====================================================================================
-#=====================================================================================
-
-
-def listeDesPieces(couleur):
-    
-    """
-    
-    Cette fonction prend en paramètre "B" pour les pions blancs 
-    et "N" pour les pions noirs
-    
-    Elle génere la liste des pieces d'une couleur tel que :
-        - i     pour un Pion
-        - T     pour une Tour
-        - C     pour un cavalier
-        - F     pour un fou
-        - +     pour un roi
-        - -     pour une reine
-        
-    Chaque valeur est suivie de sa couleur
-    
-    La fonction renvoie deux listes :
-        - la liste des pions
-        - la liste des autres pieces
-
-    """
-    
-    lignePions = ['i' + couleur] * 8
-    ligneAutresPieces = [element + couleur for element in ['T', 'C', 'F', '+', '-', 'F', 'C', 'T']]
-    
-    return lignePions, ligneAutresPieces
-
-
-
-def echiquierVide():
-    return [[None] * 8] * 8
-
-
-
-
-
-
-#=====================================================================================
-#=====================================================================================
-
-#=====        Pions
-
-#=====================================================================================
-#=====================================================================================
-
-
-
-
-
-
-#=====================================================================================
-#=====================================================================================
-
-#=====        Affichage
-
-#=====================================================================================
-#=====================================================================================
+#==============================================================================
+# Affichage
+#==============================================================================
 
 
 def afficherEchiquier(echiquier):
 
-    lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["   " + element for element in ['A','B','C','D','E','F','G','H']])
-    interlignes = "    " + reduce(lambda ele1, ele2 : ele1 + ele2, ["-" * 3 + " "] * 8)
+    lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["  " + element + "  " for element in ['A','B','C','D','E','F','G','H']])
+    interlignes = "    " + reduce(lambda ele1, ele2 : ele1 + ele2, ["-" * 4 + " "] * 8)
     
     numLigne = 1
     
     
-    print(lettres)
+    print("   " + lettres)
     print(interlignes)
     
     for ligne in echiquier:
         
-        print(, end="")
+        print(str(numLigne), end = "  |")
         
-        for case in ligne:
+        for element in ligne:
             
-            print(, end="")
+            if element != None:
+                
+                print(" " + element + " ", end = "|")
+        
+            else:
+                
+                print("    ", end = "|")
         
         
-        print('\n')
+        print("  " + str(numLigne))
         
         print(interlignes)
+        
+        numLigne += 1
+        
+    print("   " + lettres)
+
     
 
 #
@@ -123,69 +68,35 @@ def afficherEchiquier(echiquier):
 #   -- -- -- -- -- -- -- --
 #   A  B  C  D  E  F  G  H
 
-#=====================================================================================
-#=====================================================================================
 
-#=====        Coups Possibles
-
-#=====================================================================================
-#=====================================================================================
+#==============================================================================
+# Initialisation
+#==============================================================================
 
 
+def echiquierVide():
+    return [[None] * 8] * 8
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def echiquierInitialise():
+    return rules.listeDesPieces('N')[::-1] + [[None] * 8] * 4 + rules.listeDesPieces('B')
 
 
 
 
 #==============================================================================
-#  Time Spent
+# Vérification déplacement dans la zone
 #==============================================================================
-#
-# 2019-11-29 12:36 - 
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
+
+#print("‎• or <>")
+
+
+
+
+
+
+
+
+
+
+
