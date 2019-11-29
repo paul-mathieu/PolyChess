@@ -28,3 +28,6 @@ def listeDesPieces(couleur):
     ligneAutresPieces = [element + couleur for element in ['T', 'C', 'F', '+', '-', 'F', 'C', 'T']]
     
     return [lignePions, ligneAutresPieces]
+
+
+#fonction qui vérifie si la case est valide
