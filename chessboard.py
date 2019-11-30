@@ -14,7 +14,7 @@ class Echiquier:
         self.positions = \
             [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
              Piece('Fou','noir'),
-             Piece('Dame', 'noir'),Piece('Roi','noir'),
+             Piece('Dame', 'noir'), Piece('Tour','noir'),
              Piece('Fou', 'noir'), 
              Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
                 \
@@ -26,9 +26,9 @@ class Echiquier:
                 \
             [Piece('Tour', 'blanc'), Piece('Cavalier', 'blanc'), 
              Piece('Fou','blanc'),
-             Piece('Dame','blanc'),Piece('Roi','blanc'),
-             Piece('Fou','blanc'),
-             Piece('Cavalier','blanc'),Piece('Tour','blanc')]
+             Piece('Dame', 'blanc'), Piece('Roi', 'blanc'),
+             Piece('Fou', 'blanc'),
+             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')]
         
     #==============================================================================
     # Construction de l'échiquier
@@ -86,57 +86,56 @@ class Echiquier:
     
         
     
-    #
-    #   A  B  C  D  E  F  G  H
-    #   -- -- -- -- -- -- -- --
-    #1 |  |  |  |  |  |  |  |  | 1
-    #   -- -- -- -- -- -- -- --
-    #2 |  |  |  |  |  |  |  |  | 2
-    #   -- -- -- -- -- -- -- --
-    #3 |  |  |  |  |  |  |  |  | 3
-    #   -- -- -- -- -- -- -- --
-    #4 |  |  |  |  |  |  |  |  | 4
-    #   -- -- -- -- -- -- -- --
-    #5 |  |  |  |  |  |  |  |  | 5
-    #   -- -- -- -- -- -- -- --
-    #6 |  |  |  |  |  |  |  |  | 6
-    #   -- -- -- -- -- -- -- --
-    #7 |  |  |  |  |  |  |  |  | 7
-    #   -- -- -- -- -- -- -- --
-    #8 |  |  |  |  |  |  |  |  | 8
-    #   -- -- -- -- -- -- -- --
-    #   A  B  C  D  E  F  G  H
+#         A    B    C    D    E    F    G    H  
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    8  | Tn | Cn | Fn | Dn | Rn | Fn | Cn | Tn |  8
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    7  | in | in | in | in | in | in | in | in |  7
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    6  |    |    |    |    |    |    |    |    |  6
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    5  |    |    |    |    |    |    |    |    |  5
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    4  |    |    |    |    |    |    |    |    |  4
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    3  |    |    |    |    |    |    |    |    |  3
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    2  | ib | ib | ib | ib | ib | ib | ib | ib |  2
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#    1  | Tb | Cb | Fb | Db | Rb | Fb | Cb | Tb |  1
+#        ---- ---- ---- ---- ---- ---- ---- ---- 
+#         A    B    C    D    E    F    G    H  
     
     
  
     
-    #==============================================================================
-    # Déplacement
-    #==============================================================================
+#==============================================================================
+# Déplacement
+#==============================================================================
     
-    def deplacerPiece(echiquier, caseDepart, caseArrive):
+    def deplacerPiece(self, caseDepart, caseArrive):
         
-        ec = echiquier
+        lettres = ['A','B','C','D','E','F','G','H']
+                
+        ligDep, colDep = 8 - int(caseDepart[1]), lettres.index(caseDepart[0]) + 1
+        ligArr, colArr = 8 - int(caseArrive[1]), lettres.index(caseArrive[0]) + 1
         
-        ligDep, colDep = nomCaseToIndex(caseDepart)
-        ligArr, colArr = nomCaseToIndex(caseArrive)
+        indexDep = ligDep * 8 + colDep - 1
+        indexArr = ligArr * 8 + colArr - 1
+        
         
 #        print(str(ligDep) + "-" + str(colDep))
 #        print(str(ligArr) + "-" + str(colArr))
     
-        valeur = echiquier[ligDep][colDep]
-         
-        ec[ligDep][colDep] = None  
-        ec[ligArr][colArr] = valeur
         
-    #    print(echiquier)
+        self.positions[indexArr] = self.positions[indexDep]
+        self.positions[indexDep] = Piece()  
         
-        return echiquier
     
-    #==============================================================================
-    # Vérification déplacement dans la zone
-    #==============================================================================
-    
+#==============================================================================
+# Vérification déplacement dans la zone
+#==============================================================================
+
     def deplacementsPossibles(self, piece):
         listePossibilites = []
         
@@ -150,10 +149,29 @@ class Echiquier:
         
         
         pass
+
+
+
+
+#==============================================================================
+# Fin du jeu
+#==============================================================================
+
+    def isEchecEtMat(self):
+        return len(list(filter(lambda piece : piece.nom == 'Roi', self.positions))) < 2
     
-    #==============================================================================
-    # Autres fonctions
-    #==============================================================================
+    
+    def couleurEchecEtMat(self):
+        
+        if not self.isEchecEtMat():
+            return None
+        
+        return 'blanc' if list(filter(lambda piece : piece.nom == 'Roi', self.positions))[0].couleur == 'noir' else 'noir'
+
+
+#==============================================================================
+# Autres fonctions
+#==============================================================================
     
     def nomCaseToIndex(nomCase):
         return int(nomCase[1]) - 1, ['A','B','C','D','E','F','G','H'].index(nomCase[0])
