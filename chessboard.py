@@ -48,32 +48,39 @@ class Echiquier:
         lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["  " + element + "  " for element in ['A','B','C','D','E','F','G','H']])
         interlignes = "    " + reduce(lambda ele1, ele2 : ele1 + ele2, ["-" * 4 + " "] * 8)
         
-        numLigne = 1
         
         
         print("   " + lettres)
         print(interlignes)
         
-        for ligne in self:
+        numLigne = 8
+        indexPosition = 0
+        
+        for piece in self.positions:
             
-            print(str(numLigne), end = "  |")
+#            print(ligne)
             
-            for element in ligne:
+            if indexPosition % 8 == 0:
+                print(str(numLigne), end = "  |")
+            
+            if piece.nom != piece.pieceVide:
                 
-                if element != None:
-                    
-                    print(" " + element + " ", end = "|")
-            
-                else:
-                    
-                    print("    ", end = "|")
+                print(" " + piece.nomAffichage + " ", end = "|")
+        
+            else:
+                
+                print("    ", end = "|")
             
             
-            print("  " + str(numLigne))
+            if (indexPosition + 1) % 8 == 0:
+                
+                print("  " + str(numLigne))
             
-            print(interlignes)
+                print(interlignes)
             
-            numLigne += 1
+                numLigne -= 1
+                
+            indexPosition += 1
             
         print("   " + lettres)
     
@@ -155,11 +162,7 @@ class Echiquier:
     
     
     
-    ec = echiquierInitialise()
-    afficherEchiquier(ec)
-    afficherEchiquier(deplacerPiece(ec, "A7", "A5"))
-    
-    
+
     
     
     
