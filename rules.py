@@ -84,12 +84,6 @@ class Piece:
         if self.nom == self.pieceVide:
             self.nomAffichage = self.pieceVide
         
-        elif self.nom == 'Roi': #♚
-            self.nomAffichage = '+' + self.couleur[0].lower()
-            
-        elif self.nom == 'Reine': #♛
-            self.nomAffichage = '-' + self.couleur[0].lower()
-            
         elif self.nom == 'Pion':
             self.nomAffichage = 'i' + self.couleur[0].lower()
             
