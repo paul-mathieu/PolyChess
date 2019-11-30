@@ -136,21 +136,36 @@ class Echiquier:
 # Vérification déplacement dans la zone
 #==============================================================================
 
-    def listeDeplacementsPossibles(self, case):
+    def listeDeplacementsPossibles(self, nomCase):
         
-        indexCase = self.nomCaseToIndex(case)
+        indexCase = self.nomCaseToIndex(nomCase)
         
-        if self.position[indexCase].nom == self.position[indexCase].pieceVide:
+        if self.positions[indexCase].nom == self.positions[indexCase].pieceVide:
             
             return []
         
-        listePossibilites = []
+        if self.positions[indexCase].nom == 'Pion':
+            return self.positions[indexCase].listeCoupsPossiblesPion(indexCase, self)
+            
+        if self.positions[indexCase].nom == 'Tour':
+            pass
         
-        self.position[indexCase]
+        if self.positions[indexCase].nom == 'Fou':
+            pass
         
+        if self.positions[indexCase].nom == 'Cavalier':
+            pass
         
-        return listePossibilites
+        if self.positions[indexCase].nom == 'Dame':
+            pass
+        
+        if self.positions[indexCase].nom == 'Roi':
+            pass
 
+    def listeDeplacementsPossiblesFormatCase(self, nomCase):
+        
+        return [self.indexToNomCase(index) for index in self.listeDeplacementsPossibles(nomCase)]
+                
 
     def afficherDeplacementsPossibles(self, piece):
         
@@ -182,12 +197,16 @@ class Echiquier:
 # Autres fonctions
 #==============================================================================
     
-    def nomCaseToIndex(nomCase):
+    def nomCaseToIndex(self, nomCase):
         
         lettres = ['A','B','C','D','E','F','G','H']
         lig, col = 8 - int(nomCase[1]), lettres.index(nomCase[0]) + 1
         
-        return ligDep * 8 + colDep - 1
+        return lig * 8 + col - 1
+    
+    def indexToNomCase(self, indexCase):
+        
+        return ['A','B','C','D','E','F','G','H'][indexCase % 8] + str(8 - indexCase // 8)
     
     #print("‎• or <>")
     
