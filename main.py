@@ -7,6 +7,9 @@ import ia
 echiquier = Echiquier()
 echiquier.afficher()
 
+#print(echiquier.listeDeplacementsPossiblesFormatCase('A6'))
+#print(echiquier.listeDeplacementsPossibles('A6'))
+
 #print(echiquier.isEchecEtMat())
 #print(echiquier.couleurEchecEtMat())
 
@@ -34,7 +37,8 @@ echiquier.afficher()
 #    - vérification de l'échec et mat
 #    
 #À faire bientôt :
-#    - déplacements possibles
+#    - déplacements possibles (fait pour pion dans Piece() mais pas les autres 
+#           et ensuite compléter listeDeplacementsPossibles dans Echiquier())
 #    - affichage des déplacements possibles
 #
 
