@@ -6,9 +6,9 @@ class Piece:
 
     pieceVide=' ' 
     
-    nomPiece = (pieceVide,'ROI','DAME','TOUR','CAVALIER','FOU','PION')
+    nomPiece = (pieceVide,'Roi','Dame','Tour','Cavalier','Fou','Pion')
     
-    valeurPiece=(0,0,9,5,3,3,1)
+    valeurPiece = (0, 0, 9, 5, 3, 3, 1)
     
     tblDebordement = [-1]*10*2 + reduce(lambda ele1, ele2 : ele1 + ele2, [[-1] + [valeur for valeur in range(0 + ligne, 8 + ligne)] + [-1] for ligne in range(0,57, 8)]) + [-1]*10*2 
 
@@ -43,9 +43,9 @@ class Piece:
 
     def __init__(self, nom = pieceVide, couleur = ''):
         
-        self.nom=nom
-        self.couleur=couleur        
-        self.valeur=self.valeurPiece[self.nomPiece.index(nom)]
+        self.nom = nom
+        self.couleur = couleur        
+        self.valeur = self.valeurPiece[self.nomPiece.index(nom)]
         
 
 
@@ -59,36 +59,50 @@ class Piece:
     def deplacementsCavalier():
         return -12, -21, -19, -8, 12, 21, 19, 8
 
-        
-        
-
-    def listeDesPieces(couleur):
+    
+    def setNomPiece(self):
         
         """
         
-        Cette fonction prend en paramètre "B" pour les pions blancs 
-        et "N" pour les pions noirs
+        Cette fonction utilise les attributs de la couleur du nom de la piece
         
-        Elle génere la liste des pieces d'une couleur tel que :
-            - i     pour un Pion
-            - T     pour une Tour
-            - C     pour un cavalier
-            - F     pour un fou
-            - +     pour un roi
-            - -     pour une reine
+        Elle créé un nouvel attribut pour l'affichage tel que :
+            - i[col]     pour un Pion
+            - T[col]     pour une Tour
+            - C[col]     pour un cavalier
+            - F[col]     pour un fou
+            - +[col]     pour un roi
+            - -[col]     pour une reine
             
         Chaque valeur est suivie de sa couleur
         
-        La fonction renvoie deux listes :
-            - la liste des pions
-            - la liste des autres pieces
-    
         """
+
         
-        lignePions = ['i' + couleur] * 8
-        ligneAutresPieces = [element + couleur for element in ['T', 'C', 'F', '+', '-', 'F', 'C', 'T']]
+        if self.nom == self.pieceVide:
+            self.nomAffichage = self.pieceVide
         
-        return [lignePions, ligneAutresPieces]
-    
-    
-    #fonction qui vérifie si la case est valide
+        elif self.nom == 'Roi': #♚
+            self.nomAffichage = '+' + self.couleur[0].lower()
+            
+        elif self.nom == 'Reine': #♛
+            self.nomAffichage = '-' + self.couleur[0].lower()
+            
+        elif self.nom == 'Pion':
+            self.nomAffichage = 'i' + self.couleur[0].lower()
+            
+        else:
+            self.nomAffichage = self.nom[0].upper() + self.couleur[0].lower()
+        
+
+        
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        
