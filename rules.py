@@ -4,7 +4,7 @@ from functools import reduce
 
 class Piece:
 
-    pieceVide=' ' 
+    pieceVide = '  ' 
     
     nomPiece = (pieceVide,'Roi','Dame','Tour','Cavalier','Fou','Pion')
     
@@ -46,6 +46,8 @@ class Piece:
         self.nom = nom
         self.couleur = couleur        
         self.valeur = self.valeurPiece[self.nomPiece.index(nom)]
+        
+        self.setNomPiece()
         
 
 
@@ -96,13 +98,49 @@ class Piece:
         
 
         
-     
+#==============================================================================
+# Coups possibles
+#==============================================================================
+
+  
+    def ListeCoupsPossiblesPion():
+        pass
+        
+        
+    def ListeCoupsPossiblesTour():
+        pass
+        
+        
+    def ListeCoupsPossiblesCavalier():
+        pass
+        
+        
+    def ListeCoupsPossiblesFou():
+        pass
+        
+        
+    def ListeCoupsPossiblesRoi():
+        pass
+        
+        
+    def ListeCoupsPossiblesReine():
+        pass
         
         
         
         
+#==============================================================================
+# Fonction annexes
+#==============================================================================
+            
+            
+    def isEmpty(self):
         
+        """Returns TRUE or FALSE if this piece object is defined, 
+        As any square on board can have a piece on it, or not,
+        we can set a null piece on a square."""
         
+        return self.nom == self.pieceVide
         
         
         
