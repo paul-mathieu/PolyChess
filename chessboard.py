@@ -4,14 +4,31 @@
 """
 
 from functools import reduce
-import rules
+from rules import Piece
 
 
 class Echiquier:
         
     
-    def __init__(self, positions):
-        self.positions = positions
+    def __init__(self):
+        self.positions = \
+            [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
+             Piece('Fou','noir'),
+             Piece('Dame', 'noir'),Piece('Roi','noir'),
+             Piece('Fou', 'noir'), 
+             Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
+                \
+            [Piece('Pion', 'noir')] * 8 + \
+                \
+            [Piece()] * 8 * 4 + \
+                \
+            [Piece('Pion', 'blanc')] * 8 + \
+                \
+            [Piece('Tour', 'blanc'), Piece('Cavalier', 'blanc'), 
+             Piece('Fou','blanc'),
+             Piece('Dame','blanc'),Piece('Roi','blanc'),
+             Piece('Fou','blanc'),
+             Piece('Cavalier','blanc'),Piece('Tour','blanc')]
         
     #==============================================================================
     # Construction de l'échiquier
@@ -26,7 +43,7 @@ class Echiquier:
     #==============================================================================
     
     
-    def afficherEchiquier(echiquier):
+    def afficher(self):
     
         lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["  " + element + "  " for element in ['A','B','C','D','E','F','G','H']])
         interlignes = "    " + reduce(lambda ele1, ele2 : ele1 + ele2, ["-" * 4 + " "] * 8)
@@ -37,7 +54,7 @@ class Echiquier:
         print("   " + lettres)
         print(interlignes)
         
-        for ligne in echiquier:
+        for ligne in self:
             
             print(str(numLigne), end = "  |")
             
@@ -84,19 +101,7 @@ class Echiquier:
     #   A  B  C  D  E  F  G  H
     
     
-    #==============================================================================
-    # Initialisation
-    #==============================================================================
-    
-    
-    def echiquierVide():
-        return [[None] * 8] * 8
-    
-    def echiquierInitialise():
-        return rules.listeDesPieces('N')[::-1] + [[' 1'] * 8] * 4 + rules.listeDesPieces('B')
-    
-    
-    
+ 
     
     #==============================================================================
     # Déplacement
@@ -109,8 +114,8 @@ class Echiquier:
         ligDep, colDep = nomCaseToIndex(caseDepart)
         ligArr, colArr = nomCaseToIndex(caseArrive)
         
-        print(str(ligDep) + "-" + str(colDep))
-        print(str(ligArr) + "-" + str(colArr))
+#        print(str(ligDep) + "-" + str(colDep))
+#        print(str(ligArr) + "-" + str(colArr))
     
         valeur = echiquier[ligDep][colDep]
          
@@ -125,10 +130,18 @@ class Echiquier:
     # Vérification déplacement dans la zone
     #==============================================================================
     
-    def deplacementsPossibles(echiquier, piece):
-        pass
-    
-    def afficherDeplacementsPossibles(echiquier, piece):
+    def deplacementsPossibles(self, piece):
+        listePossibilites = []
+        
+        
+        return listePossibilites
+
+
+    def afficherDeplacementsPossibles(self, piece):
+        
+        #afficher '<>' aux endroits possible
+        
+        
         pass
     
     #==============================================================================
