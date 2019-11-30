@@ -1,5 +1,4 @@
 from chessboard import Echiquier
-import player
 import ia
 
 
