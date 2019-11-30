@@ -135,6 +135,7 @@ class Piece:
         we can set a null piece on a square."""
         
         return self.nom == self.pieceVide
-        
+    
+    
         
         
