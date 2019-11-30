@@ -25,7 +25,7 @@ class Piece:
 #     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 #     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
-    
+# => on utilise la valeur comme index de l'échiquier
 
     tblPlacement = [21 + ligne + colonne for colonne in range(0,71,10) for ligne in range(8)]
 
@@ -38,7 +38,7 @@ class Piece:
 #     81, 82, 83, 84, 85, 86, 87, 88, 
 #     91, 92, 93, 94, 95, 96, 97, 98]
 
-
+# => on utilise la valeur comme position de tblDebordement
 
 
     def __init__(self, nom = pieceVide, couleur = ''):
@@ -48,7 +48,6 @@ class Piece:
         self.valeur = self.valeurPiece[self.nomPiece.index(nom)]
         
         self.setNomPiece()
-        
 
 
 
@@ -96,28 +95,85 @@ class Piece:
 # Coups possibles
 #==============================================================================
 
-  
-    def ListeCoupsPossiblesPion():
+
+    def listeCoupsPossiblesPion(self, position, echiquier):
+        #position va de 0 à 63
+        
+        
+        listePossibilites = []
+        
+        
+        if self.couleur == 'blanc':
+            
+
+            #deplacement de 2
+            if 48 <= position <= 55:
+                positionE = self.tblDebordement[self.tblPlacement[position] - 20]
+                listePossibilites.append(positionE)
+            
+            #manger haut droite
+            positionE = self.tblDebordement[self.tblPlacement[position] - 9]
+            if not positionE == -1:
+                if echiquier.positions[positionE].couleur == 'noir':
+                    listePossibilites.append(positionE)
+            
+            #manger haut gauche
+            positionE = self.tblDebordement[self.tblPlacement[position] - 11]
+            if not positionE == -1:
+                if echiquier.positions[positionE].couleur == 'noir':
+                    listePossibilites.append(positionE)
+                
+            positionE = self.tblDebordement[self.tblPlacement[position] - 10]
+            if not positionE == -1:
+                listePossibilites.append(positionE)
+                        
+
+
+        else:
+            
+            
+            #deplacement de 2
+            if 8 <= position <= 15:
+                positionE = self.tblDebordement[self.tblPlacement[position] + 20]
+                listePossibilites.append(positionE)
+            
+            #manger bas gauche
+            positionE = self.tblDebordement[self.tblPlacement[position] + 9]
+            if not positionE == -1:
+                if echiquier.positions[positionE].couleur == 'blanc':
+                    listePossibilites.append(positionE)
+            
+            #manger bas droite
+            positionE = self.tblDebordement[self.tblPlacement[position] + 11]
+            if not positionE == -1:
+                if echiquier.positions[positionE].couleur == 'blanc':
+                    listePossibilites.append(positionE)
+                
+            positionE = self.tblDebordement[self.tblPlacement[position] + 10]
+            if not positionE == -1:
+                listePossibilites.append(positionE)
+        
+        return listePossibilites
+        
+
+        
+    def listeCoupsPossiblesTour(self, position, echiquier):
         pass
         
         
-    def ListeCoupsPossiblesTour():
+    def listeCoupsPossiblesCavalier(self, position, echiquier):
         pass
         
         
-    def ListeCoupsPossiblesCavalier():
+    def listeCoupsPossiblesFou(self, position, echiquier):
         pass
         
         
-    def ListeCoupsPossiblesFou():
+    def listeCoupsPossiblesRoi(self, position, echiquier):
         pass
         
         
-    def ListeCoupsPossiblesRoi():
-        pass
-        
-        
-    def ListeCoupsPossiblesReine():
+    def listeCoupsPossiblesDame(self, position, echiquier):
         pass
         
         
