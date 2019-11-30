@@ -136,8 +136,17 @@ class Echiquier:
 # Vérification déplacement dans la zone
 #==============================================================================
 
-    def deplacementsPossibles(self, piece):
+    def listeDeplacementsPossibles(self, case):
+        
+        indexCase = self.nomCaseToIndex(case)
+        
+        if self.position[indexCase].nom == self.position[indexCase].pieceVide:
+            
+            return []
+        
         listePossibilites = []
+        
+        self.position[indexCase]
         
         
         return listePossibilites
@@ -174,7 +183,11 @@ class Echiquier:
 #==============================================================================
     
     def nomCaseToIndex(nomCase):
-        return int(nomCase[1]) - 1, ['A','B','C','D','E','F','G','H'].index(nomCase[0])
+        
+        lettres = ['A','B','C','D','E','F','G','H']
+        lig, col = 8 - int(nomCase[1]), lettres.index(nomCase[0]) + 1
+        
+        return ligDep * 8 + colDep - 1
     
     #print("‎• or <>")
     
