@@ -51,14 +51,6 @@ class Piece:
 
 
 
-    def deplacementsTour():
-        return -10, 10, -1, 1
-    
-    def deplacementsFou(): 
-        return -11, -9, 11, 9
-    
-    def deplacementsCavalier():
-        return -12, -21, -19, -8, 12, 21, 19, 8
 
     
     def setNomPiece(self):
@@ -158,17 +150,60 @@ class Piece:
 
         
     def listeCoupsPossiblesTour(self, position, echiquier):
-        pass
+        deplacements = (-10, 10, -1, 1)
         
-        
-    def listeCoupsPossiblesCavalier(self, position, echiquier):
-        pass
-        
+         
+    
         
     def listeCoupsPossiblesFou(self, position, echiquier):
-        pass
+        deplacements = (-11, -9, 11, 9)
+        
+        listePossibilites = []
+        multiplicateur = 1
+        
+        for deplacement in deplacements:
+            
+            positionE = self.tblDebordement[self.tblPlacement[position] + deplacement]
+            
+            while not positionE == -1:
+            
+                if echiquier.positions[positionE].nom == self.pieceVide:
+                    
+                    listePossibilites.append(positionE)
+                
+                if not echiquier.positions[positionE].couleur == self.couleur:
+                    
+                    listePossibilites.append(positionE)
+                    
+                    break
+                
+                multiplicateur += 1
+                positionE = self.tblDebordement[self.tblPlacement[position] + deplacement * multiplicateur]
+
+        
+        return listePossibilites
+
+
+
+       
+    def listeCoupsPossiblesCavalier(self, position, echiquier):
+        deplacements = (-12, -21, -19, -8, 12, 21, 19, 8)
+        
+        listePossibilites = []
+        
+        for deplacement in deplacements:
+            
+            positionE = self.tblDebordement[self.tblPlacement[position] + deplacement]
+            
+            if not positionE == -1:
+                if not echiquier.positions[positionE].couleur == self.couleur:
+                    
+                    listePossibilites.append(positionE)
+        
+        return listePossibilites
         
         
+    
     def listeCoupsPossiblesRoi(self, position, echiquier):
         pass
         
