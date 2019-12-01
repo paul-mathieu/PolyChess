@@ -11,16 +11,40 @@ class Echiquier:
         
     
     def __init__(self):
+        
+#        self.positions = \
+#            [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
+#             Piece('Fou','noir'),
+#             Piece('Dame', 'noir'), Piece('Tour','noir'),
+#             Piece('Fou', 'noir'), 
+#             Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
+#                \
+#            [Piece('Pion', 'noir')] * 8 + \
+#                \
+#            [Piece()] * 8 * 4 + \
+#                \
+#            [Piece('Pion', 'blanc')] * 8 + \
+#                \
+#            [Piece('Tour', 'blanc'), Piece('Cavalier', 'blanc'), 
+#             Piece('Fou','blanc'),
+#             Piece('Dame', 'blanc'), Piece('Roi', 'blanc'),
+#             Piece('Fou', 'blanc'),
+#             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')]
+            
         self.positions = \
+            [Piece()] * 8 +  \
+                \
             [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
              Piece('Fou','noir'),
              Piece('Dame', 'noir'), Piece('Tour','noir'),
              Piece('Fou', 'noir'), 
              Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
                 \
+            [Piece()] * 8 + \
+                \
             [Piece('Pion', 'noir')] * 8 + \
                 \
-            [Piece()] * 8 * 4 + \
+            [Piece()] * 8 + \
                 \
             [Piece('Pion', 'blanc')] * 8 + \
                 \
@@ -28,7 +52,11 @@ class Echiquier:
              Piece('Fou','blanc'),
              Piece('Dame', 'blanc'), Piece('Roi', 'blanc'),
              Piece('Fou', 'blanc'),
-             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')]
+             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')] + \
+                \
+            [Piece()] * 8
+
+                 
         
     #==============================================================================
     # Construction de l'échiquier
@@ -148,19 +176,20 @@ class Echiquier:
             return self.positions[indexCase].listeCoupsPossiblesPion(indexCase, self)
             
         if self.positions[indexCase].nom == 'Tour':
-            pass
+            return self.positions[indexCase].listeCoupsPossiblesTour(indexCase, self)
         
         if self.positions[indexCase].nom == 'Fou':
-            pass
+            return self.positions[indexCase].listeCoupsPossiblesFou(indexCase, self)
         
         if self.positions[indexCase].nom == 'Cavalier':
-            pass
+            return self.positions[indexCase].listeCoupsPossiblesCavalier(indexCase, self)
         
         if self.positions[indexCase].nom == 'Dame':
-            pass
+            return self.positions[indexCase].listeCoupsPossiblesDame(indexCase, self)
         
         if self.positions[indexCase].nom == 'Roi':
-            pass
+            return self.positions[indexCase].listeCoupsPossiblesRoi(indexCase, self)
+        
 
     def listeDeplacementsPossiblesFormatCase(self, nomCase):
         
