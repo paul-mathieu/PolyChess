@@ -7,7 +7,8 @@ import ia
 echiquier = Echiquier()
 echiquier.afficher()
 
-#print(echiquier.listeDeplacementsPossiblesFormatCase('A6'))
+print(echiquier.listeDeplacementsPossiblesFormatCase('C7'))
+print(echiquier.listeDeplacementsPossiblesFormatCase('B7'))
 #print(echiquier.listeDeplacementsPossibles('A6'))
 
 #print(echiquier.isEchecEtMat())
