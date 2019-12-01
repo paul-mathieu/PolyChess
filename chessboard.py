@@ -40,13 +40,7 @@ class Echiquier:
              Piece('Fou', 'noir'), 
              Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
                 \
-            [Piece()] * 8 + \
-                \
-            [Piece('Pion', 'noir')] * 8 + \
-                \
-            [Piece()] * 8 + \
-                \
-            [Piece('Pion', 'blanc')] * 8 + \
+            [Piece()] * 8 * 4 + \
                 \
             [Piece('Tour', 'blanc'), Piece('Cavalier', 'blanc'), 
              Piece('Fou','blanc'),
@@ -134,37 +128,93 @@ class Echiquier:
 #        ---- ---- ---- ---- ---- ---- ---- ---- 
 #         A    B    C    D    E    F    G    H  
     
+
+
+
+
+    def afficherCoupsPossibles(self, nomCase):
     
+        lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["  " + element + "  " for element in ['A','B','C','D','E','F','G','H']])
+        interlignes = "    " + reduce(lambda ele1, ele2 : ele1 + ele2, ["-" * 4 + " "] * 8)
+        
+        coupsPossibles = self.listeDeplacementsPossibles(nomCase)
+        
+        couleur = self.positions[self.nomCaseToIndex(nomCase)].couleur
+        couleurOpposee = 'noir' if couleur == 'blanc' else 'blanc'
+        
+        print("   " + lettres)
+        print(interlignes)
+        
+        numLigne = 8
+        indexPosition = 0
+        
+        for piece in self.positions:
+            
+#            print(ligne)
+            
+            if indexPosition % 8 == 0:
+                print(str(numLigne), end = "  |")
+                
+            
+            if indexPosition == self.nomCaseToIndex(nomCase):
+                
+                print("#" + piece.nomAffichage + "#", end = "|")
+                
+            elif indexPosition in coupsPossibles:
+                
+                if  piece.couleur == couleurOpposee:
+                    
+                    print("<" + piece.nomAffichage + ">", end = "|")
+                
+                else:
+                    
+                    print(" <> ", end = "|")
+            
+            elif piece.nom != piece.pieceVide:
+                
+                print(" " + piece.nomAffichage + " ", end = "|")
+        
+            else:
+                
+                print("    ", end = "|")
+                
+            
+            
+            if (indexPosition + 1) % 8 == 0:
+                
+                print("  " + str(numLigne))
+            
+                print(interlignes)
+            
+                numLigne -= 1
+                
+            indexPosition += 1
+            
+        print("   " + lettres)
+    
+
+ 
  
     
 #==============================================================================
 # Déplacement
 #==============================================================================
     
-    def deplacerPiece(self, caseDepart, caseArrive):
+    def deplacerPiece(self, nomCaseDepart, nomCaseArrive):
         
-        lettres = ['A','B','C','D','E','F','G','H']
-                
-        ligDep, colDep = 8 - int(caseDepart[1]), lettres.index(caseDepart[0]) + 1
-        ligArr, colArr = 8 - int(caseArrive[1]), lettres.index(caseArrive[0]) + 1
+        indexDep = self.nomCaseToIndex(nomCaseDepart)
+        indexArr = self.nomCaseToIndex(nomCaseArrive)
         
-        indexDep = ligDep * 8 + colDep - 1
-        indexArr = ligArr * 8 + colArr - 1
-        
-        
-#        print(str(ligDep) + "-" + str(colDep))
-#        print(str(ligArr) + "-" + str(colArr))
-    
-        
-        self.positions[indexArr] = self.positions[indexDep]
-        self.positions[indexDep] = Piece()  
+        if indexArr in self.listeCoupsPossibles(nomCaseDepart):
+            self.positions[indexArr] = self.positions[indexDep]
+            self.positions[indexDep] = Piece()  
         
     
 #==============================================================================
 # Vérification déplacement dans la zone
 #==============================================================================
 
-    def listeDeplacementsPossibles(self, nomCase):
+    def listeCoupsPossibles(self, nomCase):
         
         indexCase = self.nomCaseToIndex(nomCase)
         
@@ -191,18 +241,9 @@ class Echiquier:
             return self.positions[indexCase].listeCoupsPossiblesRoi(indexCase, self)
         
 
-    def listeDeplacementsPossiblesFormatCase(self, nomCase):
+    def listeCoupsPossiblesFormatCase(self, nomCase):
         
-        return [self.indexToNomCase(index) for index in self.listeDeplacementsPossibles(nomCase)]
-                
-
-    def afficherDeplacementsPossibles(self, piece):
-        
-        #afficher '<>' aux endroits possible
-        
-        
-        pass
-
+        return [self.indexToNomCase(index) for index in self.listeCoupsPossibles(nomCase)]
 
 
 
