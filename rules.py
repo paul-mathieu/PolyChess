@@ -151,18 +151,21 @@ class Piece:
         
     def listeCoupsPossiblesTour(self, position, echiquier):
         deplacements = (-10, 10, -1, 1)
+        couleurCaseOpposee = 'noir' if self.couleur == 'blanc' else 'blanc'
+
         
         listePossibilites = []
-        multiplicateur = 2
-        
         for deplacement in deplacements:
             
+            multiplicateur = 1
             positionE = self.tblDebordement[self.tblPlacement[position] + deplacement]
             
             while not positionE == -1:
-            
                 
-                if not echiquier.positions[positionE].couleur == self.couleur:
+                if echiquier.positions[positionE].couleur == self.couleur:
+                    break
+            
+                if echiquier.positions[positionE].couleur == couleurCaseOpposee:
                     
                     listePossibilites.append(positionE)
                     
@@ -177,24 +180,26 @@ class Piece:
                 positionE = self.tblDebordement[self.tblPlacement[position] + deplacement * multiplicateur]
 
         
-        return listePossibilites        
-         
+        return listePossibilites         
     
         
     def listeCoupsPossiblesFou(self, position, echiquier):
         deplacements = (-11, -9, 11, 9)
         
+        couleurCaseOpposee = 'noir' if self.couleur == 'blanc' else 'blanc'
         listePossibilites = []
-        multiplicateur = 2
         
         for deplacement in deplacements:
             
+            multiplicateur = 1
             positionE = self.tblDebordement[self.tblPlacement[position] + deplacement]
             
             while not positionE == -1:
-            
                 
-                if not echiquier.positions[positionE].couleur == self.couleur:
+                if echiquier.positions[positionE].couleur == self.couleur:
+                    break
+
+                if echiquier.positions[positionE].couleur == couleurCaseOpposee:
                     
                     listePossibilites.append(positionE)
                     
@@ -233,11 +238,11 @@ class Piece:
         
     
     def listeCoupsPossiblesRoi(self, position, echiquier):
-        pass
+        return []
         
         
     def listeCoupsPossiblesDame(self, position, echiquier):
-        pass
+        return self.listeCoupsPossiblesFou(position, echiquier) + self.listeCoupsPossiblesTour(position, echiquier)
         
         
         
