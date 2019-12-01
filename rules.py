@@ -152,14 +152,8 @@ class Piece:
     def listeCoupsPossiblesTour(self, position, echiquier):
         deplacements = (-10, 10, -1, 1)
         
-         
-    
-        
-    def listeCoupsPossiblesFou(self, position, echiquier):
-        deplacements = (-11, -9, 11, 9)
-        
         listePossibilites = []
-        multiplicateur = 1
+        multiplicateur = 2
         
         for deplacement in deplacements:
             
@@ -167,15 +161,49 @@ class Piece:
             
             while not positionE == -1:
             
-                if echiquier.positions[positionE].nom == self.pieceVide:
-                    
-                    listePossibilites.append(positionE)
                 
                 if not echiquier.positions[positionE].couleur == self.couleur:
                     
                     listePossibilites.append(positionE)
                     
                     break
+
+                elif echiquier.positions[positionE].nom == self.pieceVide:
+                    
+                    listePossibilites.append(positionE)
+
+                
+                multiplicateur += 1
+                positionE = self.tblDebordement[self.tblPlacement[position] + deplacement * multiplicateur]
+
+        
+        return listePossibilites        
+         
+    
+        
+    def listeCoupsPossiblesFou(self, position, echiquier):
+        deplacements = (-11, -9, 11, 9)
+        
+        listePossibilites = []
+        multiplicateur = 2
+        
+        for deplacement in deplacements:
+            
+            positionE = self.tblDebordement[self.tblPlacement[position] + deplacement]
+            
+            while not positionE == -1:
+            
+                
+                if not echiquier.positions[positionE].couleur == self.couleur:
+                    
+                    listePossibilites.append(positionE)
+                    
+                    break
+
+                elif echiquier.positions[positionE].nom == self.pieceVide:
+                    
+                    listePossibilites.append(positionE)
+
                 
                 multiplicateur += 1
                 positionE = self.tblDebordement[self.tblPlacement[position] + deplacement * multiplicateur]
