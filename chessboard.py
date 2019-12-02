@@ -12,43 +12,43 @@ class Echiquier:
     
     def __init__(self):
         
-#        self.positions = \
-#            [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
-#             Piece('Fou','noir'),
-#             Piece('Dame', 'noir'), Piece('Tour','noir'),
-#             Piece('Fou', 'noir'), 
-#             Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
-#                \
-#            [Piece('Pion', 'noir')] * 8 + \
-#                \
-#            [Piece()] * 8 * 4 + \
-#                \
-#            [Piece('Pion', 'blanc')] * 8 + \
-#                \
-#            [Piece('Tour', 'blanc'), Piece('Cavalier', 'blanc'), 
-#             Piece('Fou','blanc'),
-#             Piece('Dame', 'blanc'), Piece('Roi', 'blanc'),
-#             Piece('Fou', 'blanc'),
-#             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')]
-            
         self.positions = \
-            [Piece()] * 8 +  \
-                \
             [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
              Piece('Fou','noir'),
              Piece('Dame', 'noir'), Piece('Tour','noir'),
              Piece('Fou', 'noir'), 
              Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
                 \
+            [Piece('Pion', 'noir')] * 8 + \
+                \
             [Piece()] * 8 * 4 + \
+                \
+            [Piece('Pion', 'blanc')] * 8 + \
                 \
             [Piece('Tour', 'blanc'), Piece('Cavalier', 'blanc'), 
              Piece('Fou','blanc'),
              Piece('Dame', 'blanc'), Piece('Roi', 'blanc'),
              Piece('Fou', 'blanc'),
-             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')] + \
-                \
-            [Piece()] * 8
+             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')]
+            
+#        self.positions = \
+#            [Piece()] * 8 +  \
+#                \
+#            [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
+#             Piece('Fou','noir'),
+#             Piece('Dame', 'noir'), Piece('Tour','noir'),
+#             Piece('Fou', 'noir'), 
+#             Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
+#                \
+#            [Piece()] * 8 * 4 + \
+#                \
+#            [Piece('Tour', 'blanc'), Piece('Cavalier', 'blanc'), 
+#             Piece('Fou','blanc'),
+#             Piece('Dame', 'blanc'), Piece('Roi', 'blanc'),
+#             Piece('Fou', 'blanc'),
+#             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')] + \
+#                \
+#            [Piece()] * 8
 
                  
         
