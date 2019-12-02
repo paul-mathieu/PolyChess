@@ -303,6 +303,9 @@ class Echiquier:
     def leDeplacementMangeUnePiece(self, caseArrivee):
         return self.positions[self.nomCaseToIndex(caseArrivee)].couleur != self.positions[0].pieceVide
     
+    def laPiecePeutEtreMangee(self, nomCase):
+        return len([]) <= 1
+    
 
     def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
         return len()
