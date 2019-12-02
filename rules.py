@@ -6,7 +6,7 @@ class Piece:
 
     pieceVide = '  ' 
     
-    nomPiece = (pieceVide,'Roi','Dame','Tour','Cavalier','Fou','Pion')
+    nomPiece = (pieceVide, 'Roi', 'Dame', 'Tour', 'Cavalier', 'Fou', 'Pion')
     
     valeurPiece = (0, 0, 9, 5, 3, 3, 1)
     
@@ -27,7 +27,7 @@ class Piece:
 
 # => on utilise la valeur comme index de l'échiquier
 
-    tblPlacement = [21 + ligne + colonne for colonne in range(0,71,10) for ligne in range(8)]
+    tblPlacement = [21 + ligne + colonne for colonne in range(0, 71, 10) for ligne in range(8)]
 
 #    [21, 22, 23, 24, 25, 26, 27, 28, 
 #     31, 32, 33, 34, 35, 36, 37, 38, 
@@ -237,8 +237,8 @@ class Piece:
         
         
     
-    def listeCoupsPossiblesRoi(self, position, echiquier):
-        return []
+#    def listeCoupsPossiblesRoi(self, position, echiquier):
+#        return []
         
         
     def listeCoupsPossiblesDame(self, position, echiquier):
