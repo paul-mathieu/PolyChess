@@ -15,7 +15,7 @@ print(echiquier.listeCoupsPossiblesFormatCase('B7'))
 echiquier.deplacerPiece('A2', 'A3')
 echiquier.afficher()
 
-
+echiquier.afficherCoupsPossibles('C2')
 
 #print(echiquier.listeDeplacementsPossibles('A6'))
 
