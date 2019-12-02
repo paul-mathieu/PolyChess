@@ -237,8 +237,22 @@ class Piece:
         
         
     
-#    def listeCoupsPossiblesRoi(self, position, echiquier):
-#        return []
+    def listeCoupsPossiblesRoi(self, position, echiquier):
+        deplacements = (-11, -10, -9, -1, 1, 9, 10, 11)
+        
+        listePossibilites = []
+
+        for deplacement in deplacements:
+            
+            positionE = self.tblDebordement[self.tblPlacement[position] + deplacement]
+            
+            if not positionE == -1:
+                if not echiquier.positions[positionE].couleur == self.couleur:
+                    
+                    listePossibilites.append(positionE)
+        
+        return listePossibilites
+
         
         
     def listeCoupsPossiblesDame(self, position, echiquier):
