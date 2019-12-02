@@ -200,14 +200,20 @@ class Echiquier:
 # Déplacement
 #==============================================================================
     
-    def deplacerPiece(self, nomCaseDepart, nomCaseArrive):
+    def deplacerPiece(self, nomCaseDepart, nomCaseArrivee):
         
         indexDep = self.nomCaseToIndex(nomCaseDepart)
-        indexArr = self.nomCaseToIndex(nomCaseArrive)
+        indexArr = self.nomCaseToIndex(nomCaseArrivee)
         
         if indexArr in self.listeCoupsPossibles(nomCaseDepart):
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
+        
+    def deplacerPieceEnIndex(self, indexDepart, indexArrivee):
+        
+        if indexArrivee in self.listeCoupsPossibles(self.indexToNomCase(indexDepart)):
+            self.positions[indexArrivee] = self.positions[indexDepart]
+            self.positions[indexDepart] = Piece()  
         
     
 #==============================================================================
@@ -250,12 +256,15 @@ class Echiquier:
         
         liste = []
         
-        for coordonnee in []:
+        for index in range(64):
             
-            if piece.couleur == couleur:
+            if self.positions[index].couleur == couleur:
                 
-                if len(piece.) < 0:
+                if len(self.listeCoupsPossibles(self.indexToNomCase(index))) < 0:
+                    
+                    liste.append(index)
         
+        return liste
         
 
 #==============================================================================
@@ -291,7 +300,12 @@ class Echiquier:
     
     #print("‎• or <>")
     
+    def leDeplacementMangeUnePiece(self, caseArrivee):
+        return self.positions[self.nomCaseToIndex(caseArrivee)].couleur != self.positions[0].pieceVide
     
+
+    def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
+        return len()
     
 
     
