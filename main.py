@@ -2,6 +2,9 @@ from chessboard import Echiquier
 import ia
 
 
+#==============================================================================
+# Appel de l'échiquier
+#==============================================================================
 
 
 echiquier = Echiquier()
@@ -21,6 +24,29 @@ echiquier.afficherCoupsPossibles('C2')
 
 #print(echiquier.isEchecEtMat())
 #print(echiquier.couleurEchecEtMat())
+
+
+
+
+
+
+
+#==============================================================================
+# Appel de l'IA
+#==============================================================================
+
+couleur = 'noir'
+
+print(ia.meilleurMouvement(echiquier, couleur))
+
+
+
+
+
+
+
+
+
 
 #while not echiquier.isEchecEtMat():
 #    
