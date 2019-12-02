@@ -24,9 +24,9 @@ class MeilleurMouvement:
                 ('Dame', self.couleurOpposee) : 90,
                 ('Roi', self.couleurOpposee) : 900
                 }
+
     
-    
-    def nMeilleursMouvements(self, echiquier = self.echiquier, n, niveauActuel = 0):
+    def nMeilleursMouvementsPoints(self, echiquier = self.echiquier, n, niveauActuel = 0):
         
         listeMouvements = []
         niveauActuel += 1
@@ -49,20 +49,20 @@ class MeilleurMouvement:
                     
                     
                     #~~ on ajoute des points de pénalité ~~
-                    valeurPion = self.valeurPions[self.positions[index].nom]
+                    valeurPiece = self.valeurPions[self.positions[index].nom]
                     
                     #si une piece adverse peut la manger après le déplacement
 #                    if 
                     
                     
                     #~~ récursivité avec les mouvements suivants ~~
-                    listeMouvementsSuivants = self.nMeilleursMouvements(echiquierTemp, n, niveauActuel)
+                    listeMouvementsSuivants = self.nMeilleursMouvementsPoints(echiquierTemp, n, niveauActuel)
                     
                     
                     #on ajoute à la liste de mouvements les objets de type mouvement
                     listeMouvements.append(Mouvement(
                             index, 
-                            valeurPion, 
+                            valeurPiece, 
                             niveauActuel + 1, 
                             echiquier.piecesAdversesPouvantManger(index),
                             listeMouvementsSuivants
@@ -70,27 +70,45 @@ class MeilleurMouvement:
                     
             # on ne garde que les cinq meilleures valeurs :
             
-            #on trie les elements par points
-            for element in listeMouvements:
-                
-                
+            #on trie les elements par points                
+            listeMouvements = self.trierMouvements(listeMouvements)
+            
+            #on garde les meilleures valeurs
+            listeMouvements = listeMouvements[0:5]
             
             
             return listeMouvements
     
-    def nMeilleursMouvements(liste, n):
+    
+    def trierMouvements(self, liste):
+        
+        if liste == []:
+            return []
+        
+        pivot = liste[0]
+        liste1 = []
+        liste2 = []
+        
+        for x in liste[1:]:
+            
+            if x.valeurPiece > pivot.valeurPiece:
+                liste1.append(x)
+            else:
+                liste2.append(x)
+        return quicksort(liste1) + [pivot] + quicksort(liste2)
     
         
-    def mouvement(self, indexDeplacement, valerDeplacement):
+    def meilleurMouvement(self, indexDeplacement, valeurDeplacement):
         
         pass
 
 
-        
+    
         
         
 
 class Mouvement:
+    
         """
         une liste de mouvements est composee de :
             - un index de piece a deplacer
@@ -100,10 +118,10 @@ class Mouvement:
             - les mouvements suivant si il y en a
         """ 
         
-        def __init__(self, indexPiece, valeurDeplacement, numeroDuTour, piecesAdversesPouvantManger, mouvementsSuivants = []):
+        def __init__(self, indexPiece, valeurPiece, numeroDuTour, piecesAdversesPouvantManger, mouvementsSuivants = []):
             
             self.indexPiece = indexPiece
-            self.valeurDeplacement = valeurDeplacement
+            self.valeurPiece = valeurPiece
             self.numeroDuTour = numeroDuTour
             self.piecesAdversesPouvantManger = piecesAdversesPouvantManger
             self.mouvementsSuivants = mouvementsSuivants
