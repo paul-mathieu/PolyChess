@@ -1,4 +1,4 @@
-
+#ia
 
 class MeilleurMouvement:
     
@@ -7,10 +7,10 @@ class MeilleurMouvement:
         self.echiquier = echiquier
         
         self.couleur = couleur
-        self.couleurOpposee = 'noir' if couleur == 'blanc' else 'noir'
+        self.couleurOpposee = 'noir' if couleur == 'blanc' else 'blanc'
         
         
-        self.valeurPions = {
+        self.valeurPieces = {
                 ('Pion', self.couleur) : -10,
                 ('Tour', self.couleur) : -50,
                 ('Cavalier', self.couleur) : -30,
@@ -26,56 +26,63 @@ class MeilleurMouvement:
                 }
 
     
-    def nMeilleursMouvementsPoints(self, echiquier = self.echiquier, n, niveauActuel = 0):
+    def nMeilleursMouvementsPoints(self, n, echiquier = None, niveauActuel = 0):
+        
+        if echiquier == None:
+            echiquier = self.echiquier
         
         listeMouvements = []
         niveauActuel += 1
         
         #si le niveau actuel est le maximum souhaité (ici 5), on ne va pas plus profondement
-        if not niveauActuel == 5:
+        if not niveauActuel > 3:
 
 
-            #~~ pour tous les mouvements ~~
+            #~~ pour tous les mouvements de toutes les pieces ~~
 
             #pour toutes les pieces de la couleur pouvant être déplacées
-            for index in self.echiquier.listePiecesPouvantEtreDeplacees(self.couleur):
+#            print(echiquier.listePiecesPouvantEtreDeplacees(self.couleur))
+            for index in echiquier.listePiecesPouvantEtreDeplacees(self.couleur):
                 
                 #pour tous les déplacements de la piece
-                for indexArr in self.echiquier.listeCoupsPossibles(self.indexToNomCase(index)):
+                for indexArr in self.echiquier.listeCoupsPossibles(echiquier.indexToNomCase(index)):
+                
+                    valeurPiece = self.valeurPieces[(echiquier.positions[index].nom, echiquier.positions[index].couleur)]
                     
-                    
-                    # le nouvel echiquier contient la piece deplacee
-                    echiquierTemp = echiquier.deplacerPieceEnIndex(index, indexArr)
-                    
-                    
-                    #~~ on ajoute des points de pénalité ~~
-                    valeurPiece = self.valeurPions[self.positions[index].nom]
-                    
-                    #si une piece adverse peut la manger après le déplacement
-#                    if 
-                    
-                    
-                    #~~ récursivité avec les mouvements suivants ~~
-                    listeMouvementsSuivants = self.nMeilleursMouvementsPoints(echiquierTemp, n, niveauActuel)
-                    
-                    
-                    #on ajoute à la liste de mouvements les objets de type mouvement
+                    #ajout d'un nouveau mouvement à la liste
                     listeMouvements.append(Mouvement(
-                            index, 
-                            valeurPiece, 
-                            niveauActuel + 1, 
-                            echiquier.piecesAdversesPouvantManger(index),
-                            listeMouvementsSuivants
-                            ))
-                    
-            # on ne garde que les cinq meilleures valeurs :
-            
+                                index,
+                                indexArr, 
+                                valeurPiece, 
+                                niveauActuel
+                                ))
+                
+                
+            #pour optimiser, tri en gardant les n premiers   
+                
             #on trie les elements par points                
             listeMouvements = self.trierMouvements(listeMouvements)
             
             #on garde les meilleures valeurs
-            listeMouvements = listeMouvements[0:5]
+            listeMouvements = listeMouvements[0:n]                
+                
+                
+            for mouvement in listeMouvements:
+                
+                # le nouvel echiquier contient la piece deplacee
+                echiquierTemp = echiquier
+                echiquierTemp.deplacerPieceEnIndex(mouvement.indexDepart, mouvement.indexArrivee)
+                
+                
+                listeMouvementsSuivants = self.nMeilleursMouvementsPoints(n, echiquierTemp, niveauActuel)
             
+                mouvement.ajouterListeMouvementsSuivants(listeMouvementsSuivants)
+#                    print("_|_|_|_|_|_")
+#                    print(index)
+#                    print(echiquier.positions[0:3])
+#                    print(echiquier.get_piece(index).nom)
+#                    print(echiquier.positions[index].couleur)
+#                                            
             
             return listeMouvements
     
@@ -95,7 +102,7 @@ class MeilleurMouvement:
                 liste1.append(x)
             else:
                 liste2.append(x)
-        return quicksort(liste1) + [pivot] + quicksort(liste2)
+        return self.trierMouvements(liste1) + [pivot] + self.trierMouvements(liste2)
     
         
     def meilleurMouvement(self, indexDeplacement, valeurDeplacement):
@@ -118,13 +125,17 @@ class Mouvement:
             - les mouvements suivant si il y en a
         """ 
         
-        def __init__(self, indexPiece, valeurPiece, numeroDuTour, piecesAdversesPouvantManger, mouvementsSuivants = []):
+        def __init__(self, indexDepart, indexArrivee, valeurPiece, numeroDuTour):
             
-            self.indexPiece = indexPiece
+            self.indexDepart = indexDepart
+            self.indexArrivee = indexArrivee
             self.valeurPiece = valeurPiece
             self.numeroDuTour = numeroDuTour
-            self.piecesAdversesPouvantManger = piecesAdversesPouvantManger
-            self.mouvementsSuivants = mouvementsSuivants
+            self.listeMouvementsSuivants = None
+            
+        def ajouterListeMouvementsSuivants(self, liste):
+            self.listeMouvementsSuivants = liste
+            
             
             
 
