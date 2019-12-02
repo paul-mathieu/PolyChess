@@ -49,7 +49,9 @@ class Echiquier:
 #             Piece('Cavalier', 'blanc'), Piece('Tour', 'blanc')] + \
 #                \
 #            [Piece()] * 8
-
+            
+    def get_piece(self, index):
+        return self.positions[index]
                  
         
 #==============================================================================
@@ -260,7 +262,7 @@ class Echiquier:
             
             if self.positions[index].couleur == couleur:
                 
-                if len(self.listeCoupsPossibles(self.indexToNomCase(index))) < 0:
+                if len(self.listeCoupsPossibles(self.indexToNomCase(index))) > 0:
                     
                     liste.append(index)
         
