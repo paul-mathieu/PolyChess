@@ -137,7 +137,7 @@ class Echiquier:
         lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["  " + element + "  " for element in ['A','B','C','D','E','F','G','H']])
         interlignes = "    " + reduce(lambda ele1, ele2 : ele1 + ele2, ["-" * 4 + " "] * 8)
         
-        coupsPossibles = self.listeDeplacementsPossibles(nomCase)
+        coupsPossibles = self.listeCoupsPossibles(nomCase)
         
         couleur = self.positions[self.nomCaseToIndex(nomCase)].couleur
         couleurOpposee = 'noir' if couleur == 'blanc' else 'blanc'
