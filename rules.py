@@ -58,7 +58,6 @@ class Piece:
 
 
 
-
     
     def setNomPiece(self):
         
@@ -71,8 +70,8 @@ class Piece:
             - T[col]     pour une Tour
             - C[col]     pour un cavalier
             - F[col]     pour un fou
-            - +[col]     pour un roi
-            - -[col]     pour une reine
+            - R[col]     pour un roi
+            - D[col]     pour une dame
             
         Chaque valeur est suivie de sa couleur
         
