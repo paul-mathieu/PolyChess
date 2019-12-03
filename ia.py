@@ -1,4 +1,6 @@
+"""
 #ia
+"""
 
 class MeilleurMouvement:
     
@@ -26,7 +28,7 @@ class MeilleurMouvement:
                 }
 
     
-    def nMeilleursMouvementsPoints(self, n, echiquier = None, niveauActuel = 0):
+    def nMeilleursMouvementsPoints(self, n = 5, echiquier = None, niveauActuel = 0):
         
         if echiquier == None:
             echiquier = self.echiquier
@@ -50,12 +52,7 @@ class MeilleurMouvement:
                     valeurPiece = self.valeurPieces[(echiquier.positions[index].nom, echiquier.positions[index].couleur)]
                     
                     #ajout d'un nouveau mouvement à la liste
-                    listeMouvements.append(Mouvement(
-                                index,
-                                indexArr, 
-                                valeurPiece, 
-                                niveauActuel
-                                ))
+                    listeMouvements.append(Mouvement(index, indexArr, valeurPiece, niveauActuel))
                 
                 
             #pour optimiser, tri en gardant les n premiers   
@@ -87,6 +84,23 @@ class MeilleurMouvement:
             return listeMouvements
     
     
+    def meilleurMouvement(self, liste = None):
+        
+        #à l'initialisation
+        if liste == None:
+            liste = self.nMeilleursMouvementsPoints()
+        
+        maxPoints = 0
+        
+        for mouvement in liste:
+            
+            #si le meilleur chemin est sup à la valeur max
+            if mouvement.valeurPiece + mouvement.listeMouvementsSuivants.meilleurMouvement() >= maxPoints:
+                
+                pass
+                
+        
+    
     def trierMouvements(self, liste):
         
         if liste == []:
@@ -104,11 +118,6 @@ class MeilleurMouvement:
                 liste2.append(x)
         return self.trierMouvements(liste1) + [pivot] + self.trierMouvements(liste2)
     
-        
-    def meilleurMouvement(self, indexDeplacement, valeurDeplacement):
-        
-        pass
-
 
     
         
@@ -116,26 +125,30 @@ class MeilleurMouvement:
 
 class Mouvement:
     
-        """
-        une liste de mouvements est composee de :
-            - un index de piece a deplacer
-            - une valeur de déplacement
-            - le numero de tour dans lequel le deplacement pourrait être réalise
-            - le nombre de pieces adverses pouvant manger la piece actuelle
-            - les mouvements suivant si il y en a
-        """ 
+    """
+    une liste de mouvements est composee de :
+        - un index de piece a deplacer
+        - une valeur de déplacement
+        - le numero de tour dans lequel le deplacement pourrait être réalise
+        - le nombre de pieces adverses pouvant manger la piece actuelle
+        - les mouvements suivant si il y en a
+    """ 
+    
+    def __init__(self, indexDepart, indexArrivee, valeurPiece, numeroDuTour):
         
-        def __init__(self, indexDepart, indexArrivee, valeurPiece, numeroDuTour):
-            
-            self.indexDepart = indexDepart
-            self.indexArrivee = indexArrivee
-            self.valeurPiece = valeurPiece
-            self.numeroDuTour = numeroDuTour
-            self.listeMouvementsSuivants = None
-            
-        def ajouterListeMouvementsSuivants(self, liste):
-            self.listeMouvementsSuivants = liste
-            
+        self.indexDepart = indexDepart
+        self.indexArrivee = indexArrivee
+        self.valeurPiece = valeurPiece
+        self.numeroDuTour = numeroDuTour
+        self.listeMouvementsSuivants = None
+
+
+    def ajouterListeMouvementsSuivants(self, liste):
+        self.listeMouvementsSuivants = liste
+        
+    def get_valeurPiece(self):
+        return self.valeurPiece
+        
             
             
 
