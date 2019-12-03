@@ -36,10 +36,12 @@ echiquier.afficherCoupsPossibles('C2')
 #==============================================================================
 
 couleur = 'noir'
-
-#print(ia.meilleurMouvement(echiquier, couleur))
-
+#
+#
 ia = MeilleurMouvement(echiquier, 'noir')
+
+print(ia.meilleurMouvement(echiquier, couleur))
+
 possibilites = ia.nMeilleursMouvementsPoints(5)
 
 
