@@ -46,7 +46,7 @@ class MeilleurMouvement:
                 
                 #pour tous les déplacements de la piece
                 for indexArr in self.echiquier.listeCoupsPossibles(echiquier.indexToNomCase(index)):
-                
+                    
                     valeurPiece = self.valeurPieces[(echiquier.positions[index].nom, echiquier.positions[index].couleur)]
                     
                     #ajout d'un nouveau mouvement à la liste
