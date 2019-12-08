@@ -1,5 +1,5 @@
 from chessboard import Echiquier
-from ia import MeilleurMouvement, Mouvement
+from ia import IA, Mouvement
 
 
 #==============================================================================
@@ -38,7 +38,7 @@ echiquier.afficherCoupsPossibles('C2')
 couleur = 'noir'
 #
 #
-ia = MeilleurMouvement(echiquier, 'noir')
+ia = IA(echiquier, 'noir')
 
 print(ia.meilleurMouvement(echiquier, couleur))
 
