@@ -28,7 +28,23 @@ class MeilleurMouvement:
                 }
 
     
-    def nMeilleursMouvementsPoints(self, n = 5, echiquier = None, niveauActuel = 0):
+    def nMeilleursMouvementsParPoints(self, n = 5, echiquier = None, 
+                                      profondeur = 3, niveauActuel = 0):
+        
+        """
+        Cette fonction permet d'optenir un arbre par recursivite.
+        
+        Elle renvoie les n meilleurs mouvements à realiser à partir 
+        d'un nombre de points.
+        
+        Le nombre de points est definit en fonction d'une valeur affectee 
+        à la piece ainsi qu'avec des points en moins si elle peut être 
+        mangée après le déplacement.
+        
+        Chaque mouvement contient une liste des n meilleurs mouvements
+        suivants, si l'adversaire aurait joue le coups suivant rapportant
+        le plus grand nombre de points.
+        """
         
         if echiquier == None:
             echiquier = self.echiquier
@@ -39,35 +55,28 @@ class MeilleurMouvement:
         #si le niveau actuel est le maximum souhaité (ici 5), on ne va pas plus profondement
         if not niveauActuel > 3:
 
-
-            #~~ pour tous les mouvements de toutes les pieces ~~
-
-            #pour toutes les pieces de la couleur pouvant être déplacées
-#            print(echiquier.listePiecesPouvantEtreDeplacees(self.couleur))
-            for index in echiquier.listePiecesPouvantEtreDeplacees(self.couleur):
-                
-                #pour tous les déplacements de la piece
-                for indexArr in self.echiquier.listeCoupsPossibles(echiquier.indexToNomCase(index)):
-                    
-                    valeurPiece = self.valeurPieces[(echiquier.positions[index].nom, echiquier.positions[index].couleur)]
-                    
-                    #ajout d'un nouveau mouvement à la liste
-                    listeMouvements.append(Mouvement(index, indexArr, valeurPiece, niveauActuel))
-                
-                
-            #pour optimiser, tri en gardant les n premiers   
-                
-            #on trie les elements par points                
-            listeMouvements = self.trierMouvements(listeMouvements)
+            
             
             #on garde les meilleures valeurs
             listeMouvements = listeMouvements[0:n]                
+
+
+
+            #~~~~ pour tous les n meilleurs mouvements ~~~~~~~~~~~~~~~~~~~~~~~~
+            
+            #~~ (ajout pour chaque mouvements des n meilleurs                ~~
+            #~~ mouvements suivants)                                         ~~   
                 
                 
             for mouvement in listeMouvements:
                 
                 # le nouvel echiquier contient la piece deplacee
                 echiquierTemp = echiquier
+                
+                # le nouvel echiquier contient le meilleur 
+                # déplacement de l'adversaire
+                echiquierTemp.deplacerPieceEnIndex()
+                
                 echiquierTemp.deplacerPieceEnIndex(mouvement.indexDepart, mouvement.indexArrivee)
                 
                 
@@ -82,6 +91,56 @@ class MeilleurMouvement:
 #                                            
             
             return listeMouvements
+    
+    
+    
+    
+    def listeTousMeilleursMouvements(self, echiquier, niveauProfondeur):
+        
+        """
+        Cette fonction renvoie tous les déplacements possibles triés
+        d'une couleur avec un obejet de la classe mouvement contenant :
+            - l'index de la piece a deplacer
+            - l'index d'arrivee de la iece a deplacer
+            
+        """
+        
+        
+        listeMouvements = []
+            
+        #~~~~ pour tous les mouvements de toutes les pieces ~~~~~~~~~~~~~~~
+        
+        #~~ (calcul des points pour chaque piece)                        ~~   
+
+
+        #pour toutes les pieces de la couleur pouvant être déplacées
+#            print(echiquier.listePiecesPouvantEtreDeplacees(self.couleur))
+        
+        for index in echiquier.listePiecesPouvantEtreDeplacees(self.couleur):
+            
+            piece = echiquier.positions[index]
+            
+            #pour tous les déplacements de la piece
+            for indexArr in self.echiquier.listeCoupsPossibles(echiquier.indexToNomCase(index)):
+                
+                valeurPiece = self.valeurPieces[(piece.nom, piece.couleur)]
+                
+                #ajout d'un nouveau mouvement à la liste
+                listeMouvements.append(Mouvement(index, indexArr, valeurPiece, niveauProfondeur))
+
+        #~~~~ Optimisation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            
+        #~~ (tri en gardant les n avec les plus de                           ~~ 
+        #~~ points                                                           ~~
+        
+        
+        #on trie les elements par points                
+        listeMouvements = self.trierMouvements(listeMouvements)
+        
+        return listeMouvements
+    
+    
+    
     
     
     def meilleurMouvement(self, liste = None):
