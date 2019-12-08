@@ -2,7 +2,7 @@
 #ia
 """
 
-class MeilleurMouvement:
+class IA:
     
     def __init__(self, echiquier, couleur):
         
@@ -55,7 +55,7 @@ class MeilleurMouvement:
         #si le niveau actuel est le maximum souhaité (ici 5), on ne va pas plus profondement
         if not niveauActuel > 3:
 
-            
+            listeMouvements = self.listeTousMeilleursMouvements(echiquier, niveauActuel)
             
             #on garde les meilleures valeurs
             listeMouvements = listeMouvements[0:n]                
@@ -75,12 +75,20 @@ class MeilleurMouvement:
                 
                 # le nouvel echiquier contient le meilleur 
                 # déplacement de l'adversaire
-                echiquierTemp.deplacerPieceEnIndex()
+                meilleurCoupAdversaire = self.listeTousMeilleursMouvements(echiquier, 
+                                                                           niveauActuel, 
+                                                                           self.couleurOpposee)
+                meilleurCoupAdversaire = meilleurCoupAdversaire[0]
+                echiquierTemp.deplacerPieceEnIndex(meilleurCoupAdversaire.indexDepart, 
+                                                   meilleurCoupAdversaire.indexArrivee)
                 
-                echiquierTemp.deplacerPieceEnIndex(mouvement.indexDepart, mouvement.indexArrivee)
+                echiquierTemp.deplacerPieceEnIndex(mouvement.indexDepart, 
+                                                   mouvement.indexArrivee)
                 
                 
-                listeMouvementsSuivants = self.nMeilleursMouvementsPoints(n, echiquierTemp, niveauActuel)
+                listeMouvementsSuivants = self.nMeilleursMouvementsPoints(n, 
+                                                                          echiquierTemp, 
+                                                                          niveauActuel)
             
                 mouvement.ajouterListeMouvementsSuivants(listeMouvementsSuivants)
 #                    print("_|_|_|_|_|_")
@@ -95,14 +103,15 @@ class MeilleurMouvement:
     
     
     
-    def listeTousMeilleursMouvements(self, echiquier, niveauProfondeur):
+    def listeTousMeilleursMouvements(self, echiquier, niveauProfondeur, couleur):
         
         """
         Cette fonction renvoie tous les déplacements possibles triés
         d'une couleur avec un obejet de la classe mouvement contenant :
             - l'index de la piece a deplacer
-            - l'index d'arrivee de la iece a deplacer
-            
+            - l'index d'arrivee de la piece a deplacer
+            - les points affectes a la piece
+            - le niveau de la profondeur du mouvement
         """
         
         
@@ -114,19 +123,22 @@ class MeilleurMouvement:
 
 
         #pour toutes les pieces de la couleur pouvant être déplacées
-#            print(echiquier.listePiecesPouvantEtreDeplacees(self.couleur))
+#            print(echiquier.listePiecesPouvantEtreDeplacees(couleur))
         
-        for index in echiquier.listePiecesPouvantEtreDeplacees(self.couleur):
+        for index in echiquier.listePiecesPouvantEtreDeplacees(couleur):
             
             piece = echiquier.positions[index]
             
+            listeCoupsPossibles = echiquier.listeCoupsPossibles(echiquier.indexToNomCase(index))
+            
+            
             #pour tous les déplacements de la piece
-            for indexArr in self.echiquier.listeCoupsPossibles(echiquier.indexToNomCase(index)):
+            for indexArrivee in listeCoupsPossibles:
                 
                 valeurPiece = self.valeurPieces[(piece.nom, piece.couleur)]
                 
                 #ajout d'un nouveau mouvement à la liste
-                listeMouvements.append(Mouvement(index, indexArr, valeurPiece, niveauProfondeur))
+                listeMouvements.append(Mouvement(index, indexArrivee, valeurPiece, niveauProfondeur))
 
         #~~~~ Optimisation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             
@@ -144,6 +156,11 @@ class MeilleurMouvement:
     
     
     def meilleurMouvement(self, liste = None):
+        
+        """
+        Cette fonction retour le meilleur mouvement a realiser d'apres
+        le nombre de points qu'il rapporte
+        """
         
         #à l'initialisation
         if liste == None:
