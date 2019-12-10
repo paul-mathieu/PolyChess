@@ -302,7 +302,14 @@ class Echiquier:
     
     #print("‎• or <>")
     
-    def listeIndexMangeantLaPiece(self, index):
+    def listeIndexMangeantLaPiece(self, indexPiece):
+        listeIndex = []
+        
+        for index in self.listePiecesPouvantEtreDeplacees(self.positions[indexPiece].couleurOpposee):
+            
+            for mouvement in 
+            
+        
         return len([]) <= 1
 
     
