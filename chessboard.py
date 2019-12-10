@@ -302,11 +302,14 @@ class Echiquier:
     
     #print("‎• or <>")
     
-    def leDeplacementMangeUnePiece(self, caseArrivee):
-        return self.positions[self.nomCaseToIndex(caseArrivee)].couleur != self.positions[0].pieceVide
-    
-    def laPiecePeutEtreMangee(self, nomCase):
+    def listeIndexMangeantLaPiece(self, index):
         return len([]) <= 1
+
+    
+    def leDeplacementMangeUnePiece(self, indexArrivee):
+        return self.positions[indexArrivee].couleur != self.positions[0].pieceVide
+    
+
     
 
     def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
@@ -317,10 +320,23 @@ class Echiquier:
 # =============================================================================
     
      #moins de points si la piece peut se faire manger
-    def pointsSiPeutEtreMangee(self, indexArrivee, couleur):
+    def coefficientPointsSiPeutEtreMangee(self, indexArrivee, couleur):
+        
+        #si len = 0
+        
+        #si len = 1
+        
+        #si len > 1
+        
+        pass
+        
+        
+        
+        
         
     
     #moins de points si elle n'a aucune piece de la meme couleur autour
-    def pointsSiPieceMemeCouleurProche(self, indexArrivee, couleur):
-
+    def coefficientPointsSiPieceMemeCouleurProche(self, indexArrivee, couleur):
+            
+        pass
     
