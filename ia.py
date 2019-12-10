@@ -28,11 +28,11 @@ class IA:
                 }
 
     
-    def nMeilleursMouvementsParPoints(self, n = 5, echiquier = None, 
-                                      profondeur = 3, niveauActuel = 0):
+    def arbre_nFils_pProfondeur(self, n = 5, echiquier = None, 
+                                      p = 3, niveauActuel = 0):
         
         """
-        Cette fonction permet d'optenir un arbre par recursivite.
+        Cette fonction permet d'optenir un TREE par recursivite.
         
         Elle renvoie les n meilleurs mouvements à realiser à partir 
         d'un nombre de points.
@@ -54,7 +54,12 @@ class IA:
         
         #si le niveau actuel est le maximum souhaité (ici 5), on ne va pas plus profondement
         if not niveauActuel > 3:
-
+            
+            
+            # =================================================================
+            # récupération des meilleurs mouvements
+            # =================================================================
+            
             listeMouvements = self.listeTousMeilleursMouvements(echiquier, niveauActuel)
             
             #on garde les meilleures valeurs
@@ -62,40 +67,59 @@ class IA:
 
 
 
-            #~~~~ pour tous les n meilleurs mouvements ~~~~~~~~~~~~~~~~~~~~~~~~
+
+            # =================================================================
+            # pour tous les n meilleurs mouvements
+            # =================================================================
             
             #~~ (ajout pour chaque mouvements des n meilleurs                ~~
             #~~ mouvements suivants)                                         ~~   
                 
-                
             for mouvement in listeMouvements:
                 
-                # le nouvel echiquier contient la piece deplacee
+                # le nouvel echiquier qui contiendra la piece deplacee
                 echiquierTemp = echiquier
+
                 
-                # le nouvel echiquier contient le meilleur 
-                # déplacement de l'adversaire
-                meilleurCoupAdversaire = self.listeTousMeilleursMouvements(echiquier, 
-                                                                           niveauActuel, 
-                                                                           self.couleurOpposee)
-                meilleurCoupAdversaire = meilleurCoupAdversaire[0]
-                echiquierTemp.deplacerPieceEnIndex(meilleurCoupAdversaire.indexDepart, 
-                                                   meilleurCoupAdversaire.indexArrivee)
+                # =============================================================
+                # l'IA joue
+                # =============================================================
                 
                 echiquierTemp.deplacerPieceEnIndex(mouvement.indexDepart, 
                                                    mouvement.indexArrivee)
                 
+                # =============================================================
+                # l'adversaire joue (théorie)
+                # =============================================================
                 
-                listeMouvementsSuivants = self.nMeilleursMouvementsPoints(n, 
-                                                                          echiquierTemp, 
-                                                                          niveauActuel)
-            
-                mouvement.ajouterListeMouvementsSuivants(listeMouvementsSuivants)
-#                    print("_|_|_|_|_|_")
-#                    print(index)
-#                    print(echiquier.positions[0:3])
-#                    print(echiquier.get_piece(index).nom)
-#                    print(echiquier.positions[index].couleur)
+                # le nouvel echiquier doit contenir le meilleur coup de l'adversaire
+                meilleurCoupAdversaire = self.listeTousMeilleursMouvements(echiquierTemp, 
+                                                                           niveauActuel, 
+                                                                           self.couleurOpposee)
+                # meilleur mouvement sans profondeur
+                meilleurCoupAdversaire = meilleurCoupAdversaire[0]
+                
+                # modification de l'échiquier
+                echiquierTemp.deplacerPieceEnIndex(meilleurCoupAdversaire.indexDepart, 
+                                                   meilleurCoupAdversaire.indexArrivee)
+                               
+                # =============================================================
+                # mouvements possibles ensuite (recursivite)
+                # =============================================================
+
+                # variable avec les mouvements suivants 
+                listeMouvementsSuivants = self.arbre_nFils_pProfondeur(n, echiquierTemp, 
+                                                                       p, niveauActuel)
+                
+                # ajout des mouvements suivant le mouvement actuel
+                mouvement.set_listeMouvementsSuivants(listeMouvementsSuivants)
+                
+                
+#                print("_|_|_|_|_|_")
+#                print(index)
+#                print(echiquier.positions[0:3])
+#                print(echiquier.get_piece(index).nom)
+#                print(echiquier.positions[index].couleur)
 #                                            
             
             return listeMouvements
@@ -103,7 +127,7 @@ class IA:
     
     
     
-    def listeTousMeilleursMouvements(self, echiquier, niveauProfondeur, couleur):
+    def listeTousMeilleursMouvements(self, echiquier, niveauProfondeur):
         
         """
         Cette fonction renvoie tous les déplacements possibles triés
@@ -112,6 +136,8 @@ class IA:
             - l'index d'arrivee de la piece a deplacer
             - les points affectes a la piece
             - le niveau de la profondeur du mouvement
+            
+        Cette fonction renvoie des objets Mouvement
         """
         
         
@@ -122,10 +148,13 @@ class IA:
         #~~ (calcul des points pour chaque piece)                        ~~   
 
 
-        #pour toutes les pieces de la couleur pouvant être déplacées
-#            print(echiquier.listePiecesPouvantEtreDeplacees(couleur))
+        # =====================================================================
+        # pour toutes les pieces de la couleur pouvant être déplacées
+        # =====================================================================
         
-        for index in echiquier.listePiecesPouvantEtreDeplacees(couleur):
+#        print(echiquier.listePiecesPouvantEtreDeplacees(couleur))
+        
+        for index in echiquier.listePiecesPouvantEtreDeplacees(self.couleur):
             
             piece = echiquier.positions[index]
             
@@ -136,6 +165,12 @@ class IA:
             for indexArrivee in listeCoupsPossibles:
                 
                 valeurPiece = self.valeurPieces[(piece.nom, piece.couleur)]
+                
+                #moins de points si la piece peut se faire manger
+                valeurPiece += echiquier.pointsSiPeutEtreMangee(indexArrivee, self.couleur)
+                
+                #moins de points si elle n'a aucune piece de la meme couleur autour
+                valeurPiece += echiquier.pointsSiPieceMemeCouleurProche(indexArrivee, self.couleur)
                 
                 #ajout d'un nouveau mouvement à la liste
                 listeMouvements.append(Mouvement(index, indexArrivee, valeurPiece, niveauProfondeur))
@@ -158,8 +193,15 @@ class IA:
     def meilleurMouvement(self, liste = None):
         
         """
-        Cette fonction retour le meilleur mouvement a realiser d'apres
+        Cette fonction retourne le meilleur mouvement a realiser d'apres
         le nombre de points qu'il rapporte
+        
+        Les points sont calcules de la maniere suivante :
+            - points de chaque mouvement (niveau == 1)
+            - points de chaque mouvement + moyenne des autres (niveau > 1)
+        
+        Le mouvement retourne est celui du niveau 1 donc le chemmin rapporte 
+        le plus de points
         """
         
         #à l'initialisation
@@ -174,6 +216,8 @@ class IA:
             if mouvement.valeurPiece + mouvement.listeMouvementsSuivants.meilleurMouvement() >= maxPoints:
                 
                 pass
+            
+        return 
                 
         
     
@@ -219,7 +263,7 @@ class Mouvement:
         self.listeMouvementsSuivants = None
 
 
-    def ajouterListeMouvementsSuivants(self, liste):
+    def set_listeMouvementsSuivants(self, liste):
         self.listeMouvementsSuivants = liste
         
     def get_valeurPiece(self):
