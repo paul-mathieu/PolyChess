@@ -312,8 +312,15 @@ class Echiquier:
     def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
         return len()
     
+# =============================================================================
+# fonction pour les calculs de points de l'IA
+# =============================================================================
+    
+     #moins de points si la piece peut se faire manger
+    def pointsSiPeutEtreMangee(self, indexArrivee, couleur):
+        
+    
+    #moins de points si elle n'a aucune piece de la meme couleur autour
+    def pointsSiPieceMemeCouleurProche(self, indexArrivee, couleur):
 
-    
-    
-    
     
