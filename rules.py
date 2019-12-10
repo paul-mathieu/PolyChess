@@ -51,7 +51,8 @@ class Piece:
     def __init__(self, nom = pieceVide, couleur = ''):
         
         self.nom = nom
-        self.couleur = couleur        
+        self.couleur = couleur
+        self.couleurOpposee = 'noir' if self.couleur == 'blanc' else 'blanc'
         self.valeur = self.valeurPiece[self.nomPiece.index(nom)]
         
         self.setNomPiece()
