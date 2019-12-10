@@ -36,7 +36,7 @@ class Echiquier:
                 \
             [Piece('Tour', 'noir'), Piece('Cavalier', 'noir'), 
              Piece('Fou','noir'),
-             Piece('Dame', 'noir'), Piece('Tour','noir'),
+             Piece('Dame', 'noir'), Piece('Roi','noir'),
              Piece('Fou', 'noir'), 
              Piece('Cavalier', 'noir'), Piece('Tour', 'noir')] + \
                 \
@@ -72,7 +72,9 @@ class Echiquier:
         lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["  " + element + "  " for element in ['A','B','C','D','E','F','G','H']])
         interlignes = "    " + reduce(lambda ele1, ele2 : ele1 + ele2, ["-" * 4 + " "] * 8)
         
-        
+        print(" " * 60 + "/")
+        print(" ".join(["—","-"] * 15))        
+        print(" " * 60 + "\\")
         
         print("   " + lettres)
         print(interlignes)
@@ -144,6 +146,10 @@ class Echiquier:
         couleur = self.positions[self.nomCaseToIndex(nomCase)].couleur
         couleurOpposee = 'noir' if couleur == 'blanc' else 'blanc'
         
+        print(" " * 60 + "/")
+        print(" ".join(["—","-"] * 15))        
+        print(" " * 60 + "\\")
+
         print("   " + lettres)
         print(interlignes)
         
@@ -226,8 +232,12 @@ class Echiquier:
         
         indexCase = self.nomCaseToIndex(nomCase)
         
+        return self.listeCoupsPossiblesEntreeIndex(indexCase)
+
+    
+    def listeCoupsPossiblesEntreeIndex(self, indexCase):
+        
         if self.positions[indexCase].nom == self.positions[indexCase].pieceVide:
-            
             return []
         
         if self.positions[indexCase].nom == 'Pion':
@@ -246,7 +256,7 @@ class Echiquier:
             return self.positions[indexCase].listeCoupsPossiblesDame(indexCase, self)
         
         if self.positions[indexCase].nom == 'Roi':
-            return self.positions[indexCase].listeCoupsPossiblesRoi(indexCase, self)
+            return self.positions[indexCase].listeCoupsPossiblesRoi(indexCase, self)  
         
 
     def listeCoupsPossiblesFormatCase(self, nomCase):
@@ -291,6 +301,9 @@ class Echiquier:
     
     def nomCaseToIndex(self, nomCase):
         
+        if not type(nomCase) is str:
+            return 'erreur saisie'
+        
         lettres = ['A','B','C','D','E','F','G','H']
         lig, col = 8 - int(nomCase[1]), lettres.index(nomCase[0]) + 1
         
@@ -305,22 +318,26 @@ class Echiquier:
     def listeIndexMangeantLaPiece(self, indexPiece):
         listeIndex = []
         
-        for index in self.listePiecesPouvantEtreDeplacees(self.positions[indexPiece].couleurOpposee):
+        for indexDepart in self.listePiecesPouvantEtreDeplacees(self.positions[indexPiece].couleurOpposee):
             
-            for mouvement in 
-            
+            for indexArrivee in self.listeCoupsPossiblesEntreeIndex(indexDepart):
+                
+                if indexArrivee == indexPiece:
+                    
+                    listeIndex.append(indexDepart)
+                    break
+                
         
-        return len([]) <= 1
+        return listeIndex
 
     
     def leDeplacementMangeUnePiece(self, indexArrivee):
         return self.positions[indexArrivee].couleur != self.positions[0].pieceVide
     
 
-    
 
     def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
-        return len()
+        return len(self.listeIndexMangeantLaPiece(index))
     
 # =============================================================================
 # fonction pour les calculs de points de l'IA
@@ -329,14 +346,20 @@ class Echiquier:
      #moins de points si la piece peut se faire manger
     def coefficientPointsSiPeutEtreMangee(self, indexArrivee, couleur):
         
+        nbPiecePouvantManger = self.nombreDePiecesAdversesPouvantMangerLaPiece(indexArrivee)
+        
         #si len = 0
+        if nbPiecePouvantManger == 0:
+            return 1
         
         #si len = 1
+        if nbPiecePouvantManger == 1:
+            return 1.5
         
         #si len > 1
-        
-        pass
-        
+        if nbPiecePouvantManger > 1 :
+            return 1.5 + .2 * (nbPiecePouvantManger - 1)
+            
         
         
         
