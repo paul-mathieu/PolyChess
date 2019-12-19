@@ -1,3 +1,8 @@
+"""
+
+"""
+
+
 from chessboard import Echiquier
 from ia import IA, Mouvement
 
@@ -18,7 +23,10 @@ print(echiquier.listeCoupsPossiblesFormatCase('B7'))
 echiquier.deplacerPiece('A2', 'A3')
 echiquier.afficher()
 
-echiquier.afficherCoupsPossibles('C2')
+echiquier.deplacerPiece('C2', 'E4')
+echiquier.afficher()
+
+echiquier.afficherCoupsPossibles('E4')
 
 #print(echiquier.listeDeplacementsPossibles('A6'))
 
