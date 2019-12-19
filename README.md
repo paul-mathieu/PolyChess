@@ -30,3 +30,5 @@ Pendant la partie, le programme permet le déplacement de pièces de manière cl
 * Il peut détecter lorsque qu'un roi est en échec. Le programme empèche un joueur de se mettre en échec pendant son propre tour, ce qui a pour conséquence d'obliger un joueur à ne plus être en échec si son adversaire l'a mis en échec. Le déplacement d'une pièce doit donc remplir les conditions de déplacements classique ainsi que la non-mise en échec de son propre roi.
 * Le programme est capable de reconnaitre un échec et mat, ce qui signifie que le roi est mis en échec et que le joueur ne dispose d'aucun coup pour ne plus être en échec, il a donc perdu, le programme termine la partie
 * Il détecte aussi le pat, c'est à dire qu'un joueur n'est pas en échec mais il ne peut plus rien jouer, sans se mettre en échec par lui même. Le programme arrête alors aussi la partie : il n'y a pas de vainqueur.
+
+<img src="/Pieces/Cavalier blanc.png" style="width: 75%;">
