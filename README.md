@@ -6,7 +6,7 @@ Ce dépot à pour but de créer un jeu d'échec.
 Le programme permet de jouer aux échecs et peut déplacer les pièces selon leur mouvements officels, dans un échiquier de 8x8 cases. Le programme permet de faire des parties entre 2 joueurs ou avec un joueur et une IA.
 Représentation de l'échiquier de base :
 ![ChessBoard](https://user-images.githubusercontent.com/56953297/71244403-b74ece00-2312-11ea-83d9-d85f36f7e0e5.png)
-<img class="ChessBoard" src="https://user-images.githubusercontent.com/56953297/71244403-b74ece00-2312-11ea-83d9-d85f36f7e0e5.png" width="50px">
+<img class="ChessBoard" src="https://user-images.githubusercontent.com/56953297/71244403-b74ece00-2312-11ea-83d9-d85f36f7e0e5.png" width="400px">
 Avec des chiffres pour la hauteur et des lettres pour la largeur.
 
 On ne peut jouer qu'à la version standard des échecs, il n'y a pas de variantes possible.
