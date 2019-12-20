@@ -19,10 +19,10 @@ Le jeu oppose un joueur aux pièces blanches contre un joueur aux pièces noires
 * La Tour : elle n'a qu'un seul déplacement, en ligne droite jusqu'à une case vide, ou jusqu'à une pièce adverse dont elle prendra la position. Sans limite de nombre de cases.
 * Le Roi : c'est la pièce a protéger, elle peut se déplacer ou prendre sur toute ses cases adjacentes (jusqu'à 8 cases autour d'elle).
 * Le Fou : il se déplace en diagonale, sans limite de case.
+* La Dame : c'est la pièce la plus puissante, elle dispose à la fois des déplacements de la tour et du fou.
 * Le Cavalier : c'est la seule pièce du jeu qui peut passer par dessus les pièces (adverses comme alliées). Son déplacement s'effectue en forme de "L", soit de deux cases en ligne droite dans n'importe quel direction et d'une case dans une direction parallèle à cette dernière. Le cavalier peut avoir jusqu'à 8 choix possible. 
 <img class="CavalierDeplacement" src="https://user-images.githubusercontent.com/56953297/71251255-1cf68680-2322-11ea-942a-1ed7d2e9ce15.png" width="250px">
 
-* La Dame : c'est la pièce la plus puissante, elle dispose à la fois des déplacements de la tour et du fou.
 
 Il existe des déplacements spéciaux que le programme permet : 
 * Le roque : il existe deux types de roque, le petit et le grand roque. Le petit roque consiste a déplacer le roi de deux cases vers la tour, et la tour de deux cases vers le roi, ce qui a pour conséquence de faire passer la tour par dessus le roi. Le grand roque est comme le petit, sauf que la tour se déplace de 3 cases. Il est possible d'effectuer un roque qu'une seule fois par partie. Un joueur peut roquer uniquement si la tour et le roi n'ont pas quitter leur position initial, de plus, les cases entre la tour et le roi doivent être inocupées. Le roi peut cependant avoir subis des échecs au préalable, du moment qu'il n'a pas bougé.
