@@ -33,8 +33,8 @@ Pendant la partie, le programme permet le déplacement de pièces de manière cl
 * Le programme est capable de reconnaitre un échec et mat, ce qui signifie que le roi est mis en échec et que le joueur ne dispose d'aucun coup pour ne plus être en échec, il a donc perdu, le programme termine la partie
 
 * Cas où le programme annonce une partie nulle :
-`* Le Pat : c'est lorsqu'un joueur n'est pas en échec mais il ne peut plus rien jouer, sans se mettre en échec par lui même. Le programme arrête alors aussi la partie : il n'y a pas de vainqueur.`
-'* Absence de matériel : les deux joueurs n'ont plus de pièces à part leur roi respectif. Cela fonctionne aussi si un joueur n'a plus qu'un roi et que l'autre n'a qu'un roi et un seul fou, ou un seul cavalier. En effet, il est impossible de mettre en échec et mat sans matériel, ou avec un seul fou ou cavalier.'
+  * Le Pat : c'est lorsqu'un joueur n'est pas en échec mais il ne peut plus rien jouer, sans se mettre en échec par lui même. Le programme arrête alors aussi la partie : il n'y a pas de vainqueur.
+  * Absence de matériel : les deux joueurs n'ont plus de pièces à part leur roi respectif. Cela fonctionne aussi si un joueur n'a plus qu'un roi et que l'autre n'a qu'un roi et un seul fou, ou un seul cavalier. En effet, il est impossible de mettre en échec et mat sans matériel, ou avec un seul fou ou cavalier.'
 '* Répétition : si une postition est répétée trois fois, la partie s'arrête.'
 '* Les 50 coups : si les joueurs jouent 50 coups sans déplacer un pion ou prendre une pièce adverse, la partie s'arrête.'
 
