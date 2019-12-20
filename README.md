@@ -21,6 +21,7 @@ Le jeu oppose un joueur aux pièces blanches contre un joueur aux pièces noires
 * Le Fou : il se déplace en diagonale, sans limite de case.
 * Le Cavalier : c'est la seule pièce du jeu qui peut passer par dessus les pièces (adverses comme alliées). Son déplacement s'effectue en forme de "L", soit de deux cases en ligne droite dans n'importe quel direction et d'une case dans une direction parallèle à cette dernière. Le cavalier peut avoir jusqu'à 8 choix possible. 
 <img class="CavalierDeplacement" src="https://user-images.githubusercontent.com/56953297/71251255-1cf68680-2322-11ea-942a-1ed7d2e9ce15.png" width="250px">
+
 * La Dame : c'est la pièce la plus puissante, elle dispose à la fois des déplacements de la tour et du fou.
 
 Il existe des déplacements spéciaux que le programme permet : 
