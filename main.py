@@ -7,6 +7,47 @@ from chessboard import Echiquier
 from ia import IA, Mouvement
 
 
+
+# =============================================================================
+# Gestion de l'interface - boucle du moteur
+# =============================================================================
+
+
+echiquier = Echiquier()
+echiquier.afficher()
+
+demande_au_joueur = "Que voulez-vous faire ?"
+liste_aide_joueur = {1 : ("Pour jouer", ["jouer", ""]), 
+                     2 : ("Pour connaitre les coups possibles", ["coups"]),
+                     3 : ("Pour connaitre la liste des coups possibles d'une piece", ["piece"]),
+                     4 : ("Pour afficher l'échiquier", ["afficher"]),
+                     5 : ("Pour afficher l'échiquier avec les coups possibles d'une piece", ["afficher [coordonnées]"])}
+
+aide_joueur = ""
+
+for numero_du_tour in range(50):
+    
+    #-- le joueur joue --
+     
+    #qu'est-ce qu'il veut faire ?
+    while True:
+        
+        #si il veut jouer
+        if 
+        
+        #si il veut déplacer d'une piece
+    
+    
+    
+    #verification de fin de partie
+    
+    
+    #-- l'IA joue --
+    #déplacement d'une piece
+    
+    
+    #vérification de la fin de partie
+
 #==============================================================================
 # Appel de l'échiquier
 #==============================================================================
@@ -24,7 +65,7 @@ echiquier.deplacerPiece('A2', 'A3')
 echiquier.afficher()
 
 echiquier.deplacerPiece('C2', 'E4')
-echiquier.afficher()
+echiquier.afficher() 
 
 echiquier.afficherCoupsPossibles('E4')
 
