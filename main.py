@@ -42,7 +42,16 @@ liste_aide_joueur = {1 : (
                          )
                      }
 
-aide_joueur = "\n".join([str(numero) + " - " + liste_aide_joueur[numero][0] + ", entrez : " + " ou ".join(liste_aide_joueur[numero][1]) + " ou " + str(numero) + [" [coordonnées départ] [coordonnées arrivée]" if numero == 1 else ""][0] for numero in liste_aide_joueur.keys()]) + "\n\n"
+aide_joueur = "\n".join(
+                        [str(numero) 
+                        + " - " 
+                        + liste_aide_joueur[numero][0] 
+                        + ", entrez : " 
+                        + " ou ".join(liste_aide_joueur[numero][1]) 
+                        + " ou " 
+                        + str(numero) 
+                        + [" [coordonnées départ] [coordonnées arrivée]" if numero == 1 else ""][0] for numero in liste_aide_joueur.keys()]
+                       ) + "\n\n"
 
 str_ne_plus_afficher_laide = "Pour ne plus afficher l'aide, entrez : fin aide\n\n"
 str_afficher_laide = "Pour afficher l'aide, entrez : aide\n\n"
