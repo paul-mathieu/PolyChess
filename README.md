@@ -9,12 +9,12 @@ Le programme permet de jouer aux échecs et peut déplacer les pièces selon leu
 
 <img class="ChessBoard" src="https://user-images.githubusercontent.com/56953297/71244403-b74ece00-2312-11ea-83d9-d85f36f7e0e5.png" width="340px">
 
-Avec des chiffres pour la hauteur et des lettres pour la largeur.
+Avec des chiffres de 1 à 8 pour la hauteur et des lettres de A à H pour la largeur.
 
 On ne peut jouer qu'à la version standard des échecs, il n'y a pas de variantes possible.
 
-Pour ceux qui ne connaissent pas le fonctionnement des échecs voici un rappel.
-Le jeu oppose un joueur blanc contre un joueur noir. Le but est de mettre en échec et mat le roi adverse (c'est à dire dans l'impossibilité de se déplacer sans être menacé), à l'aide de ses propres pièces. Les pièces peuvent se déplacer dans l'échiquier selon différentes règles.
+Pour ceux qui ne connaissent pas le fonctionnement des échecs, en voici un rappel.
+Le jeu oppose un joueur aux pièces blanches contre un joueur aux pièces noires. Le but est de mettre en échec et mat le roi adverse (c'est à dire dans l'impossibilité de se déplacer sans être menacé), à l'aide de ses propres pièces. Les pièces peuvent se déplacer dans l'échiquier selon différentes règles.
 * Le Pion : il peut se déplacer uniquement en avant dans le sens des chriffres (vers le 8 si le joueur est blanc et vers le 1 si le joueur est noir). Le pion a trois déplacements possible. Classique, il avance d'une case vers une case vide. Premier déplacement, si le pion ne s'est pas encore déplacer il peut avancer de 2 cases en passant par deux cases vides. Prise, le pion peut prendre une pièce adverse située en diagonale vers l'avant (exemple : un pion blanc en b2 peut prendre en a3 ou c3). À part pour le pion, toute les pièce on un déplacement et une prise identique.
 * La Tour : elle n'a qu'un seul déplacement, en ligne droite jusqu'à une case vide, ou jusqu'à une pièce adverse dont elle prendra la position. Sans limite de nombre de cases.
 * Le Roi : c'est la pièce a protéger, elle peut se déplacer ou prendre sur toute ses cases adjacentes (jusqu'à 8 cases autour d'elle).
