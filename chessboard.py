@@ -380,3 +380,6 @@ class Echiquier:
             
         pass
     
+
+
+
