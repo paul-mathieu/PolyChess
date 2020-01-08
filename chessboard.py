@@ -429,7 +429,6 @@ class Echiquier:
         
         
         
-        
     
     #moins de points si elle n'a aucune piece de la meme couleur autour
     def coefficientPointsSiPieceMemeCouleurProche(self, indexArrivee, couleur):
