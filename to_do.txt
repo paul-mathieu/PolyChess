@@ -1,0 +1,35 @@
+commenter tout
+   - chessboard (affichage de l'échiquier + fin de jeu + qqs vérif 
+        pour l'ia)
+     > +
+   - ia (classe avec arbre récursif) /!\ partiellement commenté
+     > ++
+   - main (boucle pour pvp ou pvb)
+     > +/2
+   - rules (règle de déplacement)
+     > ++
+
+faire les coups spéciaux
+   - le pion peut manger un pion en diagonale mais aller tout droit
+     > ++
+   - si la tour gauche (ou droit je ne sait plus) se colle au roi, 
+        ces deux pieces échangent leur places
+     > ++
+
+en mode pvp
+   - finir le mode avec l'interface (instruction + boucle avec soit
+        le joueur blanc soit le joueur noir) /!\ penser à intégrer
+        les commandes avec les lettres pour les utilisateurs
+     > +
+
+gérer les fins de parties
+   - détecter lorsqu'un roi est échec
+     > +
+   - détecter lorsqu'un roi est échec et mat
+     > +
+
+IA
+   - en mode 'maison', ajouter la défense
+     > +++
+   - ajouter le mode avec la base de donnée des coups
+     > +++
