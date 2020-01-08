@@ -346,9 +346,6 @@ class Echiquier:
         return len(self.listeIndexMangeantLaPiece(index))
     
     def roiOuTourBlancheABouge(self):
-        self.roiOuTourBlancheABouge(4) == 0
-        self.roiOuTourBlancheABouge(0) == 0
-        self.roiOuTourBlancheABouge(7) == 0
         if (self.positions[4].nom == 'Roi' and self.roiOuTourBlancheABouge(4) == 0) or (self.positions[0].nom == 'Tour' or self.positions[7].nom == 'Tour' and self.roiOuTourBlancheABouge(0) == 0 and self.roiOuTourBlancheABouge(7) == 0):
             return 0
         else: 
