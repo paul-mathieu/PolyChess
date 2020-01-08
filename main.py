@@ -4,8 +4,7 @@
 
 
 from chessboard import Echiquier
-from ia import IA, Mouvement
-
+from rules import Piece
 # =============================================================================
 # Gestion de l'interface - boucle du moteur
 # =============================================================================
@@ -33,6 +32,14 @@ def estUneCoordonnee(string):
         return False
     
     return True
+
+def testCouleur(position):
+    index = echiquier.nomCaseToIndex(position)
+    piece = echiquier.get_piece(index)
+    
+    return  piece.couleur
+
+    
 
 
 
@@ -109,28 +116,65 @@ def jouerEnModeJcIA(liste_aide_joueur,
                 ne_plus_afficher_laide = True
     #        elif entree_
             
-            # 1 - si il veut jouer
-            if entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
-                break
+    
+            if entree_joueur == '99':
+                print('\n'*3 + 'Vous venez de quitter la partie.')
+                return ''
             
-            # 2 - "Pour connaitre les coups possibles"
+            # 2 - "Pour connaitre les pièces pouvant bouger"
             elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
-                pass
+                
+                print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase('blanc'))
+                    
             
             # 3 - "Pour connaitre la liste des coups possibles d'une piece"
-            elif entree_joueur in liste_aide_joueur[3][1] + ['3']:
-                pass
-            
+            elif entree_joueur[:-3] in liste_aide_joueur[3][1] + ['3']:
+                if testCouleur(entree_joueur[-2:])!= 'blanc':
+                    print("Case invalide")
+                elif estUneCoordonnee(entree_joueur[-2:]):
+                    print(echiquier.listeCoupsPossiblesFormatCase(entree_joueur[-2:]))
+                    
+                
             # 4 - "Pour afficher l'échiquier"
             elif entree_joueur in liste_aide_joueur[4][1] + ['4']:
+                
                 echiquier.afficher()
             
             # 5 - "Pour afficher l'échiquier avec les coups possibles d'une piece"
-            elif entree_joueur in liste_aide_joueur[5][1] + ['5']:
-                pass
-        
-        break
+            elif entree_joueur[:-3] in liste_aide_joueur[5][1] + ['5']:
+                if estUneCoordonnee(entree_joueur[-2:]):
+                    if testCouleur(entree_joueur[-2:])!= 'blanc':
+                        print("Case invalide")
+                    else:
+                        echiquier.afficherCoupsPossibles(entree_joueur[-2:])
+                    
+
+            # 1 - si il veut jouer
+            elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
+                valeurDeplacement = entree_joueur[-5:]
+                while not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' and testCouleur(valeurDeplacement[:2])!= 'blanc':
+                    
+                        print("Case invalide")
+                        valeurDeplacement = input('')[-5:]
+                
+                # ne faire jouer que la couleur
+                # ne pas faire un déplacement interdit (continuer la boucle)
+                
+                
+                echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
+                
+                break 
        
+        echiquier.afficher()
+        
+        
+# =============================================================================
+#         """IA doit joué"""
+# =============================================================================
+        
+        
+        
+        
         
     
     #verification de fin de partie
@@ -175,15 +219,17 @@ def jouerEnModeJcJ(liste_aide_joueur,
                 print('\n'*3 + 'Vous venez de quitter la partie.')
                 return ''
             
-            # 2 - "Pour connaitre les coups possibles"
+            # 2 - "Pour connaitre les pièces pouvant bouger"
             elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
+                
                 print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase('blanc'))
                     
             
             # 3 - "Pour connaitre la liste des coups possibles d'une piece"
             elif entree_joueur[:-3] in liste_aide_joueur[3][1] + ['3']:
-#                print(estUneCoordonnee(entree_joueur[-2:]))
-                if estUneCoordonnee(entree_joueur[-2:]):
+                if testCouleur(entree_joueur[-2:])!= 'blanc':
+                    print("Case invalide")
+                elif estUneCoordonnee(entree_joueur[-2:]):
                     print(echiquier.listeCoupsPossiblesFormatCase(entree_joueur[-2:]))
                     
                 
@@ -195,16 +241,21 @@ def jouerEnModeJcJ(liste_aide_joueur,
             # 5 - "Pour afficher l'échiquier avec les coups possibles d'une piece"
             elif entree_joueur[:-3] in liste_aide_joueur[5][1] + ['5']:
                 if estUneCoordonnee(entree_joueur[-2:]):
-                    echiquier.afficherCoupsPossibles(entree_joueur[-2:])
+                    if testCouleur(entree_joueur[-2:])!= 'blanc':
+                        print("Case invalide")
+                    else:
+                        echiquier.afficherCoupsPossibles(entree_joueur[-2:])
                     
 
             # 1 - si il veut jouer
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
                 valeurDeplacement = entree_joueur[-5:]
-                while not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:]) and valeurDeplacement[2] == ' '):
-                    valeurDeplacement = input('')[-5:]
+                while not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' and testCouleur(valeurDeplacement[:2])!= 'blanc':
+                    
+                        print("Case invalide")
+                        valeurDeplacement = input('')[-5:]
                 
-                # ne faire jouer que mla couleur
+                # ne faire jouer que la couleur
                 # ne pas faire un déplacement interdit (continuer la boucle)
                 
                 
@@ -233,31 +284,56 @@ def jouerEnModeJcJ(liste_aide_joueur,
                 ne_plus_afficher_laide = True
     #        elif entree_
             
+                        
+    
             if entree_joueur == '99':
                 print('\n'*3 + 'Vous venez de quitter la partie.')
                 return ''
-
             
-            # 2 - "Pour connaitre les coups possibles"
+            # 2 - "Pour connaitre les pièces pouvant bouger"
             elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
+                
                 print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase('noir'))
+                    
             
             # 3 - "Pour connaitre la liste des coups possibles d'une piece"
-            elif entree_joueur in liste_aide_joueur[3][1] + ['3']:
-                pass
-            
+            elif entree_joueur[:-3] in liste_aide_joueur[3][1] + ['3']:
+                if testCouleur(entree_joueur[-2:])!= 'noir':
+                    print("Case invalide")
+                elif estUneCoordonnee(entree_joueur[-2:]):
+                    print(echiquier.listeCoupsPossiblesFormatCase(entree_joueur[-2:]))
+                    
+                
             # 4 - "Pour afficher l'échiquier"
             elif entree_joueur in liste_aide_joueur[4][1] + ['4']:
-                pass
+                
+                echiquier.afficher()
             
             # 5 - "Pour afficher l'échiquier avec les coups possibles d'une piece"
-            elif entree_joueur in liste_aide_joueur[5][1] + ['5']:
-                echiquier.afficherCoupsPossibles(entree_joueur)
-                
+            elif entree_joueur[:-3] in liste_aide_joueur[5][1] + ['5']:
+                if estUneCoordonnee(entree_joueur[-2:]):
+                    if testCouleur(entree_joueur[-2:])!= 'noir':
+                        print("Case invalide")
+                    else:
+                        echiquier.afficherCoupsPossibles(entree_joueur[-2:])
+                    
+
             # 1 - si il veut jouer
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
-                break
-            
+                valeurDeplacement = entree_joueur[-5:]
+                while not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' and testCouleur(valeurDeplacement[:2])!= 'noir':
+                    
+                        print("Case invalide")
+                        valeurDeplacement = input('')[-5:]
+                
+                # ne faire jouer que la couleur
+                # ne pas faire un déplacement interdit (continuer la boucle)
+                
+                
+                echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
+                
+                break 
+       
         echiquier.afficher()    
             
         if echiquier.isEchecEtMat():
