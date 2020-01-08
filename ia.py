@@ -94,8 +94,7 @@ class IA:
                 
                 # le nouvel echiquier doit contenir le meilleur coup de l'adversaire
                 meilleurCoupAdversaire = self.listeTousMeilleursMouvements(echiquierTemp, 
-                                                                           niveauActuel, 
-                                                                           self.couleurOpposee)
+                                                                           niveauActuel)
                 # meilleur mouvement sans profondeur
                 meilleurCoupAdversaire = meilleurCoupAdversaire[0]
                 
@@ -170,7 +169,7 @@ class IA:
                 valeurPiece *= echiquier.coefficientPointsSiPeutEtreMangee(indexArrivee, self.couleur)
                 
                 #moins de points si elle n'a aucune piece de la meme couleur autour
-                valeurPiece *= echiquier.coefficientPointsSiPieceMemeCouleurProche(indexArrivee, self.couleur)
+#                valeurPiece *= echiquier.coefficientPointsSiPieceMemeCouleurProche(indexArrivee, self.couleur)
                 
                 #ajout d'un nouveau mouvement à la liste
                 listeMouvements.append(Mouvement(index, indexArrivee, valeurPiece, niveauProfondeur))
@@ -190,7 +189,7 @@ class IA:
     
     
     
-    def meilleurMouvement(self, liste = None):
+    def meilleurMouvement(self, liste = None, niveau = 0):
         
         """
         Cette fonction retourne le meilleur mouvement a realiser d'apres
@@ -217,7 +216,7 @@ class IA:
                 
                 pass
             
-        return 
+        return liste
                 
         
     
@@ -236,6 +235,7 @@ class IA:
                 liste1.append(x)
             else:
                 liste2.append(x)
+                
         return self.trierMouvements(liste1) + [pivot] + self.trierMouvements(liste2)
     
 
