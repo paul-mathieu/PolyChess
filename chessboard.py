@@ -230,32 +230,30 @@ class Echiquier:
         
         listeDesCoupsPossibles = self.listeCoupsPossibles(nomCaseDepart)
         
-        if self.postions[indexDep].nom == 'Pion':
-            if self.couleur == 'blanc':
+        if self.positions[indexDep].nom == 'Pion':
+            if Piece().couleur == 'blanc':
                 aRetirer=[]
-                for deplacement in self.listeCoupsPossiblesFou(position, echiquier) :
-                    echiquier.deplacerPieceEnIndex(deplacement, self.listeCoupsPossiblesFou(position, echiquier))
-                    echiquier.afficher()
-                if echiquier.isEchecBlanc():
-                    aRetirer.append(deplacement)
-        return self.listeCoupsPossiblesFou(position, echiquier) - aRetirer
+                for deplacement in listeDesCoupsPossibles:
+                    self.deplacerPieceEnIndex(deplacement, listeDesCoupsPossibles)
+                    if self.isEchecBlanc():
+                        aRetirer.append(deplacement)
+                        listeDesCoupsPossibles -= aRetirer
         
-        elif self.postions[indexDep].nom == 'Fou':
-            pass
+#        elif self.postions[indexDep].nom == 'Fou':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Tour':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Dame':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Roi':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Cavalier':
+#            pass
         
-        elif self.postions[indexDep].nom == 'Tour':
-            pass
-        
-        elif self.postions[indexDep].nom == 'Dame':
-            pass
-        
-        elif self.postions[indexDep].nom == 'Roi':
-            pass
-        
-        elif self.postions[indexDep].nom == 'Cavalier':
-            pass
-        
-        listeDesCoupsPossibles
         
         if indexArr in listeDesCoupsPossibles:
             
