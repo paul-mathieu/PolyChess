@@ -95,7 +95,7 @@ ne_plus_afficher_laide = False
 #    
 #    break
 #   
-#    
+#
     
     #verification de fin de partie
     
@@ -142,16 +142,17 @@ echiquier.afficherCoupsPossibles('E4')
 # Appel de l'IA
 #==============================================================================
 
+
+couleur = 'noir'
 #
-#couleur = 'noir'
-##
-##
-#ia = IA(echiquier, 'noir')
 #
+ia = IA(echiquier, 'noir')
+
 #print(ia.meilleurMouvement(echiquier, couleur))
-#
+
 #possibilites = ia.nMeilleursMouvementsPoints(5)
-#
+possibilites = ia.arbre_nFils_pProfondeur()
+
 
 
 
@@ -175,7 +176,7 @@ echiquier.afficherCoupsPossibles('E4')
 # =============================================================================
 
 
-
+#
 #
 #Fait jusqu'à présent (liste pas a jour) :
 #    - classe Echiquier et classe Piece
