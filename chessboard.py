@@ -4,7 +4,7 @@
 """
 
 from functools import reduce
-from Rules import Piece
+from rules import Piece
 
 
 class Echiquier:
@@ -12,8 +12,6 @@ class Echiquier:
     
     def __init__(self):
         
-        self.estEchec = {"blanc" : False, "noir" : False}
-         
         self.positions = \
             [Piece('Tour', 'noir'), 
              Piece('Cavalier', 'noir'), 
@@ -222,20 +220,12 @@ class Echiquier:
         indexArr = self.nomCaseToIndex(nomCaseArrivee)
         
         if indexArr in self.listeCoupsPossibles(nomCaseDepart):
-            
-    #        if not self.positions[indexDep].pieceABouge:
-     #           self.positions[indexDep].pieceABouge = True 
-            
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
         
     def deplacerPieceEnIndex(self, indexDepart, indexArrivee):
         
         if indexArrivee in self.listeCoupsPossibles(self.indexToNomCase(indexDepart)):
-            
-            if not self.positions[indexDepart]:
-                self.positions[indexDepart] = True 
-            
             self.positions[indexArrivee] = self.positions[indexDepart]
             self.positions[indexDepart] = Piece()  
         
@@ -299,39 +289,6 @@ class Echiquier:
 # Fin du jeu
 #==============================================================================
 
-    def isEchecBlanc(self):
-        
-        #on recupere les podsitons du roi
-        
-        listePositionsRoi1 = []
-        index = 0
-        for piece in self.positions:
-            if piece.nom == 'Roi' and piece.couleur=='blanc':
-                listePositionsRoi1.append((piece, index))    
-            index += 1
-            
-        if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi1[0])!=0:
-            return True
-        
-        
-    def isEchecNoir(self):
-        
-        
-        listePositionsRoi2 = []
-        index = 0
-        for piece in self.positions:
-            if piece.nom == 'Roi' and piece.couleur=='noir':
-                listePositionsRoi2.append((piece, index))    
-            index += 1
-            
-        if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi2[0])!=0:
-            return True  
-            
-            
-     
-        
-
-
     def isEchecEtMat(self):
         return len(list(filter(lambda piece : piece.nom == 'Roi', self.positions))) < 2
     
@@ -357,6 +314,7 @@ class Echiquier:
         lig, col = 8 - int(nomCase[1]), lettres.index(nomCase[0]) + 1
         
         return lig * 8 + col - 1
+    
     
     def indexToNomCase(self, indexCase):
         
@@ -388,23 +346,12 @@ class Echiquier:
     def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
         return len(self.listeIndexMangeantLaPiece(index))
     
-    def roiOuTourBlancheABouge(self):
-        if (self.positions[4].nom == 'Roi' and self.roiOuTourBlancheABouge(4) == 0) or (self.positions[0].nom == 'Tour' or self.positions[7].nom == 'Tour' and self.roiOuTourBlancheABouge(0) == 0 and self.roiOuTourBlancheABouge(7) == 0):
-            return 0
-        else: 
-            return 1
-        
-        
-   # def roiOuTourNoireABouge(self, indexCase):
-    #    if (self.positions[60].nom == 'Roi' and self.aBouge(60) == 0) or ((indexCase == 56 or indexCase== 63) and self.positions[indexCase].nom == 'Tour' and self.aBouge(56) == 0 and self.aBouge(63) == 0):
-     #       return 0
-      #  else: 
-       #     return 1
-        
-  #  def petitRoqueBlanc(self, indexPiece):
-     #   if self.positions[1].nom == self.positions[1].pieceVide and 
-        
-        
+    def emplacmentPiecesBlanche(self):
+        return [self.indexToNomCase(element) for element in[index for index in range(8*8-1) if self.positions[index].couleur == 'blanc']]
+    
+    def emplacementPiecesnoires(self):
+        return [self.indexToNomCase(element) for element in[index for index in range(8*8-1) if self.positions[index].couleur == 'noir']]
+    
 # =============================================================================
 # fonction pour les calculs de points de l'IA
 # =============================================================================
