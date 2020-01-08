@@ -194,6 +194,7 @@ def jouerEnModeJcJ(liste_aide_joueur,
             
             # 5 - "Pour afficher l'échiquier avec les coups possibles d'une piece"
             elif entree_joueur[:-3] in liste_aide_joueur[5][1] + ['5']:
+                if estUneCoordonnee(entree_joueur[-2:]):
                     echiquier.afficherCoupsPossibles(entree_joueur[-2:])
                     
 
@@ -201,7 +202,7 @@ def jouerEnModeJcJ(liste_aide_joueur,
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
                 valeurDeplacement = entree_joueur[-5:]
                 while not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:]) and valeurDeplacement[2] == ' '):
-                    valeurDeplacement = input()[-5:]
+                    valeurDeplacement = input('')[-5:]
                 
                 # ne faire jouer que mla couleur
                 # ne pas faire un déplacement interdit (continuer la boucle)
