@@ -345,6 +345,23 @@ class Echiquier:
     def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
         return len(self.listeIndexMangeantLaPiece(index))
     
+    def roiOuTourBlancheABouge(self):
+        if (self.positions[4].nom == 'Roi' and self.roiOuTourBlancheABouge(4) == 0) or (self.positions[0].nom == 'Tour' or self.positions[7].nom == 'Tour' and self.roiOuTourBlancheABouge(0) == 0 and self.roiOuTourBlancheABouge(7) == 0):
+            return 0
+        else: 
+            return 1
+        
+        
+   # def roiOuTourNoireABouge(self, indexCase):
+    #    if (self.positions[60].nom == 'Roi' and self.aBouge(60) == 0) or ((indexCase == 56 or indexCase== 63) and self.positions[indexCase].nom == 'Tour' and self.aBouge(56) == 0 and self.aBouge(63) == 0):
+     #       return 0
+      #  else: 
+       #     return 1
+        
+  #  def petitRoqueBlanc(self, indexPiece):
+     #   if self.positions[1].nom == self.positions[1].pieceVide and 
+        
+        
 # =============================================================================
 # fonction pour les calculs de points de l'IA
 # =============================================================================
