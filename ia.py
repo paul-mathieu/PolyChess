@@ -189,7 +189,7 @@ class IA:
     
     
     
-    def meilleurMouvement(self, liste = None, niveau = 0):
+    def meilleurMouvement(self, liste = None, niveau = 0, chemin = [], niveauMax = None):
         
         """
         Cette fonction retourne le meilleur mouvement a realiser d'apres
@@ -207,16 +207,25 @@ class IA:
         if liste == None:
             liste = self.nMeilleursMouvementsPoints()
         
+        if niveauMax == None:
+            niveauMax = 0
+            while listelisteMouvementsSuivants
+        
         maxPoints = 0
         
         for mouvement in liste:
             
             #si le meilleur chemin est sup à la valeur max
-            if mouvement.valeurPiece + mouvement.listeMouvementsSuivants.meilleurMouvement() >= maxPoints:
-                
-                pass
             
-        return liste
+            #calcul des points pour ce mouvement avec le meilleur chemin 
+            # parmi ses enfants
+            calculPointsMouvement = mouvement.valeurPiece + mouvement.listeMouvementsSuivants.meilleurMouvement()
+            
+            if calculPointsMouvement >= maxPoints:
+                
+                chemin[niveau] = mouvement
+            
+        return chemin[0]
                 
         
     

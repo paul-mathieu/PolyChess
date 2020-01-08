@@ -228,7 +228,36 @@ class Echiquier:
         indexDep = self.nomCaseToIndex(nomCaseDepart)
         indexArr = self.nomCaseToIndex(nomCaseArrivee)
         
-        if indexArr in self.listeCoupsPossibles(nomCaseDepart):
+        listeDesCoupsPossibles = self.listeCoupsPossibles(nomCaseDepart)
+        
+        if self.postions[indexDep].nom == 'Pion':
+            if self.couleur == 'blanc':
+                aRetirer=[]
+                for deplacement in self.listeCoupsPossiblesFou(position, echiquier) :
+                    echiquier.deplacerPieceEnIndex(deplacement, self.listeCoupsPossiblesFou(position, echiquier))
+                    echiquier.afficher()
+                if echiquier.isEchecBlanc():
+                    aRetirer.append(deplacement)
+        return self.listeCoupsPossiblesFou(position, echiquier) - aRetirer
+        
+        elif self.postions[indexDep].nom == 'Fou':
+            pass
+        
+        elif self.postions[indexDep].nom == 'Tour':
+            pass
+        
+        elif self.postions[indexDep].nom == 'Dame':
+            pass
+        
+        elif self.postions[indexDep].nom == 'Roi':
+            pass
+        
+        elif self.postions[indexDep].nom == 'Cavalier':
+            pass
+        
+        listeDesCoupsPossibles
+        
+        if indexArr in listeDesCoupsPossibles:
             
     #        if not self.positions[indexDep].pieceABouge:
      #           self.positions[indexDep].pieceABouge = True 
