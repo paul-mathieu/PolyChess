@@ -12,6 +12,8 @@ class Echiquier:
     
     def __init__(self):
         
+        self.estEchec = {"blanc" : False, "noir" : False}
+         
         self.positions = \
             [Piece('Tour', 'noir'), 
              Piece('Cavalier', 'noir'), 
@@ -220,12 +222,20 @@ class Echiquier:
         indexArr = self.nomCaseToIndex(nomCaseArrivee)
         
         if indexArr in self.listeCoupsPossibles(nomCaseDepart):
+            
+            if not self.positions[indexDep].pieceABouge:
+                self.positions[indexDep].pieceABouge = True 
+            
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
         
     def deplacerPieceEnIndex(self, indexDepart, indexArrivee):
         
         if indexArrivee in self.listeCoupsPossibles(self.indexToNomCase(indexDepart)):
+            
+            if not self.positions[indexDepart]:
+                self.positions[indexDepart] = True 
+            
             self.positions[indexArrivee] = self.positions[indexDepart]
             self.positions[indexDepart] = Piece()  
         
