@@ -194,9 +194,9 @@ def jouerEnModeJcJ(liste_aide_joueur,
             
             # 5 - "Pour afficher l'échiquier avec les coups possibles d'une piece"
             elif entree_joueur[:-3] in liste_aide_joueur[5][1] + ['5']:
-                if entree_joueur[0] == '5':
+                    echiquier.afficherCoupsPossibles(entree_joueur[-2:])
                     
-            
+
             # 1 - si il veut jouer
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
                 valeurDeplacement = entree_joueur[-5:]
@@ -212,6 +212,7 @@ def jouerEnModeJcJ(liste_aide_joueur,
                 break 
        
         echiquier.afficher()
+        
         
         if echiquier.isEchecEtMat():
             print("Les blancs ont gagné" )
@@ -231,11 +232,14 @@ def jouerEnModeJcJ(liste_aide_joueur,
                 ne_plus_afficher_laide = True
     #        elif entree_
             
+            if entree_joueur == '99':
+                print('\n'*3 + 'Vous venez de quitter la partie.')
+                return ''
 
             
             # 2 - "Pour connaitre les coups possibles"
-            if entree_joueur in liste_aide_joueur[2][1] + ['2']:
-                pass
+            elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
+                print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase('noir'))
             
             # 3 - "Pour connaitre la liste des coups possibles d'une piece"
             elif entree_joueur in liste_aide_joueur[3][1] + ['3']:
