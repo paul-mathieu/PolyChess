@@ -1,4 +1,3 @@
-
 from functools import reduce
 
 
@@ -24,6 +23,9 @@ class Piece:
                       -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
     
     
+    #1  On donne un nom a chaque position de l'echiquier (de 0 a 63)
+    
+    
 #    [-1]*10*2 + reduce(lambda ele1, ele2 : ele1 + ele2, [[-1] + [valeur for valeur in range(0 + ligne, 8 + ligne)] + [-1] for ligne in range(0,57, 8)]) + [-1]*10*2 
 
 
@@ -39,6 +41,10 @@ class Piece:
                     81, 82, 83, 84, 85, 86, 87, 88, 
                     91, 92, 93, 94, 95, 96, 97, 98]
     
+    #Pour avancer tout droit en avant on ajoute 10 par case (-10 en arriere)
+    #Pour aller en diagonale a droite on ajoute 11 (-11 en arriere)
+    #Pour aller en diagonale a gauche on ajoute 9 (-9 en arriere)
+    #etc...
     
     
 #    [21 + ligne + colonne for colonne in range(0, 71, 10) for ligne in range(8)]
@@ -56,6 +62,10 @@ class Piece:
         self.valeur = self.valeurPiece[self.nomPiece.index(nom)]
         
         self.setNomPiece()
+        
+     
+       #2   Constructeur de l'objet. Il correspond a une piece qui n'a pas encore de nom.
+       #    On appelera la fonction ci-dessous pour lui en atribuer un.
 
 
 
@@ -69,10 +79,10 @@ class Piece:
         Elle créé un nouvel attribut pour l'affichage tel que :
             - i[col]     pour un Pion
             - T[col]     pour une Tour
-            - C[col]     pour un cavalier
-            - F[col]     pour un fou
-            - R[col]     pour un roi
-            - D[col]     pour une dame
+            - C[col]     pour un Cavalier
+            - F[col]     pour un Fou
+            - R[col]     pour un Roi
+            - D[col]     pour une Dame
             
         Chaque valeur est suivie de sa couleur
         
@@ -95,6 +105,13 @@ class Piece:
 #==============================================================================
 
 
+
+
+
+                       #===========================
+                                  # Pion
+                       #===========================
+
     def listeCoupsPossiblesPion(self, position, echiquier):
         #position va de 0 à 63
         
@@ -105,7 +122,8 @@ class Piece:
         if self.couleur == 'blanc':
             
 
-            #deplacement de 2
+            #deplacement de 2 si il se trouve sur la ligne 1 
+            #On utilise les deux listes definies au debut 
             if 48 <= position <= 55:
                 positionE = self.tblDebordement[self.tblPlacement[position] - 20]
                 listePossibilites.append(positionE)
@@ -131,7 +149,7 @@ class Piece:
         else:
             
             
-            #deplacement de 2
+            #deplacement de 2 si il se trouve sur la ligne 6
             if 8 <= position <= 15:
                 positionE = self.tblDebordement[self.tblPlacement[position] + 20]
                 listePossibilites.append(positionE)
@@ -153,6 +171,12 @@ class Piece:
                 listePossibilites.append(positionE)
         
         return listePossibilites
+    
+    
+    
+                       #===========================
+                                  # Tour
+                       #===========================
         
 
         
@@ -187,7 +211,17 @@ class Piece:
                 positionE = self.tblDebordement[self.tblPlacement[position] + deplacement * multiplicateur]
 
         
-        return listePossibilites         
+        return listePossibilites  
+
+
+
+
+
+
+
+                       #===========================
+                                  # Fou
+                       #===========================       
     
         
     def listeCoupsPossiblesFou(self, position, echiquier):
@@ -222,6 +256,14 @@ class Piece:
 
         
         return listePossibilites
+    
+    
+    
+    
+    
+                       #===========================
+                                # Cavalier
+                       #===========================
 
 
 
@@ -241,6 +283,14 @@ class Piece:
                     listePossibilites.append(positionE)
         
         return listePossibilites
+    
+    
+    
+    
+    
+                       #===========================
+                                  # Roi
+                       #===========================
         
         
     
@@ -259,6 +309,13 @@ class Piece:
                     listePossibilites.append(positionE)
         
         return listePossibilites
+    
+    
+    
+    
+                       #===========================
+                                  # Dame
+                       #===========================
 
         
         
@@ -280,7 +337,3 @@ class Piece:
         we can set a null piece on a square."""
         
         return self.nom == self.pieceVide
-    
-    
-        
-        
