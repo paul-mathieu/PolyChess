@@ -63,6 +63,8 @@ class Piece:
         
         self.setNomPiece()
         
+        self.pieceABouge = False
+        
      
        #2   Constructeur de l'objet. Il correspond a une piece qui n'a pas encore de nom.
        #    On appelera la fonction ci-dessous pour lui en atribuer un.
