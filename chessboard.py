@@ -4,7 +4,7 @@
 """
 
 from functools import reduce
-from rules import Piece
+from Rules import Piece
 
 
 class Echiquier:
@@ -223,8 +223,8 @@ class Echiquier:
         
         if indexArr in self.listeCoupsPossibles(nomCaseDepart):
             
-            if not self.positions[indexDep].pieceABouge:
-                self.positions[indexDep].pieceABouge = True 
+    #        if not self.positions[indexDep].pieceABouge:
+     #           self.positions[indexDep].pieceABouge = True 
             
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
@@ -298,6 +298,39 @@ class Echiquier:
 #==============================================================================
 # Fin du jeu
 #==============================================================================
+
+    def isEchecBlanc(self):
+        
+        #on recupere les podsitons du roi
+        
+        listePositionsRoi1 = []
+        index = 0
+        for piece in self.positions:
+            if piece.nom == 'Roi' and piece.couleur=='blanc':
+                listePositionsRoi1.append((piece, index))    
+            index += 1
+            
+        if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi1[0])!=0:
+            return True
+        
+        
+    def isEchecNoir(self):
+        
+        
+        listePositionsRoi2 = []
+        index = 0
+        for piece in self.positions:
+            if piece.nom == 'Roi' and piece.couleur=='noir':
+                listePositionsRoi2.append((piece, index))    
+            index += 1
+            
+        if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi2[0])!=0:
+            return True  
+            
+            
+     
+        
+
 
     def isEchecEtMat(self):
         return len(list(filter(lambda piece : piece.nom == 'Roi', self.positions))) < 2
