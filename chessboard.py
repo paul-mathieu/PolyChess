@@ -22,10 +22,10 @@ class Echiquier:
         self.estEchec = {"blanc" : False, "noir" : False}
          
         self.positions = \
-            [Piece('Tour', 'noir'), 
-             Piece('Cavalier', 'noir'), 
+            [Piece('Tour','noir'), 
+             Piece('Cavalier','noir'), 
              Piece('Fou','noir'),
-             Piece('Dame', 'noir'), 
+             Piece('Dame','noir'), 
              Piece('Roi','noir'),
              Piece('Fou', 'noir'), 
              Piece('Cavalier', 'noir'), 
@@ -81,7 +81,7 @@ class Echiquier:
 # Affichage
 #==============================================================================
     
-    
+    #Methode qui affiche une representation schematique d'un echiquier dans la console.
     def afficher(self):
     
         lettres = reduce(lambda ele1, ele2 : ele1 + ele2, ["  " + element + "  " for element in ['A','B','C','D','E','F','G','H']])
