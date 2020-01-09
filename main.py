@@ -189,14 +189,14 @@ def jouerEnModeJcIA():
             
             #-- le joueur joue --
             tourDuJoueur('blanc')
-            if echiquier.isEchecEtMat():
+            if echiquier.isEchecEtMatBlanc():
                 print("Vous avez gagné" )
                 break
             echiquier.afficher()
             
             #-- l'ordinateur joue --
             tourIA('noir')
-            if echiquier.isEchecEtMat():
+            if echiquier.isEchecEtMatNoir():
                 print("Défaite" )
                 break
             
@@ -253,7 +253,7 @@ def jouerEnModeJcJ():
         echiquier.afficher()
         
         
-        if echiquier.isEchecEtMat():
+        if echiquier.isEchecEtMatBlanc():
             print("Les blancs ont gagné" )
             break
         
@@ -262,7 +262,7 @@ def jouerEnModeJcJ():
         tourDuJoueur('noir')
         echiquier.afficher()    
             
-        if echiquier.isEchecEtMat():
+        if echiquier.isEchecEtMatNoir():
             print("Les noirs ont gagné" )
             break
         
