@@ -156,19 +156,30 @@ def jouerEnModeJcIA(
             # 1 - si il veut jouer
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
                 valeurDeplacement = entree_joueur[-5:]
-                while (not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ') or testCouleur(valeurDeplacement[:2]) != 'blanc' :
+                while True :
+                   
+                    if  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
                     
-                    print("Case invalide, entrez un déplacement valide")
+                        if testCouleur(valeurDeplacement[:2]) == 'blanc':
+                           
+                            if  valeurDeplacement[:2] in echiquier.listePiecesPouvantEtreDeplaceesFormatCase('blanc') :
+                                
+                                if valeurDeplacement[-2:] in echiquier.listeCoupsPossiblesFormatCase(valeurDeplacement[:2]) :
+                                   
+                                    echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
+                                    
+                                    break
+                                else:
+                                    print('La pièce ne peut pas ce déplacer sur cette case')
+                            else:
+                                print('La pièce ne peut pas bouger')
+                        else:
+                            print("La pièce choisie n'est pas blache")
+                    else: 
+                        print("Entrée invalide, entrez un déplacement valide")
+                    
                     valeurDeplacement = input('')[-5:]
-                
-                # ne faire jouer que la couleur
-                # ne pas faire un déplacement interdit (continuer la boucle)
-                
-                
-                echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
-                
-                break 
-       
+                break
         echiquier.afficher()
         
         
@@ -349,16 +360,29 @@ def jouerEnModeJcJ(liste_aide_joueur,
             # 1 - si il veut jouer
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
                 valeurDeplacement = entree_joueur[-5:]
-                while (not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ') or testCouleur(valeurDeplacement[:2])!= 'noir'  :
+                while True :
+                   
+                    if  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
                     
-                    print("Case invalide, entrez un déplacement valide")
+                        if testCouleur(valeurDeplacement[:2]) == 'noir':
+                           
+                            if  valeurDeplacement[:2] in echiquier.listePiecesPouvantEtreDeplaceesFormatCase('noir') :
+                                
+                                if valeurDeplacement[-2:] in echiquier.listeCoupsPossiblesFormatCase(valeurDeplacement[:2]) :
+                                   
+                                    echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
+                                    
+                                    break
+                                else:
+                                    print('La pièce ne peut pas ce déplacer sur cette case')
+                            else:
+                                print('La pièce ne peut pas bouger')
+                        else:
+                            print("La pièce choisie n'est pas blache")
+                    else: 
+                        print("Entrée invalide, entrez un déplacement valide")
+                    
                     valeurDeplacement = input('')[-5:]
-                
-                # ne faire jouer que la couleur
-                # ne pas faire un déplacement interdit (continuer la boucle)
-                
-                
-                echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
                 
                 break 
        
