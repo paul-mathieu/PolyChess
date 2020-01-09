@@ -93,11 +93,13 @@ str_afficher_laide = "Pour afficher l'aide, entrez : aide\n\n"
 ne_plus_afficher_laide = False
 
 
-def jouerEnModeJcIA(liste_aide_joueur, 
-                    aide_joueur, 
-                    str_ne_plus_afficher_laide, 
-                    str_afficher_laide, 
-                    ne_plus_afficher_laide):
+def jouerEnModeJcIA(
+        liste_aide_joueur, 
+        aide_joueur, 
+        str_ne_plus_afficher_laide, 
+        str_afficher_laide, 
+        ne_plus_afficher_laide
+        ):
     
     for numero_du_tour in range(50):
         
@@ -154,10 +156,10 @@ def jouerEnModeJcIA(liste_aide_joueur,
             # 1 - si il veut jouer
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
                 valeurDeplacement = entree_joueur[-5:]
-                while (not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ') or testCouleur(valeurDeplacement[:2])!= 'blanc' :
+                while (not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ') or testCouleur(valeurDeplacement[:2]) != 'blanc' :
                     
-                        print("Case invalide, entrez un déplacement valide")
-                        valeurDeplacement = input('')[-5:]
+                    print("Case invalide, entrez un déplacement valide")
+                    valeurDeplacement = input('')[-5:]
                 
                 # ne faire jouer que la couleur
                 # ne pas faire un déplacement interdit (continuer la boucle)
@@ -253,12 +255,27 @@ def jouerEnModeJcJ(liste_aide_joueur,
             elif entree_joueur[:-6] in [element[:-43] for element in liste_aide_joueur[1][1]] + ['1']:
                 valeurDeplacement = entree_joueur[-5:]
                 while True :
-                    if  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ': 
+                   
+                    if  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
+                    
                         if testCouleur(valeurDeplacement[:2]) == 'blanc':
-                            if  valeurDeplacement[:2] in echiquier.listePiecesPouvantEtreDeplaceesFormatCase('blanc')   :
-                                echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
-                                break
-                    print("Case invalide, entrez un déplacement valide")
+                           
+                            if  valeurDeplacement[:2] in echiquier.listePiecesPouvantEtreDeplaceesFormatCase('blanc') :
+                                
+                                if valeurDeplacement[-2:] in echiquier.listeCoupsPossiblesFormatCase(valeurDeplacement[:2]) :
+                                   
+                                    echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
+                                    
+                                    break
+                                else:
+                                    print('La pièce ne peut pas ce déplacer sur cette case')
+                            else:
+                                print('La pièce ne peut pas bouger')
+                        else:
+                            print("La pièce choisie n'est pas blache")
+                    else: 
+                        print("Entrée invalide, entrez un déplacement valide")
+                    
                     valeurDeplacement = input('')[-5:]
                 
                 # ne faire jouer que la couleur
@@ -334,8 +351,8 @@ def jouerEnModeJcJ(liste_aide_joueur,
                 valeurDeplacement = entree_joueur[-5:]
                 while (not (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ') or testCouleur(valeurDeplacement[:2])!= 'noir'  :
                     
-                        print("Case invalide, entrez un déplacement valide")
-                        valeurDeplacement = input('')[-5:]
+                    print("Case invalide, entrez un déplacement valide")
+                    valeurDeplacement = input('')[-5:]
                 
                 # ne faire jouer que la couleur
                 # ne pas faire un déplacement interdit (continuer la boucle)
