@@ -110,6 +110,9 @@ def tourDuJoueur (couleur):
         # 2 - "Pour connaitre les pièces pouvant bouger"
         elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
             
+            
+            
+            
             print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur))
                 
         
