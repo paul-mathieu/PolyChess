@@ -189,7 +189,7 @@ class IA:
     
     
     
-    def meilleurMouvement(self, liste = None, niveau = 0, chemin = [], niveauMax = None):
+    def meilleurMouvement(self, liste = None, niveau = 0, niveauMax = None):
         
         """
         Cette fonction retourne le meilleur mouvement a realiser d'apres
@@ -203,29 +203,42 @@ class IA:
         le plus de points
         """
         
+        
         #à l'initialisation
         if liste == None:
             liste = self.nMeilleursMouvementsPoints()
         
         if niveauMax == None:
             niveauMax = 0
-            while listelisteMouvementsSuivants
-        
-        maxPoints = 0
-        
-        for mouvement in liste:
-            
-            #si le meilleur chemin est sup à la valeur max
-            
-            #calcul des points pour ce mouvement avec le meilleur chemin 
-            # parmi ses enfants
-            calculPointsMouvement = mouvement.valeurPiece + mouvement.listeMouvementsSuivants.meilleurMouvement()
-            
-            if calculPointsMouvement >= maxPoints:
+            premier_fils = liste.mouvements[0]
+            while not premier_fils == None:
+                premier_fils = liste.mouvements[0]
+                niveauMax += 1
                 
-                chemin[niveau] = mouvement
+        multiplicateur_de_niveau =  dict(map(lambda x : (x, 1-(x / niveauMax)), range(niveauMax)))
+        #ex pour niveauMax = 5 : {0: 1., 1: .8, 2: .6, 3: .4, 4: .2}
+                
+        if not liste == None:
             
-        return chemin[0]
+            
+            for mouvement in liste:
+                
+                #si le meilleur chemin est sup à la valeur max
+                
+                #calcul des points pour ce mouvement avec le meilleur chemin 
+                # parmi ses enfants
+                calculPointsMouvement = mouvement.valeurPiece * multiplicateur_de_niveau[niveau] \
+                                        + self.meilleurMouvement(
+                                                liste = mouvement.listeMouvementsSuivants,
+                                                niveau = niveau + 1,
+                                                niveauMax = niveauMax
+                                                                 ).valeurPiece * multiplicateur_de_niveau[niveau + 1]
+                
+                if calculPointsMouvement >= maxPoints:
+                    
+                    meilleurMouvement = mouvement
+            
+        return mouvement
                 
         
     

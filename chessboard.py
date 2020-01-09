@@ -95,7 +95,7 @@ class Echiquier:
 #==============================================================================
 # Affichage
 #==============================================================================
-    
+ #Methode qui affiche une representation schematique d'un echiquier dans la console.   
     
     def afficher(self):
     
@@ -164,7 +164,7 @@ class Echiquier:
     
 
 
-
+#Permet de montrer les coups possibles au joueur.
 
     def afficherCoupsPossibles(self, nomCase):
     
@@ -392,7 +392,7 @@ class Echiquier:
 
     def isEchecBlanc(self):
         
-        #on recupere les podsitons du roi
+        #on recupere la podsiton du roi blanc
         
         listePositionsRoi1 = []
         index = 0
@@ -400,7 +400,7 @@ class Echiquier:
             if piece.nom == 'Roi' and piece.couleur=='blanc':
                 listePositionsRoi1.append(index)    
             index += 1
-            
+          #si la liste des pieces menancant le roi n'est pas vide, alors il y a echec.   
         if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi1[0])!=0:
             return True
         else :
@@ -426,10 +426,18 @@ class Echiquier:
      
         
 
-
-    def isEchecEtMatBlanc(self):
+# Si la piece est le roi blanc, qu'il est en echec et qu'il n'a plus de coup disponible, alors il y a echec et mat.
+   def isEchecEtMatBlanc(self):
         for i in range(0,63):
             if self.get_piece(i).couleur == 'blanc' and self.listeDesCoupsSiEchecBLanc(i) != []:
+                return False
+        return True
+                
+    def isEchecEtMatNoir(self):
+        for i in range(0,63):
+            if self.get_piece(i).couleur == 'noir' and self.listeDesCoupsSiEchecNoir(i) != []:
+                return False
+        return True
                 
                 
         
