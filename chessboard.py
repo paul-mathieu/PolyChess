@@ -427,9 +427,17 @@ class Echiquier:
         
 
 # Si la piece est le roi blanc, qu'il est en echec et qu'il n'a plus de coup disponible, alors il y a echec et mat.
-    def isEchecEtMatBlanc(self):
+   def isEchecEtMatBlanc(self):
         for i in range(0,63):
             if self.get_piece(i).couleur == 'blanc' and self.listeDesCoupsSiEchecBLanc(i) != []:
+                return False
+        return True
+                
+    def isEchecEtMatNoir(self):
+        for i in range(0,63):
+            if self.get_piece(i).couleur == 'noir' and self.listeDesCoupsSiEchecNoir(i) != []:
+                return False
+        return True
                 
                 
         
