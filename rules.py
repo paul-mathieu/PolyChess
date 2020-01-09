@@ -41,13 +41,16 @@ class Piece:
                     81, 82, 83, 84, 85, 86, 87, 88, 
                     91, 92, 93, 94, 95, 96, 97, 98]
     
+    #[21 + ligne + colonne for colonne in range(0, 71, 10) for ligne in range(8)]
+    #Pour les noirs:
     #Pour avancer tout droit en avant on ajoute 10 par case (-10 en arriere)
     #Pour aller en diagonale a droite on ajoute 11 (-11 en arriere)
     #Pour aller en diagonale a gauche on ajoute 9 (-9 en arriere)
-    #etc...
+    
+    #L'inverse pour les blancs.
     
     
-#    [21 + ligne + colonne for colonne in range(0, 71, 10) for ligne in range(8)]
+
 
 
 
@@ -124,15 +127,17 @@ class Piece:
         if self.couleur == 'blanc':
             
 
-            #deplacement de 2 si il se trouve sur la ligne 1 
-            #On utilise les deux listes definies au debut 
+            #deplacement de 2 si il se trouve sur la ligne 1 --> -10 par case d'où -20 ici.
+            #On utilise les deux listes definies au debut.
+            
             if 48 <= position <= 55:
                 positionE = self.tblDebordement[self.tblPlacement[position] - 20]
                 listePossibilites.append(positionE)
             
-            #manger haut droite
+            #manger haut droite. 
             positionE = self.tblDebordement[self.tblPlacement[position] - 9]
-            if not positionE == -1:
+            #Dans toutes les methodes, on va s'assurer que le deplacement ne va pas faire sortir la piece de l'echiquier
+            if not positionE == -1:   
                 if echiquier.positions[positionE].couleur == 'noir':
                     listePossibilites.append(positionE)
             
@@ -167,7 +172,7 @@ class Piece:
             if not positionE == -1:
                 if echiquier.positions[positionE].couleur == 'blanc':
                     listePossibilites.append(positionE)
-                
+            #deplacement classique du pion    
             positionE = self.tblDebordement[self.tblPlacement[position] + 10]
             if not positionE == -1:
                 listePossibilites.append(positionE)
@@ -183,7 +188,7 @@ class Piece:
 
         
     def listeCoupsPossiblesTour(self, position, echiquier):
-        deplacements = (-10, 10, -1, 1)
+        deplacements = (-10, 10, -1, 1) #Deplacements horizontaux et verticaux dans les deux directions.
         couleurCaseOpposee = 'noir' if self.couleur == 'blanc' else 'blanc'
 
         
@@ -192,7 +197,9 @@ class Piece:
             
             multiplicateur = 1
             positionE = self.tblDebordement[self.tblPlacement[position] + deplacement]
-            
+            #Ici on utilise une boucle car la tour peut se deplacer d'autant de case qu'elle veut tant qu'elle n'arrive pas sur 
+            #une piece ou le bord de l'échiquier. Si c'est une piece adverse elle prend sa place, si c'est une pièce alliee 
+            #elle s'arrête devant.
             while not positionE == -1:
                 
                 if echiquier.positions[positionE].couleur == self.couleur:
@@ -227,7 +234,7 @@ class Piece:
     
         
     def listeCoupsPossiblesFou(self, position, echiquier):
-        deplacements = (-11, -9, 11, 9)
+        deplacements = (-11, -9, 11, 9) #deplacements dans les deux diagonales, vers l'avant et vers l'arriere.
         
         couleurCaseOpposee = 'noir' if self.couleur == 'blanc' else 'blanc'
         listePossibilites = []
@@ -271,7 +278,7 @@ class Piece:
 
        
     def listeCoupsPossiblesCavalier(self, position, echiquier):
-        deplacements = (-12, -21, -19, -8, 12, 21, 19, 8)
+        deplacements = (-12, -21, -19, -8, 12, 21, 19, 8)  #Les differents types de "L".
         
         listePossibilites = []
         
@@ -297,7 +304,7 @@ class Piece:
         
     
     def listeCoupsPossiblesRoi(self, position, echiquier):
-        deplacements = (-11, -10, -9, -1, 1, 9, 10, 11)
+        deplacements = (-11, -10, -9, -1, 1, 9, 10, 11)   #deplacements dans toutes les directions
         
         listePossibilites = []
 
@@ -320,7 +327,7 @@ class Piece:
                        #===========================
 
         
-        
+        #La dame est la combinaison d'un fou et d'une tour.
     def listeCoupsPossiblesDame(self, position, echiquier):
         return self.listeCoupsPossiblesFou(position, echiquier) + self.listeCoupsPossiblesTour(position, echiquier)
         
