@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan  8 13:41:49 2020
+
+@author: ragueney
+"""
+
 """
 
 
@@ -221,10 +228,37 @@ class Echiquier:
         indexDep = self.nomCaseToIndex(nomCaseDepart)
         indexArr = self.nomCaseToIndex(nomCaseArrivee)
         
-        if indexArr in self.listeCoupsPossibles(nomCaseDepart):
+        listeDesCoupsPossibles = self.listeCoupsPossibles(nomCaseDepart)
+        
+        if self.positions[indexDep].nom == 'Pion':
+            if Piece().couleur == 'blanc':
+                aRetirer=[]
+                for deplacement in listeDesCoupsPossibles:
+                    self.deplacerPieceEnIndex(deplacement, listeDesCoupsPossibles)
+                    if self.isEchecBlanc():
+                        aRetirer.append(deplacement)
+                        listeDesCoupsPossibles -= aRetirer
+        
+#        elif self.postions[indexDep].nom == 'Fou':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Tour':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Dame':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Roi':
+#            pass
+#        
+#        elif self.postions[indexDep].nom == 'Cavalier':
+#            pass
+        
+        
+        if indexArr in listeDesCoupsPossibles:
             
-            if not self.positions[indexDep].pieceABouge:
-                self.positions[indexDep].pieceABouge = True 
+    #        if not self.positions[indexDep].pieceABouge:
+     #           self.positions[indexDep].pieceABouge = True 
             
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
@@ -294,10 +328,51 @@ class Echiquier:
         
         return liste
         
+    def listePiecesPouvantEtreDeplaceesFormatCase(self, nomCase):
+        
+        return [self.indexToNomCase(index) for index in self.listePiecesPouvantEtreDeplacees(nomCase)]
+
 
 #==============================================================================
 # Fin du jeu
 #==============================================================================
+
+    def isEchecBlanc(self):
+        
+        #on recupere les podsitons du roi
+        
+        listePositionsRoi1 = []
+        index = 0
+        for piece in self.positions:
+            if piece.nom == 'Roi' and piece.couleur=='blanc':
+                listePositionsRoi1.append(index)    
+            index += 1
+            
+        if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi1[0])!=0:
+            return True
+        else :
+            return False
+        
+        
+    def isEchecNoir(self):
+        
+        
+        listePositionsRoi2 = []
+        index = 0
+        for piece in self.positions:
+            if piece.nom == 'Roi' and piece.couleur=='noir':
+                listePositionsRoi2.append(index)    
+            index += 1
+            
+        if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi2[0])!=0:
+            return True  
+        else :
+            return False
+            
+            
+     
+        
+
 
     def isEchecEtMat(self):
         return len(list(filter(lambda piece : piece.nom == 'Roi', self.positions))) < 2

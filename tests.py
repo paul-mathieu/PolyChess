@@ -26,4 +26,5 @@ Created on Sun Dec  8 19:28:06 2019
 #"         /_\\"]
 #
 #print("\n".join(a))
-
+T="abcdefghijklmnopqrstuvwxyz"
+print (T[-6:])
