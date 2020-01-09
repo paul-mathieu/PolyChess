@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Jan  9 08:28:34 2020
+
+@author: gourets
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Wed Jan  8 13:41:49 2020
 
 @author: ragueney
@@ -10,8 +17,12 @@ Created on Wed Jan  8 13:41:49 2020
 
 """
 
+
+
 from functools import reduce
 from rules import Piece
+import copy 
+
 
 
 class Echiquier:
@@ -68,7 +79,11 @@ class Echiquier:
     def get_piece(self, index):
         return self.positions[index]
                  
-        
+  #  def testCouleur(self, index):
+ #       index = self.nomCaseToIndex(position)
+   #     piece = self.get_piece(index)
+    
+    #    return  piece.couleur  
 #==============================================================================
 # Construction de l'échiquier
 #==============================================================================
@@ -228,40 +243,24 @@ class Echiquier:
         indexDep = self.nomCaseToIndex(nomCaseDepart)
         indexArr = self.nomCaseToIndex(nomCaseArrivee)
         
-        listeDesCoupsPossibles = self.listeCoupsPossibles(nomCaseDepart)
+#        echiquierTemp = Echiquier()
+#        echiquierTemp.positions = self.positions
         
-        if self.positions[indexDep].nom == 'Pion':
-            if Piece().couleur == 'blanc':
-                aRetirer=[]
-                for deplacement in listeDesCoupsPossibles:
-                    self.deplacerPieceEnIndex(deplacement, listeDesCoupsPossibles)
-                    if self.isEchecBlanc():
-                        aRetirer.append(deplacement)
-                        listeDesCoupsPossibles -= aRetirer
-        
-#        elif self.postions[indexDep].nom == 'Fou':
-#            pass
+        if indexArr in self.listeDesCoupsSiEchecBLanc(indexDep) and self.get_piece(indexDep).couleur == 'blanc':
+#        positionsPrecedentes = self.positions
+#        pieceADeplacer = self.positions[indexDep]
+#        echiquierTamp = self
 #        
-#        elif self.postions[indexDep].nom == 'Tour':
-#            pass
-#        
-#        elif self.postions[indexDep].nom == 'Dame':
-#            pass
-#        
-#        elif self.postions[indexDep].nom == 'Roi':
-#            pass
-#        
-#        elif self.postions[indexDep].nom == 'Cavalier':
-#            pass
-        
-        
-        if indexArr in listeDesCoupsPossibles:
-            
-    #        if not self.positions[indexDep].pieceABouge:
-     #           self.positions[indexDep].pieceABouge = True 
-            
+#        listeDesCoupsPossibles = self.listeCoupsPossibles(nomCaseDepart) 
+                    
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
+        
+        if indexArr in self.listeDesCoupsSiEchecNoir(indexDep) and self.get_piece(indexDep).couleur == 'noir':
+            self.positions[indexArr] = self.positions[indexDep]
+            self.positions[indexDep] = Piece()
+            
+        
         
     def deplacerPieceEnIndex(self, indexDepart, indexArrivee):
         
@@ -273,6 +272,60 @@ class Echiquier:
             self.positions[indexArrivee] = self.positions[indexDepart]
             self.positions[indexDepart] = Piece()  
         
+    def deplacementForce(self, indexDepart, indexArrivee):
+        self.positions[indexArrivee] = self.positions[indexDepart]
+        self.positions[indexDepart] = Piece()         
+        
+        
+    def listeDesCoupsSiEchecBLanc(self, index):
+        
+        listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
+        listeDesCoupsAEnlever = []
+        
+        echiquierTemporaire = self
+        
+        positionsPrecedentes = copy.copy(self.positions)
+        positionsPrecedentes_liste = list(map(lambda x : (x.nom, x.couleur, x.pieceABouge), positionsPrecedentes))
+#        print('-----' + positionsPrecedentes[58].nom)
+        
+        if not self.isEchecBlanc():
+            return listeDesCoupsPossibles
+        
+        for mouvement in listeDesCoupsPossibles:
+            
+            echiquierTemporaire.deplacementForce(index, mouvement)
+            if echiquierTemporaire.isEchecBlanc():
+#                print("==============\n" + str(mouvement))
+#                echiquierTemporaire.afficher()
+                listeDesCoupsAEnlever.append(mouvement)
+            
+            self.positions = [Piece(element[0], element[1], element[2]) for element in positionsPrecedentes_liste]
+        
+#        self.positions = positionsPrecedentes
+        
+        return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
+    
+    def listeDesCoupsSiEchecNoir(self, index):
+        
+        listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
+        listeDesCoupsAEnlever = [] 
+        echiquierTemporaire = self
+        positionsPrecedentes = copy.copy(self.positions)
+        positionsPrecedentes_liste = list(map(lambda x : (x.nom, x.couleur, x.pieceABouge), positionsPrecedentes))
+        
+        if not self.isEchecNoir():
+            return listeDesCoupsPossibles
+        
+        for mouvement in listeDesCoupsPossibles:
+            
+            echiquierTemporaire.deplacementForce(index, mouvement)
+            if echiquierTemporaire.isEchecNoir():
+                listeDesCoupsAEnlever.append(mouvement)
+            
+            self.positions = [Piece(element[0], element[1], element[2]) for element in positionsPrecedentes_liste]
+        
+        return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
+
     
 #==============================================================================
 # Vérification déplacement dans la zone
@@ -374,8 +427,12 @@ class Echiquier:
         
 
 
-    def isEchecEtMat(self):
-        return len(list(filter(lambda piece : piece.nom == 'Roi', self.positions))) < 2
+    def isEchecEtMatBlanc(self):
+        for i in range(0,63):
+            if self.get_piece(i).couleur == 'blanc' and self.listeDesCoupsSiEchecBLanc(i) != []:
+                
+                
+        
     
     
     def couleurEchecEtMat(self):
