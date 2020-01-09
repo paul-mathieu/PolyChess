@@ -339,7 +339,7 @@ class Echiquier:
 
     def isEchecBlanc(self):
         
-        #on recupere les podsitons du roi
+        #on recupere la position du roi
         
         listePositionsRoi1 = []
         index = 0
@@ -347,7 +347,7 @@ class Echiquier:
             if piece.nom == 'Roi' and piece.couleur=='blanc':
                 listePositionsRoi1.append(index)    
             index += 1
-            
+         #si la liste des pieces menancant le roi n'est pas vide, alors il y a echec.   
         if self.nombreDePiecesAdversesPouvantMangerLaPiece(listePositionsRoi1[0])!=0:
             return True
         else :
