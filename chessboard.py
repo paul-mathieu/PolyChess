@@ -22,10 +22,10 @@ class Echiquier:
         self.estEchec = {"blanc" : False, "noir" : False}
          
         self.positions = \
-            [Piece('Tour', 'noir'), 
-             Piece('Cavalier', 'noir'), 
+            [Piece('Tour','noir'), 
+             Piece('Cavalier','noir'), 
              Piece('Fou','noir'),
-             Piece('Dame', 'noir'), 
+             Piece('Dame','noir'), 
              Piece('Roi','noir'),
              Piece('Fou', 'noir'), 
              Piece('Cavalier', 'noir'), 
