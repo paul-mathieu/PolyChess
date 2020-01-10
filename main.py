@@ -4,7 +4,11 @@
 
 
 from chessboard import Echiquier
-from rules import Piece
+#from rules import Piece
+from ia import IA
+
+
+
 # =============================================================================
 # Gestion de l'interface - boucle du moteur
 # =============================================================================
@@ -100,7 +104,7 @@ def tourDuJoueur (couleur):
             ne_plus_afficher_laide = True
     #        elif entree_
         
-        if entree_joueur in ['Brest', 'Megademon',  'Les vielles']:
+        if entree_joueur in ['Brest', 'Megademon',  'Les vielles', 'fin partie']:
             print('\n'*3 + 'Vous venez de quitter la partie.')
             return ''
     
@@ -270,22 +274,17 @@ def jouerEnModeJcJ():
             break
         
         
-        
-
-            
-            
-            
-            
-
-
-modeDeJeu = input("Voulez vous jouez contre L'ordinateur (entrer : JcIA) ou contre un joueur (entrer : JcJ) ?\n\n")
-if modeDeJeu == "JcJ":
-    jouerEnModeJcJ()
-
-elif modeDeJeu == "JcIA":
-    jouerEnModeJcIA()
-                    
-            
+#        
+#
+#modeDeJeu = input("Voulez vous jouez contre L'ordinateur (entrer : JcIA) ou contre un joueur (entrer : JcJ) ?\n\n")
+#
+#if modeDeJeu == "JcJ":
+#    jouerEnModeJcJ()
+#
+#elif modeDeJeu == "JcIA":
+#    jouerEnModeJcIA()
+#                    
+#            
 
 
 
@@ -320,16 +319,16 @@ echiquier = Echiquier()
 # Appel de l'IA
 #==============================================================================
 
+
+couleur = 'noir'
 #
-#couleur = 'noir'
-##
-##
-#ia = IA(echiquier, 'noir')
 #
-#print(ia.meilleurMouvement(echiquier, couleur))
-#
-#possibilites = ia.nMeilleursMouvementsPoints(5)
-#
+ia = IA(echiquier, 'noir')
+
+print(ia.meilleurMouvement(echiquier, couleur))
+
+possibilites = ia.nMeilleursMouvementsPoints(5)
+
 
 
 
