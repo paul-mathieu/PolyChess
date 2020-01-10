@@ -7,6 +7,7 @@ from chessboard import Echiquier
 #from rules import Piece
 from ia import IA
 import copy
+import time
 
 
 
@@ -178,8 +179,17 @@ def deplacement(entree_joueur,couleur):
         valeurDeplacement = input('')[-5:]
 
 
-def tourIA(couleur):
-    pass
+def tourIA(echiquier, couleur):
+    ia = IA(echiquier, couleur)
+
+    liste_positions = copy.copy(echiquier.positions)
+    le_meilleur_mouvement = ia.meilleurMouvement()
+    echiquier.positions = liste_positions
+    
+    echiquier.deplacementForce(le_meilleur_mouvement.indexDepart, le_meilleur_mouvement.indexArrivee)
+    
+    return echiquier
+
 
 #==============================================================================
 # Fonctions de JcJ ou JcIA
@@ -218,17 +228,42 @@ def jouerEnModeJcIA():
                 print("Vous avez gagné" )
                 break
             echiquier.afficher()
-            
+                        
             #-- le joueur joue --
             tourDuJoueur('noir')
             if echiquier.isEchecEtMat():
                 print("Défaite" )
-                break
+                break       
+        
+def jouerEnModeIAcIA():
+    echiquier = Echiquier()
+        
+    for numero_du_tour in range(50):
+        
+        #-- l'ordinateur joue --
+        echiquier = tourIA(echiquier, 'blanc')
+        if echiquier.isEchecEtMatBlanc():
+            print("Défaite Blancs")
+            break
+        echiquier.afficher()
+        
+#        time.sleep(1)        
+        
+        #-- l'ordinateur joue --
+        echiquier = tourIA(echiquier, 'noir')
+        if echiquier.isEchecEtMatNoir():
+            print("Défaite Noirs")
+            break
+        echiquier.afficher()
+
+#        time.sleep(1)
+        
+        return echiquier
         
         
             
 # =============================================================================
-#         """IA doit joué"""
+#         """IA doit jouer"""
 # =============================================================================
         
         
@@ -324,13 +359,13 @@ echiquier = Echiquier()
 couleur = 'noir'
 #
 #
-ia = IA(echiquier, 'noir')
-
-liste_positions = copy.copy(echiquier.positions)
-le_meilleur_mouvement = ia.meilleurMouvement()
-echiquier.positions = liste_positions
-print(le_meilleur_mouvement.indexDepart)
-print(le_meilleur_mouvement.indexArrivee)
+#ia = IA(echiquier, 'noir')
+#
+#liste_positions = copy.copy(echiquier.positions)
+#le_meilleur_mouvement = ia.meilleurMouvement()
+#echiquier.positions = liste_positions
+#print(le_meilleur_mouvement.indexDepart)
+#print(le_meilleur_mouvement.indexArrivee)
 
 
 
