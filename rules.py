@@ -304,7 +304,6 @@ class Piece:
                        #===========================
         
         
-    
     def listeCoupsPossiblesRoi(self, position, echiquier):
         deplacements = (-11, -10, -9, -1, 1, 9, 10, 11)   #deplacements dans toutes les directions
         
@@ -319,6 +318,18 @@ class Piece:
                     
                     listePossibilites.append(positionE)
         
+        if self.couleur == 'blanc' and position == 60 and echiquier.petitRoqueBlancPossible():
+            listePossibilites.append(62)
+            
+        if self.couleur == 'blanc' and position == 60 and echiquier.grandRoqueBlancPossible():
+            listePossibilites.append(58)
+        
+        if self.couleur == 'noir' and position == 4 and echiquier.petitRoqueNoirPossible():
+            listePossibilites.append(6)
+            
+        if self.couleur == 'noir' and position == 4 and echiquier.grandRoqueNoirPossible():
+            listePossibilites.append(2)    
+            
         return listePossibilites
     
     
