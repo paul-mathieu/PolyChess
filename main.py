@@ -6,7 +6,8 @@ import sys
 from chessboard import Echiquier
 #from rules import Piece
 from ia import IA
-
+import copy
+import time
 
 
 # =============================================================================
@@ -116,10 +117,7 @@ def tourDuJoueur (couleur):
         
         # 2 - "Pour connaitre les pièces pouvant bouger"
         elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
-            
-            
-            
-            
+
             print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur))
                 
         
@@ -183,8 +181,16 @@ def deplacement(entree_joueur,couleur):
         valeurDeplacement = entree_joueur[-5:]
 
 
-def tourIA(couleur):
-    pass
+def tourIA(echiquier, couleur):
+    ia = IA(echiquier, couleur)
+    
+    liste_positions = copy.copy(echiquier.positions)
+    le_meilleur_mouvement = ia.meilleurMouvement()
+    echiquier.positions = liste_positions
+
+    echiquier.deplacementForce(le_meilleur_mouvement.indexDepart, le_meilleur_mouvement.indexArrivee)
+
+    return echiquier
 
 #==============================================================================
 # Fonctions de JcJ ou JcIA
@@ -237,7 +243,6 @@ def jouerEnModeJcIA():
             #-- le joueur joue --
             tourDuJoueur('noir')
             if echiquier.isEchecEtMat():
-<<<<<<< HEAD
                 print("Défaite" )
                 break       
         
@@ -266,10 +271,8 @@ def jouerEnModeIAcIA():
         
     return echiquier
         
-=======
-                print("Défaite")
-                break
->>>>>>> f29d5f9d262ca48ca4da73dce15f64f8afa7f6ed
+#                print("Défaite")
+#                break
         
         
  
@@ -360,16 +363,16 @@ echiquier = Echiquier()
 # Appel de l'IA
 #==============================================================================
 
-
-couleur = 'noir'
 #
+#couleur = 'noir'
+##
+##
+#ia = IA(echiquier, 'noir')
 #
-ia = IA(echiquier, 'noir')
-
-print(ia.meilleurMouvement(echiquier, couleur))
-
-possibilites = ia.nMeilleursMouvementsPoints(5)
-
+#print(ia.meilleurMouvement(echiquier, couleur))
+#
+#possibilites = ia.nMeilleursMouvementsPoints(5)
+#
 
 
 
