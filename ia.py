@@ -166,7 +166,10 @@ class IA:
                 valeurPiece = self.valeurPieces[(piece.nom, piece.couleur)]
                 
                 #moins de points si la piece peut se faire manger
-                valeurPiece *= echiquier.coefficientPointsSiPeutEtreMangee(indexArrivee, self.couleur)
+                valeurPiece *= echiquier.coefficientPointsSiPeutEtreMangee(indexArrivee)
+                
+                #ou plus de points si la piece peut manger
+                
                 
                 #moins de points si elle n'a aucune piece de la meme couleur autour
 #                valeurPiece *= echiquier.coefficientPointsSiPieceMemeCouleurProche(indexArrivee, self.couleur)
