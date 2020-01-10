@@ -6,6 +6,7 @@
 from chessboard import Echiquier
 #from rules import Piece
 from ia import IA
+import copy
 
 
 
@@ -325,11 +326,11 @@ couleur = 'noir'
 #
 ia = IA(echiquier, 'noir')
 
-print(ia.meilleurMouvement(echiquier, couleur))
-
-possibilites = ia.nMeilleursMouvementsPoints(5)
-
-
+liste_positions = copy.copy(echiquier.positions)
+le_meilleur_mouvement = ia.meilleurMouvement()
+echiquier.positions = liste_positions
+print(le_meilleur_mouvement.indexDepart)
+print(le_meilleur_mouvement.indexArrivee)
 
 
 
