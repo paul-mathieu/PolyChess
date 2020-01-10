@@ -157,7 +157,11 @@ class IA:
             
             piece = echiquier.positions[index]
             
-            listeCoupsPossibles = echiquier.listeCoupsPossibles(echiquier.indexToNomCase(index))
+            print(echiquier.listeDesCoupsAvecVerif(index, self.couleur))
+            
+            if self.couleur = 'noir':
+                listeCoupsPossibles = listeDesCoupsSiEchecNoir
+            listeCoupsPossibles = echiquier.
             
             
             #pour tous les déplacements de la piece
