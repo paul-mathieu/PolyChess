@@ -2,12 +2,10 @@
 
 """
 
-
+import sys
 from chessboard import Echiquier
 #from rules import Piece
 from ia import IA
-import copy
-import time
 
 
 
@@ -74,6 +72,9 @@ def tourDuJoueur (couleur):
                  5 : (
                       "Pour afficher l'échiquier avec les coups possibles d'une piece", 
                       ["afficher [coordonnées]"]
+                     ),
+                 6 : (
+                      "Pour quitter la partie", ["fin de partie"]   
                      )
                  }
     #aide_joueur sert à aider 
@@ -95,7 +96,7 @@ def tourDuJoueur (couleur):
     ne_plus_afficher_laide = False
     
     while True:
-            
+        print("Tour des " + couleur +"s")
         if ne_plus_afficher_laide:
             entree_joueur = input(str_afficher_laide)
         else:
@@ -104,11 +105,11 @@ def tourDuJoueur (couleur):
         #ne plus afficher l'aide
         if entree_joueur == 'fin aide':
             ne_plus_afficher_laide = True
-    #        elif entree_
-        
-        if entree_joueur in ['Brest', 'Megademon',  'Les vielles', 'fin partie']:
-            print('\n'*3 + 'Vous venez de quitter la partie.')
-            return ''
+
+        #C'est pour quitter la partie
+        if entree_joueur in ['Brest', 'Megademon',  'Les vielles', 'fin partie','6']:
+            print('\n'*3 + 'Vous venez de quitter la partie. Le joueur' + couleur + 'a abandonné')
+            sys.exit()
     
         elif len(entree_joueur) == 0:
             pass
@@ -155,41 +156,35 @@ def tourDuJoueur (couleur):
 def deplacement(entree_joueur,couleur):
     valeurDeplacement = entree_joueur[-5:]
     while True :
+        if entree_joueur in ['Brest', 'Megademon',  'Les vielles', 'fin partie','6']:
+            print('\n'*3 + 'Vous venez de quitter la partie. Le joueur' + couleur + 'a abandonné')
+            sys.exit()
        #on teste si l'entrée est bien un couple de coordonné
-        if  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
+        elif  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
             #on teste si la pièce est de la bonne couleurJ
             if testCouleur(valeurDeplacement[:2]) == couleur:
                 #on teste si la case a une pièce de la bonne couleur
                 if  valeurDeplacement[:2] in echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur) :
                     #On teste si la case d'arrivé est valide
-                    if valeurDeplacement[-2:] in echiquier.listeCoupsPossiblesFormatCase(valeurDeplacement[:2]) :
+                    if valeurDeplacement[-2:] in echiquier.listeDesCoupsAvecVerif(echiquier.nomCaseToIndex(valeurDeplacement[:2]),couleur) :
                        
                         echiquier.deplacerPiece(valeurDeplacement[:2], valeurDeplacement[-2:])
                         
                         break
                     else:
-                        print('La pièce ne peut pas ce déplacer sur cette case')
+                        print('Cette pièce ne peut pas se déplacer sur cette case')
                 else:
-                    print('La pièce ne peut pas bouger')
+                    print('Cette pièce ne peut pas bouger')
             else:
                 print("La pièce choisie n'est pas " + [couleur if couleur == 'blanc' else couleur + 'e'][0] )
         else: 
             print("Entrée invalide, entrez un déplacement valide")
-        
-        valeurDeplacement = input('')[-5:]
+        entree_joueur=input('')
+        valeurDeplacement = entree_joueur[-5:]
 
 
-def tourIA(echiquier, couleur):
-    ia = IA(echiquier, couleur)
-
-    liste_positions = copy.copy(echiquier.positions)
-    le_meilleur_mouvement = ia.meilleurMouvement()
-    echiquier.positions = liste_positions
-    
-    echiquier.deplacementForce(le_meilleur_mouvement.indexDepart, le_meilleur_mouvement.indexArrivee)
-    
-    return echiquier
-
+def tourIA(couleur):
+    pass
 
 #==============================================================================
 # Fonctions de JcJ ou JcIA
@@ -200,8 +195,18 @@ def tourIA(echiquier, couleur):
 
 def jouerEnModeJcIA():
     
-    entree_joueur = input('blanc ou noir')
+    while True :
+    #Le programme demande si le joueur veut jouer les blanc ou les noires
+        entree_joueur = input('blanc ou noir')
+        
+        if entree_joueur == 'blanc' :
+            break
     
+        if entree_joueur == 'noir':
+            break
+
+
+    #Cas où le joueur joue les blanc et L'IA joue les no
     if entree_joueur == 'blanc' :
         for numero_du_tour in range(50):
             
@@ -218,20 +223,21 @@ def jouerEnModeJcIA():
                 print("Défaite" )
                 break
             
-            
+    #Cas où le joueur joue les noirs et l'IA joue les blancs        
     elif entree_joueur == 'noir' :
         for numero_du_tour in range(50):
             
-            #-- l'ordinateurr joue --
+            #-- l'ordinateur joue --
             tourIA('blanc')
             if echiquier.isEchecEtMat():
-                print("Vous avez gagné" )
+                print("Vous avez gagné")
                 break
             echiquier.afficher()
-                        
+            
             #-- le joueur joue --
             tourDuJoueur('noir')
             if echiquier.isEchecEtMat():
+<<<<<<< HEAD
                 print("Défaite" )
                 break       
         
@@ -260,12 +266,13 @@ def jouerEnModeIAcIA():
         
     return echiquier
         
+=======
+                print("Défaite")
+                break
+>>>>>>> f29d5f9d262ca48ca4da73dce15f64f8afa7f6ed
         
-            
-# =============================================================================
-#         """IA doit jouer"""
-# =============================================================================
         
+ 
         
         
         
@@ -291,7 +298,6 @@ def jouerEnModeJcJ():
         #-- le joueur joue --
          
         #qu'est-ce qu'il veut faire ?
-        print("C'est au joueur blanc de jouer" )
         tourDuJoueur('blanc')
         echiquier.afficher()
         
@@ -301,7 +307,6 @@ def jouerEnModeJcJ():
             break
         
             
-        print("C'est au joueur noir de jouer" )
         tourDuJoueur('noir')
         echiquier.afficher()    
             
@@ -309,18 +314,18 @@ def jouerEnModeJcJ():
             print("Les noirs ont gagné" )
             break
         
+
         
-#        
-#
-#modeDeJeu = input("Voulez vous jouez contre L'ordinateur (entrer : JcIA) ou contre un joueur (entrer : JcJ) ?\n\n")
-#
-#if modeDeJeu == "JcJ":
-#    jouerEnModeJcJ()
-#
-#elif modeDeJeu == "JcIA":
-#    jouerEnModeJcIA()
-#                    
-#            
+
+modeDeJeu = input("Voulez vous jouez contre L'ordinateur (entrer : JcIA) ou contre un joueur (entrer : JcJ) ?\n\n")
+
+if modeDeJeu == "JcJ":
+    jouerEnModeJcJ()
+
+elif modeDeJeu == "JcIA":
+    jouerEnModeJcIA()
+                    
+            
 
 
 
@@ -359,13 +364,13 @@ echiquier = Echiquier()
 couleur = 'noir'
 #
 #
-#ia = IA(echiquier, 'noir')
-#
-#liste_positions = copy.copy(echiquier.positions)
-#le_meilleur_mouvement = ia.meilleurMouvement()
-#echiquier.positions = liste_positions
-#print(le_meilleur_mouvement.indexDepart)
-#print(le_meilleur_mouvement.indexArrivee)
+ia = IA(echiquier, 'noir')
+
+print(ia.meilleurMouvement(echiquier, couleur))
+
+possibilites = ia.nMeilleursMouvementsPoints(5)
+
+
 
 
 
