@@ -517,7 +517,7 @@ class Echiquier:
 # =============================================================================
     
      #moins de points si la piece peut se faire manger
-    def coefficientPointsSiPeutEtreMangee(self, indexArrivee, couleur):
+    def coefficientPointsSiPeutEtreMangee(self, indexArrivee):
         
         nbPiecePouvantManger = self.nombreDePiecesAdversesPouvantMangerLaPiece(indexArrivee)
         
