@@ -70,7 +70,7 @@ def tourDuJoueur (couleur):
                       ["afficher [coordonnées]"]
                      )
                  }
-    
+    #aide_joueur sert à aider 
     aide_joueur = "\n".join(
                     [str(numero) 
                     + " - " 
@@ -166,7 +166,7 @@ def deplacement(entree_joueur,couleur):
                 else:
                     print('La pièce ne peut pas bouger')
             else:
-                print("La pièce choisie n'est pas " + couleur )
+                print("La pièce choisie n'est pas " + [couleur if couleur == 'blanc' else couleur + 'e'][0] )
         else: 
             print("Entrée invalide, entrez un déplacement valide")
         
