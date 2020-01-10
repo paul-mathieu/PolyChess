@@ -132,7 +132,8 @@ class Piece:
             
             if 48 <= position <= 55:
                 positionE = self.tblDebordement[self.tblPlacement[position] - 20]
-                listePossibilites.append(positionE)
+                if not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
+                    listePossibilites.append(positionE)
             
             #manger haut droite. 
             positionE = self.tblDebordement[self.tblPlacement[position] - 9]
@@ -148,7 +149,7 @@ class Piece:
                     listePossibilites.append(positionE)
                 
             positionE = self.tblDebordement[self.tblPlacement[position] - 10]
-            if not positionE == -1:
+            if not positionE == -1 and not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
                 listePossibilites.append(positionE)
                         
 
@@ -159,7 +160,8 @@ class Piece:
             #deplacement de 2 si il se trouve sur la ligne 6
             if 8 <= position <= 15:
                 positionE = self.tblDebordement[self.tblPlacement[position] + 20]
-                listePossibilites.append(positionE)
+                if not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
+                    listePossibilites.append(positionE)
             
             #manger bas gauche
             positionE = self.tblDebordement[self.tblPlacement[position] + 9]
@@ -174,7 +176,7 @@ class Piece:
                     listePossibilites.append(positionE)
             #deplacement classique du pion    
             positionE = self.tblDebordement[self.tblPlacement[position] + 10]
-            if not positionE == -1:
+            if not positionE == -1 and not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
                 listePossibilites.append(positionE)
         
         return listePossibilites
