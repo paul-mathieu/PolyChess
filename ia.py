@@ -166,7 +166,10 @@ class IA:
                 valeurPiece = self.valeurPieces[(piece.nom, piece.couleur)]
                 
                 #moins de points si la piece peut se faire manger
-                valeurPiece *= echiquier.coefficientPointsSiPeutEtreMangee(indexArrivee, self.couleur)
+                valeurPiece *= echiquier.coefficientPointsSiPeutEtreMangee(indexArrivee)
+                
+                #ou plus de points si la piece peut manger
+                
                 
                 #moins de points si elle n'a aucune piece de la meme couleur autour
 #                valeurPiece *= echiquier.coefficientPointsSiPieceMemeCouleurProche(indexArrivee, self.couleur)
@@ -189,7 +192,7 @@ class IA:
     
     
     
-    def meilleurMouvement(self, liste = None, niveau = 0, niveauMax = None):
+    def meilleurMouvement(self, listeMouvements = None, niveau = 0, niveauMax = None):
         
         """
         Cette fonction retourne le meilleur mouvement a realiser d'apres
@@ -203,46 +206,55 @@ class IA:
         le plus de points
         """
         
-        
+#        print(listeMouvements)
         #à l'initialisation
-        if liste == None:
-            liste = self.arbre_nFils_pProfondeur()
+        if niveau == 0:
+            listeMouvements = self.arbre_nFils_pProfondeur()
+#            print('=====')
         
-        print(liste)
+#        print(listeMouvements)
         
         if niveauMax == None:
             niveauMax = 0
-            premier_fils = liste.mouvements[0]
-            while not premier_fils == None:
-                premier_fils = liste.mouvements[0]
+            premier_fils = listeMouvements[0]
+            while not premier_fils.listeMouvementsSuivants == None:
+                premier_fils = premier_fils.listeMouvementsSuivants[0]
                 niveauMax += 1
                 
-        multiplicateur_de_niveau =  dict(map(lambda x : (x, 1-(x / niveauMax)), range(niveauMax)))
+        multiplicateur_de_niveau =  dict(map(lambda x : (x, 1 - (x / niveauMax + 1)), range(niveauMax + 1)))
+#        print(multiplicateur_de_niveau)
         #ex pour niveauMax = 5 : {0: 1., 1: .8, 2: .6, 3: .4, 4: .2}
-                
-        if not liste == None:
+
             
-            maxPoints = 0
+        maxPoints = 0
+        
+        for mouvement in listeMouvements:
             
-            for mouvement in liste:
-                
-                #si le meilleur chemin est sup à la valeur max
-                
-                #calcul des points pour ce mouvement avec le meilleur chemin 
-                # parmi ses enfants
-                calculPointsMouvement = mouvement.valeurPiece * multiplicateur_de_niveau[niveau] \
-                                        + self.meilleurMouvement(
-                                                liste = mouvement.listeMouvementsSuivants,
+            #si le meilleur chemin est sup à la valeur max
+            
+            #calcul des points pour ce mouvement avec le meilleur chemin 
+            # parmi ses enfants
+            pointsNiveauActuel = mouvement.valeurPiece * multiplicateur_de_niveau[niveau]
+            
+            if not mouvement.listeMouvementsSuivants == None:
+#                print('niveau actuel : ' + str(niveau))
+                pointsSuivants = self.meilleurMouvement(
+                                                listeMouvements = mouvement.listeMouvementsSuivants,
                                                 niveau = niveau + 1,
                                                 niveauMax = niveauMax
                                                                  ).valeurPiece * multiplicateur_de_niveau[niveau + 1]
-                
-                if calculPointsMouvement >= maxPoints:
-                    
-                    meilleurMouvement = mouvement
-                    calculPointsMouvement = points
+            else:
+                pointsSuivants = 0
             
-        return meilleurMouvement
+            calculPointsMouvement = pointsNiveauActuel + pointsSuivants
+            
+            if calculPointsMouvement >= maxPoints:
+                
+                meilleurMouvementTrouve = mouvement
+                maxPoints = calculPointsMouvement
+        
+            
+        return meilleurMouvementTrouve
                 
         
     
