@@ -258,7 +258,7 @@ def jouerEnModeIAcIA():
 
 #        time.sleep(1)
         
-        return echiquier
+    return echiquier
         
         
             
