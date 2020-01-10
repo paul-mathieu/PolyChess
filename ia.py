@@ -159,7 +159,9 @@ class IA:
             
             print(echiquier.listeDesCoupsAvecVerif(index, self.couleur))
             
-            if self.couleur = 'noir':
+            if self.couleur == 'noir':
+                listeCoupsPossibles = listeDesCoupsSiEchecNoir
+            if self.couleur == 'blanc':
                 listeCoupsPossibles = listeDesCoupsSiEchecNoir
             listeCoupsPossibles = echiquier.
             
