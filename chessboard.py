@@ -276,7 +276,9 @@ class Echiquier:
         self.positions[indexArrivee] = self.positions[indexDepart]
         self.positions[indexDepart] = Piece()         
         
-        
+    
+
+    
     def listeDesCoupsSiEchecBLanc(self, index):
         
         listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
@@ -304,7 +306,7 @@ class Echiquier:
 #        self.positions = positionsPrecedentes
         
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
-    
+    #Ce
     def listeDesCoupsSiEchecNoir(self, index):
         
         listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
@@ -326,7 +328,18 @@ class Echiquier:
         
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
 
-    
+    def listeDesCoupsAvecVerif(self,index,couleur):
+        if couleur == 'noir' :
+            L=[]
+            for k in self.listeDesCoupsSiEchecNoir(index) :
+                L.append(self.indexToNomCase(k))
+            return L
+        else:
+            L=[]
+            for k in self.listeDesCoupsSiEchecBLanc(index):
+                L.append(self.indexToNomCase(k))
+            return L
+            
 #==============================================================================
 # Vérification déplacement dans la zone
 #==============================================================================
