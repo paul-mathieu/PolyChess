@@ -57,7 +57,7 @@ class Piece:
 # => on utilise la valeur comme position de tblDebordement
 
 
-    def __init__(self, nom = pieceVide, couleur = ''):
+    def __init__(self, nom = pieceVide, couleur = '', pieceABouge = False):
         
         self.nom = nom
         self.couleur = couleur
@@ -66,7 +66,7 @@ class Piece:
         
         self.setNomPiece()
         
-        self.pieceABouge = False
+        self.pieceABouge = pieceABouge
         
      
        #2   Constructeur de l'objet. Il correspond a une piece qui n'a pas encore de nom.
@@ -133,6 +133,7 @@ class Piece:
             if 48 <= position <= 55:
                 positionE = self.tblDebordement[self.tblPlacement[position] - 20]
                 if not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
+                    print('---')
                     listePossibilites.append(positionE)
             
             #manger haut droite. 
