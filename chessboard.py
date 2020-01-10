@@ -239,22 +239,47 @@ class Echiquier:
 #==============================================================================
     
     def deplacerPiece(self, nomCaseDepart, nomCaseArrivee):
-        
         indexDep = self.nomCaseToIndex(nomCaseDepart)
         indexArr = self.nomCaseToIndex(nomCaseArrivee)
+       
+        # Petit roque noir
+        if indexDep == 4 and indexArr == 6 and self.positions[4].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecNoir(4) :
+            self.positions[indexArr] = self.positions[indexDep]
+            self.positions[indexDep] = Piece()
+            self.positions[5] = self.positions[7]
+            self.positions[7] = Piece()
         
-#        echiquierTemp = Echiquier()
-#        echiquierTemp.positions = self.positions
+        # Petit roque blanc
+        if indexDep == 60 and indexArr == 62 and self.positions[60].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecBlanc(60) :
+            self.positions[indexArr] = self.positions[indexDep]
+            self.positions[indexDep] = Piece()
+            self.positions[61] = self.positions[63]
+            self.positions[63] = Piece()
+            
+        # Grand roque noir
+        if indexDep == 4 and indexArr == 2 and self.positions[4].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecNoir(4) :
+            self.positions[indexArr] = self.positions[indexDep]
+            self.positions[indexDep] = Piece()
+            self.positions[3] = self.positions[0]
+            self.positions[0] = Piece()
+            
+        # Grand roque blanc
+        if indexDep == 60 and indexArr == 58 and self.positions[60].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecBlanc(60) :
+            self.positions[indexArr] = self.positions[indexDep]
+            self.positions[indexDep] = Piece()
+            self.positions[59] = self.positions[56]
+            self.positions[56] = Piece()
         
-        if indexArr in self.listeDesCoupsSiEchecBLanc(indexDep) and self.get_piece(indexDep).couleur == 'blanc':
-#        positionsPrecedentes = self.positions
-#        pieceADeplacer = self.positions[indexDep]
-#        echiquierTamp = self
-#        
-#        listeDesCoupsPossibles = self.listeCoupsPossibles(nomCaseDepart) 
-                    
+        if not self.positions[indexDep].pieceABouge:
+            self.positions[indexDep].pieceABouge = True
+        
+            
+        
+        
+        if indexArr in self.listeDesCoupsSiEchecBlanc(indexDep) and self.get_piece(indexDep).couleur == 'blanc': 
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
+        
         
         if indexArr in self.listeDesCoupsSiEchecNoir(indexDep) and self.get_piece(indexDep).couleur == 'noir':
             self.positions[indexArr] = self.positions[indexDep]
@@ -263,7 +288,8 @@ class Echiquier:
         
         
     def deplacerPieceEnIndex(self, indexDepart, indexArrivee):
-        
+        if not self.positions[indexDepart].pieceABouge:
+            self.positions[indexDepart].pieceABouge = True        
         if indexArrivee in self.listeCoupsPossibles(self.indexToNomCase(indexDepart)):
             
             if not self.positions[indexDepart]:
@@ -273,12 +299,12 @@ class Echiquier:
             self.positions[indexDepart] = Piece()  
         
     def deplacementForce(self, indexDepart, indexArrivee):
+        if not self.positions[indexDepart].pieceABouge:
+            self.positions[indexDepart].pieceABouge = True
         self.positions[indexArrivee] = self.positions[indexDepart]
         self.positions[indexDepart] = Piece()         
         
-    
-
-    
+        
     def listeDesCoupsSiEchecBlanc(self, index):
         
         listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
@@ -288,26 +314,26 @@ class Echiquier:
         
         positionsPrecedentes = copy.copy(self.positions)
         positionsPrecedentes_liste = list(map(lambda x : (x.nom, x.couleur, x.pieceABouge), positionsPrecedentes))
-#        print('-----' + positionsPrecedentes[58].nom)
+       
         
-        if not self.isEchecBlanc():
-            return listeDesCoupsPossibles
         
         for mouvement in listeDesCoupsPossibles:
             
-            echiquierTemporaire.deplacementForce(index, mouvement)
+            echiquierTemporaire.deplacementForce(index, mouvement)            
+#            if not echiquierTemporaire.isEchecBlanc():
+#                return listeDesCoupsPossibles
+            
             if echiquierTemporaire.isEchecBlanc():
-#                print("==============\n" + str(mouvement))
 #                echiquierTemporaire.afficher()
                 listeDesCoupsAEnlever.append(mouvement)
-            
+                print(listeDesCoupsAEnlever)
+             
+                
             self.positions = [Piece(element[0], element[1], element[2]) for element in positionsPrecedentes_liste]
-        
-#        self.positions = positionsPrecedentes
-        
+       
+
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
     
-    #Ce
     def listeDesCoupsSiEchecNoir(self, index):
         
         listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
@@ -316,8 +342,8 @@ class Echiquier:
         positionsPrecedentes = copy.copy(self.positions)
         positionsPrecedentes_liste = list(map(lambda x : (x.nom, x.couleur, x.pieceABouge), positionsPrecedentes))
         
-        if not self.isEchecNoir():
-            return listeDesCoupsPossibles
+#        if not self.isEchecNoir():
+#            return listeDesCoupsPossibles
         
         for mouvement in listeDesCoupsPossibles:
             
@@ -328,7 +354,6 @@ class Echiquier:
             self.positions = [Piece(element[0], element[1], element[2]) for element in positionsPrecedentes_liste]
         
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
-
     def listeDesCoupsAvecVerif(self, index, couleur):
         if couleur == 'noir' :
             L = []
@@ -509,11 +534,19 @@ class Echiquier:
     def nombreDePiecesAdversesPouvantMangerLaPiece(self, index):
         return len(self.listeIndexMangeantLaPiece(index))
     
-    def roiOuTourBlancheABouge(self):
-        if (self.positions[4].nom == 'Roi' and self.roiOuTourBlancheABouge(4) == 0) or (self.positions[0].nom == 'Tour' or self.positions[7].nom == 'Tour' and self.roiOuTourBlancheABouge(0) == 0 and self.roiOuTourBlancheABouge(7) == 0):
-            return 0
-        else: 
-            return 1
+    def petitRoqueNoirPossible(self):
+        return self.positions[7].pieceABouge == False and self.positions[4].pieceABouge == False and self.positions[6].nom == self.positions[6].pieceVide and self.positions[5].nom == self.positions[5].pieceVide 
+       
+    def grandRoqueNoirPossible(self):
+        return self.positions[0].pieceABouge == False and self.positions[4].pieceABouge == False and self.positions[1].nom == self.positions[1].pieceVide and self.positions[2].nom == self.positions[2].pieceVide and self.positions[3].nom == self.positions[3].pieceVide
+       
+    def petitRoqueBlancPossible(self):
+        return self.positions[60].pieceABouge == False and self.positions[63].pieceABouge == False and self.positions[61].nom == self.positions[61].pieceVide and self.positions[62].nom == self.positions[62].pieceVide 
+      
+        
+    def grandRoqueBlancPossible(self):
+        return self.positions[60].pieceABouge == False and self.positions[56].pieceABouge == False and self.positions[59].nom == self.positions[59].pieceVide and self.positions[58].nom == self.positions[58].pieceVide and self.positions[57].nom == self.positions[57].pieceVide  
+        
         
         
    # def roiOuTourNoireABouge(self, indexCase):
