@@ -279,7 +279,7 @@ class Echiquier:
     
 
     
-    def listeDesCoupsSiEchecBLanc(self, index):
+    def listeDesCoupsSiEchecBlanc(self, index):
         
         listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
         listeDesCoupsAEnlever = []
@@ -306,6 +306,7 @@ class Echiquier:
 #        self.positions = positionsPrecedentes
         
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
+    
     #Ce
     def listeDesCoupsSiEchecNoir(self, index):
         
@@ -328,9 +329,9 @@ class Echiquier:
         
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
 
-    def listeDesCoupsAvecVerif(self,index,couleur):
+    def listeDesCoupsAvecVerif(self, index, couleur):
         if couleur == 'noir' :
-            L=[]
+            L = []
             for k in self.listeDesCoupsSiEchecNoir(index) :
                 L.append(self.indexToNomCase(k))
             return L
