@@ -10,14 +10,14 @@ commenter tout
      > ++
 
 faire les coups spéciaux
-   - le pion peut manger un pion en diagonale mais aller tout droit
-     > ++
-   - si la tour gauche (ou droit je ne sait plus) se colle au roi, 
-        ces deux pieces échangent leur places
-     > ++
+   - prise en passant
+   - roque si echec
+   
 
 IA
    - en mode 'maison', ajouter la défense
      > +++
    - ajouter le mode avec la base de donnée des coups
      > +++
+
+Pb dans le main
