@@ -5,7 +5,7 @@
 import sys
 from chessboard import Echiquier
 #from rules import Piece
-from ia import IA
+#from ia import IA
 import copy
 import time
 
@@ -118,7 +118,7 @@ def tourDuJoueur (couleur):
         # 2 - "Pour connaitre les pièces pouvant bouger"
         elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
 
-            print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur))
+            print(echiquier.listePiecesPouvantEtreDeplaceesFormatCaseAvecVerif(couleur))
                 
         
         # 3 - "Pour connaitre la liste des coups possibles d'une piece"
