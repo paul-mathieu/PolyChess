@@ -206,7 +206,9 @@ class IA:
         
         #à l'initialisation
         if liste == None:
-            liste = self.nMeilleursMouvementsPoints()
+            liste = self.arbre_nFils_pProfondeur()
+        
+        print(liste)
         
         if niveauMax == None:
             niveauMax = 0
@@ -220,6 +222,7 @@ class IA:
                 
         if not liste == None:
             
+            maxPoints = 0
             
             for mouvement in liste:
                 
@@ -237,8 +240,9 @@ class IA:
                 if calculPointsMouvement >= maxPoints:
                     
                     meilleurMouvement = mouvement
+                    calculPointsMouvement = points
             
-        return mouvement
+        return meilleurMouvement
                 
         
     
