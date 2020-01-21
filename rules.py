@@ -125,15 +125,15 @@ class Piece:
         
         
         if self.couleur == 'blanc':
-            
-
+                        
             #deplacement de 2 si il se trouve sur la ligne 1 --> -10 par case d'où -20 ici.
             #On utilise les deux listes definies au debut.
             
             if 48 <= position <= 55:
                 positionE = self.tblDebordement[self.tblPlacement[position] - 20]
-                if not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
-                    print('---')
+#                print(positionE)
+                if echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
+#                    print('---')
                     listePossibilites.append(positionE)
             
             #manger haut droite. 
@@ -150,7 +150,7 @@ class Piece:
                     listePossibilites.append(positionE)
                 
             positionE = self.tblDebordement[self.tblPlacement[position] - 10]
-            if not positionE == -1 and not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
+            if not positionE == -1 and echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
                 listePossibilites.append(positionE)
                         
 
@@ -161,7 +161,7 @@ class Piece:
             #deplacement de 2 si il se trouve sur la ligne 6
             if 8 <= position <= 15:
                 positionE = self.tblDebordement[self.tblPlacement[position] + 20]
-                if not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
+                if echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
                     listePossibilites.append(positionE)
             
             #manger bas gauche
