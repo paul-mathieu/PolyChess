@@ -243,28 +243,28 @@ class Echiquier:
         indexArr = self.nomCaseToIndex(nomCaseArrivee)
        
         # Petit roque noir
-        if indexDep == 4 and indexArr == 6 and self.positions[4].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecNoir(4) :
+        if indexDep == 4 and indexArr == 6 and self.positions[4].nom == 'Roi' and indexArr in self.listeDesCoupsAvecEchecNoir(4) :
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()
             self.positions[5] = self.positions[7]
             self.positions[7] = Piece()
         
         # Petit roque blanc
-        if indexDep == 60 and indexArr == 62 and self.positions[60].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecBlanc(60) :
+        if indexDep == 60 and indexArr == 62 and self.positions[60].nom == 'Roi' and indexArr in self.listeDesCoupsAvecEchecBlanc(60) :
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()
             self.positions[61] = self.positions[63]
             self.positions[63] = Piece()
             
         # Grand roque noir
-        if indexDep == 4 and indexArr == 2 and self.positions[4].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecNoir(4) :
+        if indexDep == 4 and indexArr == 2 and self.positions[4].nom == 'Roi' and indexArr in self.listeDesCoupsAvecEchecNoir(4) :
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()
             self.positions[3] = self.positions[0]
             self.positions[0] = Piece()
             
         # Grand roque blanc
-        if indexDep == 60 and indexArr == 58 and self.positions[60].nom == 'Roi' and indexArr in self.listeDesCoupsSiEchecBlanc(60) :
+        if indexDep == 60 and indexArr == 58 and self.positions[60].nom == 'Roi' and indexArr in self.listeDesCoupsAvecEchecBlanc(60) :
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()
             self.positions[59] = self.positions[56]
@@ -276,12 +276,12 @@ class Echiquier:
             
         
         
-        if indexArr in self.listeDesCoupsSiEchecBlanc(indexDep) and self.get_piece(indexDep).couleur == 'blanc': 
+        if indexArr in self.listeDesCoupsAvecEchecBlanc(indexDep) and self.get_piece(indexDep).couleur == 'blanc': 
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()  
         
         
-        if indexArr in self.listeDesCoupsSiEchecNoir(indexDep) and self.get_piece(indexDep).couleur == 'noir':
+        if indexArr in self.listeDesCoupsAvecEchecNoir(indexDep) and self.get_piece(indexDep).couleur == 'noir':
             self.positions[indexArr] = self.positions[indexDep]
             self.positions[indexDep] = Piece()
             
@@ -305,7 +305,7 @@ class Echiquier:
         self.positions[indexDepart] = Piece()         
         
         
-    def listeDesCoupsSiEchecBlanc(self, index):
+    def listeDesCoupsAvecEchecBlanc(self, index):
         
         listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
         listeDesCoupsAEnlever = []
@@ -334,7 +334,7 @@ class Echiquier:
 
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
     
-    def listeDesCoupsSiEchecNoir(self, index):
+    def listeDesCoupsAvecEchecNoir(self, index):
         
         listeDesCoupsPossibles = self.listeCoupsPossiblesEntreeIndex(index)
         listeDesCoupsAEnlever = [] 
@@ -354,15 +354,16 @@ class Echiquier:
             self.positions = [Piece(element[0], element[1], element[2]) for element in positionsPrecedentes_liste]
         
         return [index for index in listeDesCoupsPossibles if not index in listeDesCoupsAEnlever]
+    
     def listeDesCoupsAvecVerif(self, index, couleur):
         if couleur == 'noir' :
             L = []
-            for k in self.listeDesCoupsSiEchecNoir(index) :
+            for k in self.listeDesCoupsAvecEchecNoir(index) :
                 L.append(self.indexToNomCase(k))
             return L
         else:
             L=[]
-            for k in self.listeDesCoupsSiEchecBLanc(index):
+            for k in self.listeDesCoupsAvecEchecBlanc(index):
                 L.append(self.indexToNomCase(k))
             return L
             
@@ -425,6 +426,7 @@ class Echiquier:
         return [self.indexToNomCase(index) for index in self.listePiecesPouvantEtreDeplacees(nomCase)]
 
 
+
 #==============================================================================
 # Fin du jeu
 #==============================================================================
@@ -468,13 +470,13 @@ class Echiquier:
 # Si la piece est le roi blanc, qu'il est en echec et qu'il n'a plus de coup disponible, alors il y a echec et mat.
     def isEchecEtMatBlanc(self):
         for i in range(0,63):
-            if self.get_piece(i).couleur == 'blanc' and self.listeDesCoupsSiEchecBLanc(i) != []:
+            if self.get_piece(i).couleur == 'blanc' and self.listeDesCoupsAvecEchecBlanc(i) != []:
                 return False
         return True
                 
     def isEchecEtMatNoir(self):
         for i in range(0,63):
-            if self.get_piece(i).couleur == 'noir' and self.listeDesCoupsSiEchecNoir(i) != []:
+            if self.get_piece(i).couleur == 'noir' and self.listeDesCoupsAvecEchecNoir(i) != []:
                 return False
         return True
                 
