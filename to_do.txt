@@ -1,4 +1,4 @@
-commenter tout
+﻿commenter tout
    - chessboard (affichage de l'échiquier + fin de jeu + qqs vérif 
         pour l'ia)
      > +
