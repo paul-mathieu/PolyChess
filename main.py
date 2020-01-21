@@ -115,6 +115,11 @@ def tourDuJoueur (couleur):
         elif len(entree_joueur) == 0:
             pass
         
+        elif entree_joueur == '9':
+            for element in echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur):
+                print(element)
+                print(echiquier.listeDesCoupsAvecVerif(echiquier.nomCaseToIndex(element),couleur))
+        
         # 2 - "Pour connaitre les pièces pouvant bouger"
         elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
 
