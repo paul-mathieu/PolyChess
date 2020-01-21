@@ -114,7 +114,7 @@ def tourDuJoueur (couleur):
     
         elif len(entree_joueur) == 0:
             pass
-        
+        #Utile pour le debuguage
         elif entree_joueur == '9':
             for element in echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur):
                 print(element)
@@ -155,7 +155,9 @@ def tourDuJoueur (couleur):
        
     
     
-#Programme     
+# =============================================================================
+# Programme     
+# =============================================================================
 def deplacement(entree_joueur,couleur):
     valeurDeplacement = entree_joueur[-5:]
     while True :
@@ -198,7 +200,7 @@ def tourIA(echiquier, couleur):
     return echiquier
 
 #==============================================================================
-# Fonctions de JcJ ou JcIA
+# Fonctions de JcIA
 #==============================================================================
     
 
@@ -250,6 +252,8 @@ def jouerEnModeJcIA():
             if echiquier.isEchecEtMat():
                 print("Défaite" )
                 break       
+
+
         
 def jouerEnModeIAcIA():
     echiquier = Echiquier()
@@ -282,19 +286,11 @@ def jouerEnModeIAcIA():
         
  
         
+# =============================================================================
+# Fonction JcJ       
+# =============================================================================
         
         
-        
-    
-    #verification de fin de partie
-    
-    
-    #-- l'IA joue --
-    #déplacement d'une piece
-    
-    
-    #vérification de la fin de partie
-    
 
 def jouerEnModeJcJ():
     
@@ -323,7 +319,9 @@ def jouerEnModeJcJ():
             break
         
 
-        
+# =============================================================================
+# Choix du mode de jeu
+# =============================================================================
 
 modeDeJeu = input("Voulez vous jouez contre L'ordinateur (entrer : JcIA) ou contre un joueur (entrer : JcJ) ?\n\n")
 
