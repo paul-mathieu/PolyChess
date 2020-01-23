@@ -19,9 +19,31 @@ echiquier = Echiquier()
 #echiquier.afficher()
 
 
+text_polychess = [
+"      _____      _            _   ",               
+"     |  __ \\    | |          | |  ",               
+"     | |__) |__ | |_   _  ___| |__   ___  ___ ___ ",
+"     |  ___/ _ \\| | | | |/ __| \'_ \\ / _ \\/ __/ __|",
+"     | |  | (_) | | |_| | (__| | | |  __/\\__ \\__ \\",
+"     |_|   \\___/|_|\\__, |\___|_| |_|\\___||___/___/",
+"                    __/ | ",                       
+"                   |___/  ",
+        ]
+
+text_polychess_2 = [
+    "██████╗  ██████╗ ██╗  ██╗   ██╗ ██████╗██╗  ██╗███████╗███████╗███████╗",
+    "██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔════╝██║  ██║██╔════╝██╔════╝██╔════╝",
+    "██████╔╝██║   ██║██║   ╚████╔╝ ██║     ███████║█████╗  ███████╗███████╗",
+    "██╔═══╝ ██║   ██║██║    ╚██╔╝  ██║     ██╔══██║██╔══╝  ╚════██║╚════██║",
+    "██║     ╚██████╔╝███████╗██║   ╚██████╗██║  ██║███████╗███████║███████║",
+    "╚═╝      ╚═════╝ ╚══════╝╚═╝    ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝"]
+
+
 # =============================================================================
 # Fonctions
 # =============================================================================
+
+print('\n   '*3 + '\n   '.join(text_polychess_2) + '\n'*3)
 
 def estUneCoordonnee(string):
     if not type(string) == str:
@@ -116,12 +138,12 @@ def tourDuJoueur (couleur):
             pass
         
         #utile pour le debogage
-    elif 
+#        elif 
         
         # 2 - "Pour connaitre les pièces pouvant bouger"
         elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
 
-            print(echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur))
+            print(', '.join(echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur)))
                 
         
         # 3 - "Pour connaitre la liste des coups possibles d'une piece"
@@ -160,7 +182,7 @@ def deplacement(entree_joueur,couleur):
             print('\n'*3 + 'Vous venez de quitter la partie. Le joueur ' + couleur + ' a abandonné.')
             sys.exit()
        #on teste si l'entrée est bien un couple de coordonnées
-        elif  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
+        elif (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
             #on teste si la pièce est de la bonne couleurJ
             if testCouleur(valeurDeplacement[:2]) == couleur:
                 #on teste si la case a une pièce de la bonne couleur
