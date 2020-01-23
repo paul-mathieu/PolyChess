@@ -115,6 +115,9 @@ def tourDuJoueur (couleur):
         elif len(entree_joueur) == 0:
             pass
         
+        #utile pour le debogage
+    elif 
+        
         # 2 - "Pour connaitre les pièces pouvant bouger"
         elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
 
@@ -201,15 +204,10 @@ def tourIA(echiquier, couleur):
 
 def jouerEnModeJcIA():
     
-    while True :
+    entree_joueur = ''
+    while not entree_joueur in ['blanc', 'noir']:
     #Le programme demande si le joueur veut jouer les blanc ou les noires
         entree_joueur = input('blanc ou noir ? \n\n')
-        
-        if entree_joueur == 'blanc' :
-            break
-    
-        if entree_joueur == 'noir':
-            break
 
 
     #Cas où le joueur joue les blanc et L'IA joue les no
@@ -217,13 +215,14 @@ def jouerEnModeJcIA():
         for numero_du_tour in range(50):
             
             #-- le joueur joue --
+            echiquier.afficher()
             tourDuJoueur('blanc')
             if echiquier.isEchecEtMatBlanc():
                 print("Vous avez gagné" )
                 break
-            echiquier.afficher()
             
             #-- l'ordinateur joue --
+            echiquier.afficher()
             tourIA(echiquier, 'noir')
             if echiquier.isEchecEtMatNoir():
                 print("Défaite" )
@@ -234,13 +233,14 @@ def jouerEnModeJcIA():
         for numero_du_tour in range(50):
             
             #-- l'ordinateur joue --
+            echiquier.afficher()
             tourIA(echiquier, 'blanc')
             if echiquier.isEchecEtMat():
                 print("Vous avez gagné")
                 break
-            echiquier.afficher()
             
             #-- le joueur joue --
+            echiquier.afficher()
             tourDuJoueur('noir')
             if echiquier.isEchecEtMat():
                 print("Défaite" )
