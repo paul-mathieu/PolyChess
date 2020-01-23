@@ -148,8 +148,7 @@ def tourDuJoueur (couleur):
             deplacement(entree_joueur , couleur )
             break 
        
-    
-    
+
 #Programme     
 def deplacement(entree_joueur,couleur):
     valeurDeplacement = entree_joueur[-5:]
