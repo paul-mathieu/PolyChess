@@ -366,7 +366,14 @@ class Echiquier:
             for k in self.listeDesCoupsAvecEchecBlanc(index):
                 L.append(self.indexToNomCase(k))
             return L
-            
+
+        
+    def listePiecesPouvantEtreDeplaceesFormatCaseAvecVerif(self, couleur):
+        listCoupsPouvantEtreDeplacees=[]
+        for element in self.listePiecesPouvantEtreDeplaceesFormatCase(couleur):
+            if not self.listeDesCoupsAvecVerif(self.nomCaseToIndex(element),couleur) == []:
+                listCoupsPouvantEtreDeplacees.append(element)
+        return listCoupsPouvantEtreDeplacees
 #==============================================================================
 # Vérification déplacement dans la zone
 #==============================================================================
