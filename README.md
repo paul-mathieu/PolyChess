@@ -13,6 +13,8 @@ Avec des chiffres de 1 à 8 pour la hauteur et des lettres de A à H pour la lar
 
 On ne peut jouer qu'à la version standard des échecs, il n'y a pas de variantes possible.
 
+# Fonctionnement
+
 Pour ceux qui ne connaissent pas le fonctionnement des échecs, en voici un rappel.
 Le jeu oppose un joueur aux pièces blanches contre un joueur aux pièces noires. Le but est de mettre en échec et mat le roi adverse (c'est à dire dans l'impossibilité de se déplacer sans être menacé), à l'aide de ses propres pièces. Les pièces peuvent se déplacer dans l'échiquier selon différentes règles.
 * Le Pion : il peut se déplacer uniquement en avant dans le sens des chriffres (vers la ligne 8 si le joueur à les pièces blanches et vers la ligne 1 si le joueur à les pièces noires). Le pion à trois déplacements possible. Le déplacement classique, il avance d'une case vers une case vide. Le Premier Déplacement, si le pion ne s'est pas encore déplacé, il peut avancer de 2 cases en passant par une case vide, et arrive sur une autre case vide. La Prise, le pion peut prendre une pièce adverse située en diagonale vers l'avant (exemple : un pion blanc situé en b2 (coordonnées de l'échiquier) peut prendre en a3 ou c3). À part pour le pion, toute les pièces ont un déplacement et une prise équivalente, autrement dit, un déplacement sur une pièce adverse est possible et il s'agit d'une prise. Voici leurs déplacements : 
