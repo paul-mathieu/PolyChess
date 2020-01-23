@@ -11,6 +11,10 @@ Le programme permet de jouer aux échecs et peut déplacer les pièces selon leu
 
 Avec des chiffres de 1 à 8 pour la hauteur et des lettres de A à H pour la largeur.
 
+`Voici la représentation console qu'on obtient lors de l'exécution du programme :`
+
+<img class="CaptureInterface" src="https://raw.githubusercontent.com/paul-mathieu/PolyChess/master/Screenshots/CaptureChessInterface.PNG">
+
 On ne peut jouer qu'à la version standard des échecs, il n'y a pas de variantes possible.
 
 # Fonctionnement
