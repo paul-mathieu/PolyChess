@@ -177,7 +177,7 @@ class Piece:
                     listePossibilites.append(positionE)
             #deplacement classique du pion    
             positionE = self.tblDebordement[self.tblPlacement[position] + 10]
-            if not positionE == -1 and not echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
+            if not positionE == -1 and echiquier.positions[positionE].nom == echiquier.positions[positionE].pieceVide:
                 listePossibilites.append(positionE)
         
         return listePossibilites
