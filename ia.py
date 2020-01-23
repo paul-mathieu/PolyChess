@@ -77,7 +77,10 @@ class IA:
                 
             for mouvement in listeMouvements:
                 if niveauActuel == 1:
-                    print((mouvement.indexDepart, mouvement.indexArrivee))
+                    print((
+                            echiquier.indexToNomCase(mouvement.indexDepart), 
+                            echiquier.indexToNomCase(mouvement.indexArrivee)
+                            ))
                 # le nouvel echiquier qui contiendra la piece deplacee
                 echiquierTemp = echiquier
 
@@ -221,7 +224,7 @@ class IA:
         
 #        print(listeMouvements)
         
-        if niveauMax == None:
+        if niveauMax is None:
             niveauMax = 0
             premier_fils = listeMouvements[0]
             while not premier_fils.listeMouvementsSuivants == None:
@@ -243,7 +246,7 @@ class IA:
             # parmi ses enfants
             pointsNiveauActuel = mouvement.valeurPiece * multiplicateur_de_niveau[niveau]
             
-            if not mouvement.listeMouvementsSuivants == None:
+            if not mouvement.listeMouvementsSuivants is None:
 #                print('niveau actuel : ' + str(niveau))
                 pointsSuivants = self.meilleurMouvement(
                                                 listeMouvements = mouvement.listeMouvementsSuivants,
