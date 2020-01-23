@@ -76,7 +76,11 @@ class IA:
             #~~ mouvements suivants)                                         ~~   
                 
             for mouvement in listeMouvements:
-                
+                if niveauActuel == 1:
+                    print((
+                            echiquier.indexToNomCase(mouvement.indexDepart), 
+                            echiquier.indexToNomCase(mouvement.indexArrivee)
+                            ))
                 # le nouvel echiquier qui contiendra la piece deplacee
                 echiquierTemp = echiquier
 
@@ -157,14 +161,14 @@ class IA:
             
             piece = echiquier.positions[index]
             
-            print(echiquier.listeDesCoupsAvecVerif(index, self.couleur))
+#            print(echiquier.listeDesCoupsAvecVerif(index, self.couleur))
             
-            if self.couleur == 'noir':
-                listeCoupsPossibles = listeDesCoupsSiEchecNoir
-            if self.couleur == 'blanc':
-                listeCoupsPossibles = listeDesCoupsSiEchecNoir
-            listeCoupsPossibles = echiquier.
-            
+#            if self.couleur == 'noir':
+#                listeCoupsPossibles = echiquier.listePiecesPouvantEtreDeplacees()
+#            elif self.couleur == 'blanc':
+#                listeCoupsPossibles = echiquier.listePiecesPouvantEtreDeplacees()          
+#            
+            listeCoupsPossibles = echiquier.listePiecesPouvantEtreDeplacees(self.couleur)          
             
             #pour tous les déplacements de la piece
             for indexArrivee in listeCoupsPossibles:
@@ -220,7 +224,7 @@ class IA:
         
 #        print(listeMouvements)
         
-        if niveauMax == None:
+        if niveauMax is None:
             niveauMax = 0
             premier_fils = listeMouvements[0]
             while not premier_fils.listeMouvementsSuivants == None:
@@ -242,7 +246,7 @@ class IA:
             # parmi ses enfants
             pointsNiveauActuel = mouvement.valeurPiece * multiplicateur_de_niveau[niveau]
             
-            if not mouvement.listeMouvementsSuivants == None:
+            if not mouvement.listeMouvementsSuivants is None:
 #                print('niveau actuel : ' + str(niveau))
                 pointsSuivants = self.meilleurMouvement(
                                                 listeMouvements = mouvement.listeMouvementsSuivants,

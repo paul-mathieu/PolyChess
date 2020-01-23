@@ -108,8 +108,8 @@ def tourDuJoueur (couleur):
             ne_plus_afficher_laide = True
 
         #C'est pour quitter la partie
-        if entree_joueur in ['Brest', 'Megademon',  'Les vielles', 'fin partie','6']:
-            print('\n'*3 + 'Vous venez de quitter la partie. Le joueur' + couleur + 'a abandonné')
+        if entree_joueur in ['Brest', 'fin partie','6']:
+            print('\n'*3 + 'Vous venez de quitter la partie. Le joueur ' + couleur + ' a abandonné')
             sys.exit()
     
         elif len(entree_joueur) == 0:
@@ -161,10 +161,10 @@ def tourDuJoueur (couleur):
 def deplacement(entree_joueur,couleur):
     valeurDeplacement = entree_joueur[-5:]
     while True :
-        if entree_joueur in ['Brest', 'Megademon',  'Les vielles', 'fin partie','6']:
-            print('\n'*3 + 'Vous venez de quitter la partie. Le joueur' + couleur + 'a abandonné')
+        if entree_joueur in ['Brest', 'fin partie', '6']:
+            print('\n'*3 + 'Vous venez de quitter la partie. Le joueur ' + couleur + ' a abandonné.')
             sys.exit()
-       #on teste si l'entrée est bien un couple de coordonné
+       #on teste si l'entrée est bien un couple de coordonnées
         elif  (estUneCoordonnee(valeurDeplacement[:2]) and estUneCoordonnee(valeurDeplacement[-2:])) and valeurDeplacement[2] == ' ' : 
             #on teste si la pièce est de la bonne couleurJ
             if testCouleur(valeurDeplacement[:2]) == couleur:
@@ -181,14 +181,15 @@ def deplacement(entree_joueur,couleur):
                 else:
                     print('Cette pièce ne peut pas bouger')
             else:
-                print("La pièce choisie n'est pas " + [couleur if couleur == 'blanc' else couleur + 'e'][0] )
+                print("La pièce choisie n'est pas " + [couleur + 'he' if couleur == 'blanc' else couleur + 'e'][0] )
         else: 
-            print("Entrée invalide, entrez un déplacement valide")
-        entree_joueur=input('')
+            print('Entrée invalide, entrez un déplacement valide')
+        entree_joueur = input('')
         valeurDeplacement = entree_joueur[-5:]
 
 
 def tourIA(echiquier, couleur):
+    
     ia = IA(echiquier, couleur)
     
     liste_positions = copy.copy(echiquier.positions)
@@ -210,7 +211,7 @@ def jouerEnModeJcIA():
     
     while True :
     #Le programme demande si le joueur veut jouer les blanc ou les noires
-        entree_joueur = input('blanc ou noir')
+        entree_joueur = input('blanc ou noir ? \n\n')
         
         if entree_joueur == 'blanc' :
             break
@@ -231,7 +232,7 @@ def jouerEnModeJcIA():
             echiquier.afficher()
             
             #-- l'ordinateur joue --
-            tourIA('noir')
+            tourIA(echiquier, 'noir')
             if echiquier.isEchecEtMatNoir():
                 print("Défaite" )
                 break
@@ -241,7 +242,7 @@ def jouerEnModeJcIA():
         for numero_du_tour in range(50):
             
             #-- l'ordinateur joue --
-            tourIA('blanc')
+            tourIA(echiquier, 'blanc')
             if echiquier.isEchecEtMat():
                 print("Vous avez gagné")
                 break
