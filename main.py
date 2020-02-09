@@ -7,6 +7,7 @@ from chessboard import Echiquier
 #from rules import Piece
 from ia import IA
 import copy
+import time
 
 
 # =============================================================================
@@ -43,7 +44,7 @@ text_polychess_2 = [
 # Fonctions
 # =============================================================================
 
-print('\n   '*3 + '\n   '.join(text_polychess) + '\n'*3)
+print('\n   '*3 + '\n   '.join(text_polychess_2) + '\n'*3)
 
 def estUneCoordonnee(string):
     if not type(string) == str:
@@ -137,12 +138,8 @@ def tourDuJoueur (couleur):
         elif len(entree_joueur) == 0:
             pass
         
-        # 9 Utile pour le debugage
-        elif entree_joueur == '9':
-            for element in echiquier.listePiecesPouvantEtreDeplaceesFormatCase(couleur):
-                print(element)
-                print(echiquier.listeDesCoupsAvecVerif(echiquier.nomCaseToIndex(element),couleur))
-        
+        #utile pour le debogage
+#        elif 
         
         # 2 - "Pour connaitre les pièces pouvant bouger"
         elif entree_joueur in liste_aide_joueur[2][1] + ['2']:
@@ -236,7 +233,7 @@ def jouerEnModeJcIA():
         entree_joueur = input('blanc ou noir ? \n\n')
 
 
-    #Cas où le joueur joue les blanc et L'IA joue les noirs
+    #Cas où le joueur joue les blanc et L'IA joue les no
     if entree_joueur == 'blanc' :
         for numero_du_tour in range(50):
             
@@ -358,11 +355,12 @@ elif modeDeJeu == "JcIA":
 
 
 
+
 #==============================================================================
 # Appel de l'échiquier
 #==============================================================================
 
-#echiquier = Echiquier()
+echiquier = Echiquier()
 #
 #print(echiquier.listeCoupsPossiblesFormatCase('C7'))
 #print(echiquier.listeCoupsPossiblesFormatCase('B7'))
@@ -388,7 +386,6 @@ elif modeDeJeu == "JcIA":
 # Appel de l'IA
 #==============================================================================
 
-#echiquier = Echiquier()
 #
 #couleur = 'noir'
 ##
@@ -399,6 +396,64 @@ elif modeDeJeu == "JcIA":
 #
 #possibilites = ia.nMeilleursMouvementsPoints(5)
 #
+
+
+
+
+
+
+
+#while not echiquier.isEchecEtMat():
+#    
+#    #au joueur blanc de déplacer une pièce
+#    
+#    #à l'IA de jouer
+#
+#    pass
+
+#une fois la boucle finie
+
+
+# =============================================================================
+# Fonctions du main
+# =============================================================================
+
+
+
+#
+#Fait jusqu'à présent (liste pas a jour) :
+#    - classe Echiquier et classe Piece
+#    - définition des pieces
+#    - initialisation de l'échiquier
+#    - gestion des déplacements dans l'échiquier
+#    - vérification de l'échec et mat
+#    
+#À faire bientôt :
+#    - déplacements possibles (fait pour pion dans Piece() mais pas les autres 
+#           et ensuite compléter listeDeplacementsPossibles dans Echiquier())
+#    - affichage des déplacements possibles
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
