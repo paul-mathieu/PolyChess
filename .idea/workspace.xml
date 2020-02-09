@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="160664e5-dfbb-45e7-8642-ebce2f00c6a3" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1X1fsCnnjcFtohZfkFyUJIms4Tt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Polytech_sem6_PROJ631_Huffman_encoding" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="160664e5-dfbb-45e7-8642-ebce2f00c6a3" name="Default Changelist" comment="" />
+      <created>1580218726439</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1580218726439</updated>
+      <workItem from="1580218734120" duration="151000" />
+      <workItem from="1580218980010" duration="646000" />
+      <workItem from="1580277114135" duration="184000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="277" y="115" key="#Inspections" timestamp="1580219276711">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state x="277" y="115" key="#Inspections/0.0.1368.912@0.0.1368.912" timestamp="1580219276711" />
+    <state x="490" y="173" key="#com.intellij.ide.util.MemberChooser" timestamp="1580277239515">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state x="490" y="173" key="#com.intellij.ide.util.MemberChooser/0.0.1368.912@0.0.1368.912" timestamp="1580277239515" />
+    <state x="465" y="212" key="FileChooserDialogImpl" timestamp="1580277292948">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state x="465" y="212" key="FileChooserDialogImpl/0.0.1368.912@0.0.1368.912" timestamp="1580277292948" />
+    <state x="186" y="64" key="SettingsEditor" timestamp="1580219060041">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state x="186" y="64" key="SettingsEditor/0.0.1368.912@0.0.1368.912" timestamp="1580219060041" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1580219334016">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1368.912@0.0.1368.912" timestamp="1580219334016" />
+    <state x="380" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1580277144994">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state x="380" y="282" key="com.intellij.ide.util.TipDialog/0.0.1368.912@0.0.1368.912" timestamp="1580277144994" />
+    <state x="328" y="184" width="700" height="530" key="recent.locations.popup" timestamp="1580219326186">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state x="328" y="184" width="700" height="530" key="recent.locations.popup/0.0.1368.912@0.0.1368.912" timestamp="1580219326186" />
+    <state x="350" y="197" width="672" height="678" key="search.everywhere.popup" timestamp="1580277220758">
+      <screen x="0" y="0" width="1368" height="912" />
+    </state>
+    <state x="350" y="197" width="672" height="678" key="search.everywhere.popup/0.0.1368.912@0.0.1368.912" timestamp="1580277220758" />
+  </component>
+</project>
